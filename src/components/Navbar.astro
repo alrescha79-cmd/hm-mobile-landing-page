@@ -1,0 +1,419 @@
+---
+import type { Locale } from "../i18n/i18n";
+import { t, getLocalizedPath } from "../i18n/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i = t(locale);
+const altLocale = locale === "en" ? "id" : "en";
+---
+
+<!-- Desktop/Tablet Top Navbar -->
+<nav
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 hidden md:block"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href={getLocalizedPath(locale)} class="flex items-center gap-3 group">
+        <div
+          class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center shadow-lg shadow-primary-500/25 group-hover:shadow-primary-500/50 transition-all duration-300 group-hover:scale-105"
+        >
+          <svg
+            class="w-6 h-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.858 15.355-5.858 21.213 0"
+            ></path>
+          </svg>
+        </div>
+        <span class="text-xl font-bold text-surface-900 dark:text-white"
+          >HM<span class="gradient-text">Mobile</span>
+        </span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <div class="flex items-center gap-1">
+        <a
+          href={`${getLocalizedPath(locale)}#features`}
+          class="nav-link"
+          data-section="features"
+          >{i.nav.features}
+        </a>
+        <a
+          href={`${getLocalizedPath(locale)}#devices`}
+          class="nav-link"
+          data-section="devices"
+          >{i.nav.devices}
+        </a>
+        <a
+          href={`${getLocalizedPath(locale)}#download`}
+          class="nav-link"
+          data-section="download"
+          >{i.nav.download}
+        </a>
+        <a
+          href="https://github.com/alrescha79-cmd/huawei-manager-mobile"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="nav-link"
+        >
+          {i.nav.github}
+        </a>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-2">
+        <!-- Language Switcher -->
+        <a href={getLocalizedPath(altLocale)} class="lang-toggle group">
+          <span
+            class="lang-toggle-option"
+            data-active={locale === "en" ? "true" : "false"}>EN</span
+          >
+          <span
+            class="lang-toggle-option"
+            data-active={locale === "id" ? "true" : "false"}>ID</span
+          >
+        </a>
+
+        <!-- Theme Toggle -->
+        <button
+          id="theme-toggle"
+          type="button"
+          aria-label="Toggle theme"
+          class="theme-toggle-btn"
+        >
+          <div class="theme-toggle-track">
+            <svg
+              class="theme-icon sun-icon"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              ></path>
+            </svg>
+            <svg
+              class="theme-icon moon-icon"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              ></path>
+            </svg>
+            <div class="theme-toggle-thumb"></div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Bottom Navigation Bar -->
+<nav
+  id="mobile-bottom-nav"
+  class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/80 dark:bg-surface-900/80 backdrop-blur-xl border-t border-surface-200/50 dark:border-surface-700/50 safe-area-bottom"
+>
+  <div class="relative grid grid-cols-4 items-center h-16">
+    <!-- Active indicator pill -->
+    <div
+      id="mobile-nav-indicator"
+      class="absolute bottom-0 h-0.5 bg-primary-500 rounded-full transition-all duration-300 ease-out"
+      style="width: 25%; left: 0; opacity: 0;"
+    >
+    </div>
+    <a
+      href={`${getLocalizedPath(locale)}#features`}
+      class="mobile-nav-item"
+      data-section="features"
+    >
+      <svg
+        class="w-5 h-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+      </svg>
+      <span>{i.nav.features}</span>
+    </a>
+    <a
+      href={`${getLocalizedPath(locale)}#devices`}
+      class="mobile-nav-item"
+      data-section="devices"
+    >
+      <svg
+        class="w-5 h-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0"
+        ></path>
+      </svg>
+      <span>{i.nav.devices}</span>
+    </a>
+    <a
+      href={`${getLocalizedPath(locale)}#download`}
+      class="mobile-nav-item"
+      data-section="download"
+    >
+      <svg
+        class="w-5 h-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+        ></path>
+      </svg>
+      <span>{i.nav.download}</span>
+    </a>
+    <a
+      href="https://github.com/alrescha79-cmd/huawei-manager-mobile"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mobile-nav-item"
+    >
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"
+        ><path
+          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+        ></path>
+      </svg>
+      <span>GitHub</span>
+    </a>
+  </div>
+</nav>
+
+<!-- Mobile Top Bar (logo only) -->
+<div
+  class="md:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+  id="mobile-top-bar"
+>
+  <div class="px-4 h-14 flex items-center justify-between">
+    <a href={getLocalizedPath(locale)} class="flex items-center gap-2 group">
+      <div
+        class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center shadow-md"
+      >
+        <svg
+          class="w-4 h-4 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.858 15.355-5.858 21.213 0"
+          ></path>
+        </svg>
+      </div>
+      <span class="text-base font-bold text-surface-900 dark:text-white"
+        >HM<span class="gradient-text">Mobile</span>
+      </span>
+    </a>
+
+    <!-- Language & Theme (same style as desktop) -->
+    <div class="flex items-center gap-2">
+      <a href={getLocalizedPath(altLocale)} class="lang-toggle group">
+        <span
+          class="lang-toggle-option"
+          data-active={locale === "en" ? "true" : "false"}>EN</span
+        >
+        <span
+          class="lang-toggle-option"
+          data-active={locale === "id" ? "true" : "false"}>ID</span
+        >
+      </a>
+
+      <button
+        id="theme-toggle-mobile"
+        type="button"
+        aria-label="Toggle theme"
+        class="theme-toggle-btn"
+      >
+        <div class="theme-toggle-track">
+          <svg
+            class="theme-icon sun-icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            ></path>
+          </svg>
+          <svg
+            class="theme-icon moon-icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            ></path>
+          </svg>
+          <div class="theme-toggle-thumb"></div>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  function toggleTheme() {
+    var html = document.documentElement;
+    if (html.classList.contains("dark")) {
+      html.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    } else {
+      html.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    }
+  }
+
+  document
+    .getElementById("theme-toggle")
+    ?.addEventListener("click", toggleTheme);
+  document
+    .getElementById("theme-toggle-mobile")
+    ?.addEventListener("click", toggleTheme);
+
+  // Navbar background on scroll (desktop)
+  window.addEventListener("scroll", function () {
+    var navbar = document.getElementById("navbar");
+    var mobileTop = document.getElementById("mobile-top-bar");
+    if (navbar) {
+      if (window.scrollY > 20) {
+        navbar.classList.add("nav-scrolled");
+      } else {
+        navbar.classList.remove("nav-scrolled");
+      }
+    }
+    if (mobileTop) {
+      if (window.scrollY > 20) {
+        mobileTop.classList.add("nav-scrolled");
+      } else {
+        mobileTop.classList.remove("nav-scrolled");
+      }
+    }
+  });
+
+  // Scroll-spy: highlight active section in nav
+  var sectionIds = ["features", "devices", "download"];
+  var currentActive = "";
+
+  function setActiveSection(sectionId) {
+    if (sectionId === currentActive) return;
+    currentActive = sectionId;
+
+    // Desktop nav links
+    document
+      .querySelectorAll(".nav-link[data-section]")
+      .forEach(function (link) {
+        if (link.dataset.section === sectionId) {
+          link.classList.add("nav-link-active");
+        } else {
+          link.classList.remove("nav-link-active");
+        }
+      });
+
+    // Mobile nav items
+    var mobileItems = document.querySelectorAll(
+      ".mobile-nav-item[data-section]"
+    );
+    var indicator = document.getElementById("mobile-nav-indicator");
+
+    mobileItems.forEach(function (item) {
+      if (item.dataset.section === sectionId) {
+        item.classList.add("mobile-nav-active");
+        if (indicator) {
+          indicator.style.opacity = "1";
+          indicator.style.left = item.offsetLeft + "px";
+          indicator.style.width = item.offsetWidth + "px";
+        }
+      } else {
+        item.classList.remove("mobile-nav-active");
+      }
+    });
+  }
+
+  var observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    },
+    { rootMargin: "-20% 0px -60% 0px", threshold: 0 }
+  );
+
+  sectionIds.forEach(function (id) {
+    var section = document.getElementById(id);
+    if (section) observer.observe(section);
+  });
+
+  // Clear active state when at top of page (hero section)
+  window.addEventListener("scroll", function () {
+    if (window.scrollY < 200) {
+      currentActive = "";
+      document
+        .querySelectorAll(".nav-link[data-section]")
+        .forEach(function (l) {
+          l.classList.remove("nav-link-active");
+        });
+      document
+        .querySelectorAll(".mobile-nav-item[data-section]")
+        .forEach(function (i) {
+          i.classList.remove("mobile-nav-active");
+        });
+      var ind = document.getElementById("mobile-nav-indicator");
+      if (ind) ind.style.opacity = "0";
+    }
+  });
+</script>
+
+<style>
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+</style>

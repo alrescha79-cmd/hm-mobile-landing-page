@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "title": "Huawei Manager Mobile — Kontrol & Monitor Modem Huawei LTE Anda",
+    "description": "Aplikasi Android untuk mengontrol dan memonitor modem Huawei LTE. Mendukung B310, B311, B312, E5573, E5577 dan lainnya. Monitoring sinyal real-time, manajemen WiFi, SMS, pelacakan penggunaan data, dan kontrol orang tua.",
+    "ogTitle": "Huawei Manager Mobile — Modem Anda, Kontrol Anda",
+    "ogDescription": "Aplikasi Android gratis untuk mengelola modem Huawei LTE. Monitor kualitas sinyal, kontrol WiFi, lacak penggunaan data, kelola SMS, dan banyak lagi."
+  },
+  "nav": {
+    "features": "Fitur",
+    "devices": "Perangkat",
+    "download": "Unduh",
+    "github": "GitHub"
+  },
+  "hero": {
+    "badge": "Open Source • Gratis Selamanya",
+    "title": "Modem Huawei Anda,\nSepenuhnya dalam Kendali",
+    "description": "Monitor kualitas sinyal, kelola WiFi, lacak penggunaan data, kontrol perangkat terhubung, dan banyak lagi — semua dari ponsel Android Anda.",
+    "cta": "Unduh Sekarang",
+    "ctaSecondary": "Lihat di GitHub",
+    "builtWith": "Dibangun dengan Expo SDK 54",
+    "totalDownloads": "Total Unduhan"
+  },
+  "features": {
+    "sectionTitle": "Fitur Lengkap",
+    "sectionDescription": "Semua yang Anda butuhkan untuk mengelola modem Huawei LTE, langsung dari ponsel.",
+    "signalMonitor": {
+      "title": "Monitor Sinyal",
+      "description": "Monitoring RSRP, RSRQ, RSSI, dan SINR secara real-time dengan mode Signal Finder untuk menemukan posisi sinyal terbaik."
+    },
+    "wifiManagement": {
+      "title": "Manajemen WiFi",
+      "description": "Lihat dan kelola pengaturan WiFi, perangkat terhubung, dan konfigurasi jaringan dengan mudah."
+    },
+    "dataUsage": {
+      "title": "Pelacakan Data",
+      "description": "Pantau konsumsi data harian dan bulanan dengan grafik visual dan statistik terperinci."
+    },
+    "smsManagement": {
+      "title": "Manajemen SMS",
+      "description": "Baca, kirim, dan kelola pesan SMS melalui modem Anda. Mendukung hapus multi-pilih."
+    },
+    "parentalControl": {
+      "title": "Kontrol Orang Tua",
+      "description": "Buat profil untuk memblokir atau membatasi akses internet untuk perangkat tertentu yang terhubung."
+    },
+    "batteryStatus": {
+      "title": "Status Baterai MiFi",
+      "description": "Pantau level baterai dan status daya pada perangkat Huawei MiFi yang mendukung pelaporan baterai."
+    },
+    "darkMode": {
+      "title": "Mode Gelap & Terang",
+      "description": "Antarmuka yang menyesuaikan preferensi tema sistem Anda atau beralih secara manual."
+    },
+    "multiLanguage": {
+      "title": "Multi-Bahasa",
+      "description": "Dukungan penuh Bahasa Inggris dan Bahasa Indonesia untuk semua menu, label, dan notifikasi."
+    }
+  },
+  "devices": {
+    "sectionTitle": "Perangkat yang Didukung",
+    "sectionDescription": "Kompatibel dengan seri modem Huawei LTE populer.",
+    "testedOn": "Diuji pada Huawei B312-929 (Orbit Star 2) dengan Android 15",
+    "andMore": "Dan modem Huawei LTE lainnya yang menggunakan API standar",
+    "router": "Modem CPE",
+    "mifi": "MiFi Portable"
+  },
+  "showcase": {
+    "sectionTitle": "Lihat Langsung",
+    "sectionDescription": "Jelajahi antarmuka aplikasi yang dirancang untuk kemudahan dan kehandalan.",
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Pantau kekuatan sinyal, penggunaan data, dan kecepatan koneksi dalam satu tampilan."
+    },
+    "signalFinder": {
+      "title": "Signal Finder",
+      "description": "Temukan posisi terbaik untuk modem Anda dengan pembacaan RSRP dan SINR secara real-time."
+    },
+    "wifiSettings": {
+      "title": "Manajemen WiFi",
+      "description": "Kelola pengaturan jaringan WiFi dan lihat semua perangkat yang terhubung."
+    }
+  },
+  "download": {
+    "sectionTitle": "Unduh Sekarang",
+    "sectionDescription": "Pilih APK yang tepat untuk perangkat Anda. Gratis dan open source.",
+    "arm64": {
+      "title": "ARM64 (64-bit)",
+      "description": "Direkomendasikan untuk sebagian besar HP Android keluaran di atas 2016.",
+      "badge": "Direkomendasikan",
+      "size": "~35 MB"
+    },
+    "armv7": {
+      "title": "ARMv7 (32-bit)",
+      "description": "Untuk perangkat Android lama atau low-end 32-bit. Ukuran file lebih kecil.",
+      "badge": "Ukuran Kecil",
+      "size": "~29 MB"
+    },
+    "universal": {
+      "title": "Universal",
+      "description": "Berisi library untuk semua arsitektur. Gunakan jika Anda ragu memilih versi.",
+      "badge": "Semua Perangkat",
+      "size": "~85 MB"
+    },
+    "downloadBtn": "Unduh APK",
+    "version": "Versi Terbaru",
+    "installGuide": {
+      "title": "Cara Install",
+      "steps": [
+        "Download APK yang sesuai dengan perangkat Anda (ARM64 direkomendasikan).",
+        "Aktifkan \"Instal dari sumber tidak dikenal\" di Pengaturan Android.",
+        "Buka file APK untuk menginstall."
+      ]
+    }
+  },
+  "footer": {
+    "description": "Proyek open-source independen. Tidak berafiliasi dengan Huawei Technologies.",
+    "madeWith": "Dibuat dengan ❤️ oleh",
+    "author": "Anggun Caksono",
+    "license": "Lisensi MIT",
+    "links": {
+      "github": "GitHub",
+      "releases": "Rilis",
+      "issues": "Laporkan Bug",
+      "docs": "Dokumentasi"
+    }
+  },
+  "theme": {
+    "light": "Terang",
+    "dark": "Gelap"
+  },
+  "language": {
+    "en": "English",
+    "id": "Indonesia"
+  }
+}

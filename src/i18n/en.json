@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "title": "Huawei Manager Mobile — Control & Monitor Your Huawei LTE Modem",
+    "description": "A powerful Android app to control and monitor Huawei LTE modems. Supports B310, B311, B312, E5573, E5577 and more. Real-time signal monitoring, WiFi management, SMS, data usage tracking, and parental controls.",
+    "ogTitle": "Huawei Manager Mobile — Your Modem, Your Control",
+    "ogDescription": "Free Android app to manage Huawei LTE modems. Monitor signal quality, control WiFi, track data usage, manage SMS, and more."
+  },
+  "nav": {
+    "features": "Features",
+    "devices": "Devices",
+    "download": "Download",
+    "github": "GitHub"
+  },
+  "hero": {
+    "badge": "Open Source • Free Forever",
+    "title": "Your Huawei Modem,\nFully Under Control",
+    "description": "Monitor signal quality, manage WiFi, track data usage, control connected devices, and more — all from your Android phone.",
+    "cta": "Download Now",
+    "ctaSecondary": "View on GitHub",
+    "builtWith": "Built with Expo SDK 54",
+    "totalDownloads": "Total Downloads"
+  },
+  "features": {
+    "sectionTitle": "Powerful Features",
+    "sectionDescription": "Everything you need to manage your Huawei LTE modem, right from your phone.",
+    "signalMonitor": {
+      "title": "Signal Monitor",
+      "description": "Real-time RSRP, RSRQ, RSSI, and SINR monitoring with Signal Finder mode to locate the best signal position."
+    },
+    "wifiManagement": {
+      "title": "WiFi Management",
+      "description": "View and manage WiFi settings, connected devices, and network configurations easily."
+    },
+    "dataUsage": {
+      "title": "Data Usage Tracking",
+      "description": "Monitor daily and monthly data consumption with visual charts and detailed statistics."
+    },
+    "smsManagement": {
+      "title": "SMS Management",
+      "description": "Read, send, and manage SMS messages through your modem. Supports multi-select delete."
+    },
+    "parentalControl": {
+      "title": "Parental Controls",
+      "description": "Create profiles to block or restrict internet access for specific connected devices."
+    },
+    "batteryStatus": {
+      "title": "MiFi Battery Status",
+      "description": "Monitor battery level and power status on Huawei MiFi devices that support battery reporting."
+    },
+    "darkMode": {
+      "title": "Dark & Light Mode",
+      "description": "Beautiful interface that adapts to your system theme preference or toggle manually."
+    },
+    "multiLanguage": {
+      "title": "Multi-Language",
+      "description": "Full English and Bahasa Indonesia support for all menus, labels, and notifications."
+    }
+  },
+  "devices": {
+    "sectionTitle": "Supported Devices",
+    "sectionDescription": "Compatible with popular Huawei LTE modem series.",
+    "testedOn": "Tested on Huawei B312-929 (Orbit Star 2) with Android 15",
+    "andMore": "And other Huawei LTE modems using the standard API",
+    "router": "Modem CPE",
+    "mifi": "Portable MiFi"
+  },
+  "showcase": {
+    "sectionTitle": "See It in Action",
+    "sectionDescription": "Explore the app interface designed for simplicity and power.",
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Monitor signal strength, data usage, and connection speed at a glance."
+    },
+    "signalFinder": {
+      "title": "Signal Finder",
+      "description": "Find the best position for your modem with real-time RSRP and SINR readings."
+    },
+    "wifiSettings": {
+      "title": "WiFi Management",
+      "description": "Manage your WiFi network settings and see all connected devices."
+    }
+  },
+  "download": {
+    "sectionTitle": "Download Now",
+    "sectionDescription": "Choose the right APK for your device. Free and open source.",
+    "arm64": {
+      "title": "ARM64 (64-bit)",
+      "description": "Recommended for most modern Android devices released after 2016.",
+      "badge": "Recommended",
+      "size": "~35 MB"
+    },
+    "armv7": {
+      "title": "ARMv7 (32-bit)",
+      "description": "For older or low-end 32-bit Android devices. Smaller file size.",
+      "badge": "Smaller Size",
+      "size": "~29 MB"
+    },
+    "universal": {
+      "title": "Universal",
+      "description": "Contains libraries for all architectures. Use if unsure which version to pick.",
+      "badge": "All Devices",
+      "size": "~85 MB"
+    },
+    "downloadBtn": "Download APK",
+    "version": "Latest Version",
+    "installGuide": {
+      "title": "How to Install",
+      "steps": [
+        "Download the APK suitable for your device (ARM64 recommended).",
+        "Enable \"Install from unknown sources\" in your Android Settings.",
+        "Open the downloaded file to install."
+      ]
+    }
+  },
+  "footer": {
+    "description": "An independent open-source project. Not affiliated with Huawei Technologies.",
+    "madeWith": "Made with ❤️ by",
+    "author": "Anggun Caksono",
+    "license": "MIT License",
+    "links": {
+      "github": "GitHub",
+      "releases": "Releases",
+      "issues": "Report a Bug",
+      "docs": "Documentation"
+    }
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "language": {
+    "en": "English",
+    "id": "Indonesia"
+  }
+}

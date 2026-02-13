@@ -1,0 +1,104 @@
+---
+import type { Locale } from "../i18n/i18n";
+import { t } from "../i18n/i18n";
+import "../styles/global.css";
+
+interface Props {
+  locale: Locale;
+  canonicalUrl?: string;
+}
+
+const { locale, canonicalUrl } = Astro.props;
+const i = t(locale);
+const siteUrl = "https://hm.cakson.my.id";
+const canonical =
+  canonicalUrl || (locale === "en" ? siteUrl : `${siteUrl}/id/`);
+---
+
+<!DOCTYPE html>
+<html lang={locale} class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{i.meta.title}</title>
+    <meta name="description" content={i.meta.description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={i.meta.ogTitle} />
+    <meta property="og:description" content={i.meta.ogDescription} />
+    <meta property="og:image" content={`${siteUrl}/og-image.png`} />
+    <meta property="og:locale" content={locale === "en" ? "en_US" : "id_ID"} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={i.meta.ogTitle} />
+    <meta name="twitter:description" content={i.meta.ogDescription} />
+    <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
+
+    <!-- Alternate languages -->
+    <link rel="alternate" hreflang="en" href={siteUrl} />
+    <link rel="alternate" hreflang="id" href={`${siteUrl}/id/`} />
+    <link rel="alternate" hreflang="x-default" href={siteUrl} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: "Huawei Manager Mobile",
+        operatingSystem: "Android",
+        applicationCategory: "UtilitiesApplication",
+        description: i.meta.description,
+        url: siteUrl,
+        downloadUrl:
+          "https://github.com/alrescha79-cmd/huawei-manager-mobile/releases/latest",
+        softwareVersion: "1.1.25",
+        author: {
+          "@type": "Person",
+          name: "Anggun Caksono",
+          url: "https://github.com/alrescha79-cmd",
+        },
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        license: "https://opensource.org/licenses/MIT",
+      })}
+    ></script>
+
+    <!-- Dark mode initialization (prevent flash) -->
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem("theme");
+        if (saved === "light") {
+          document.documentElement.classList.remove("dark");
+        } else if (saved === "dark") {
+          document.documentElement.classList.add("dark");
+        } else if (!window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen overflow-x-hidden">
+    <slot />
+  </body>
+</html>

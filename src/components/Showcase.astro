@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import type { Locale } from '../i18n/i18n';
+import { t } from '../i18n/i18n';
+
+import screenshotHomeScrollDark from '../assets/images/screenshot-home-scroll-dark.jpg';
+import screenshotHomeScrollLight from '../assets/images/screenshot-home-scroll-light.jpg';
+import screenshotSignalDark from '../assets/images/screenshot-signal-dark.jpg';
+import screenshotSignalLight from '../assets/images/screenshot-signal-light.jpg';
+import screenshotWifiDark from '../assets/images/screenshot-wifi-dark.jpg';
+import screenshotWifiLight from '../assets/images/screenshot-wifi-light.jpg';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i = t(locale);
+
+const screenshots = [
+  {
+    key: 'dashboard' as const,
+    dark: screenshotHomeScrollDark,
+    light: screenshotHomeScrollLight,
+  },
+  {
+    key: 'signalFinder' as const,
+    dark: screenshotSignalDark,
+    light: screenshotSignalLight,
+  },
+  {
+    key: 'wifiSettings' as const,
+    dark: screenshotWifiDark,
+    light: screenshotWifiLight,
+  },
+];
+---
+
+<section id="showcase" class="py-20 sm:py-32 relative overflow-hidden">
+  <div class="absolute inset-0 -z-10">
+    <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-surface-200 dark:via-surface-800 to-transparent"></div>
+    <div class="absolute top-1/3 right-0 w-[500px] h-[500px] bg-primary-500/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-accent-500/5 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
+        <span class="gradient-text">{i.showcase.sectionTitle}</span>
+      </h2>
+      <p class="mt-4 text-lg text-surface-600 dark:text-surface-400">
+        {i.showcase.sectionDescription}
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+      {screenshots.map((item, idx) => {
+        const data = i.showcase[item.key] as { title: string; description: string };
+        return (
+          <div class={`group animate-fade-up stagger-${idx + 1}`}>
+            <!-- Phone mockup -->
+            <div class="relative mx-auto w-56 sm:w-64 mb-6">
+              <div class="absolute -inset-3 bg-linear-to-r from-primary-500/15 to-accent-500/15 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div class="relative bg-surface-900 dark:bg-surface-300 rounded-[2rem] p-2 shadow-2xl shadow-surface-900/20 border border-surface-300/30 dark:border-surface-700/30 group-hover:-translate-y-2 transition-transform duration-500">
+                <div class="absolute top-3 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-surface-400 dark:bg-surface-950 rounded-full z-10 ring-1 ring-surface-500/50 dark:ring-surface-700/50"></div>
+                <div class="relative rounded-[1.5rem] overflow-hidden bg-surface-950 aspect-[9/19.5]">
+                  <Image
+                    src={item.dark}
+                    alt={`${data.title} (Dark)`}
+                    class="w-full h-full object-cover hidden dark:block"
+                    format="webp"
+                    quality={80}
+                    loading="lazy"
+                  />
+                  <Image
+                    src={item.light}
+                    alt={`${data.title} (Light)`}
+                    class="w-full h-full object-cover block dark:hidden"
+                    format="webp"
+                    quality={80}
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Caption -->
+            <div class="text-center">
+              <h3 class="text-lg font-bold text-surface-900 dark:text-white mb-1">{data.title}</h3>
+              <p class="text-sm text-surface-600 dark:text-surface-400 leading-relaxed max-w-xs mx-auto">{data.description}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
