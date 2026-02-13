@@ -280,6 +280,25 @@ const i = t(locale);
 
     const locale = el.dataset.locale === "id" ? "id-ID" : "en-US";
     const label = el.dataset.label || "Total Downloads";
+    const CACHE_KEY = "hm_download_count";
+    const CACHE_TTL = 3600000; // 1 hour
+
+    function showCount(total: number) {
+      valueEl!.textContent = `${total.toLocaleString(locale)}+ ${label}`;
+      el!.classList.remove("hidden");
+      el!.classList.add("flex");
+    }
+
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const { count, ts } = JSON.parse(cached);
+        if (Date.now() - ts < CACHE_TTL && count > 0) {
+          showCount(count);
+          return;
+        }
+      }
+    } catch {}
 
     try {
       const res = await fetch(
@@ -300,9 +319,13 @@ const i = t(locale);
       );
 
       if (total > 0) {
-        valueEl.textContent = `${total.toLocaleString(locale)}+ ${label}`;
-        el.classList.remove("hidden");
-        el.classList.add("flex");
+        showCount(total);
+        try {
+          localStorage.setItem(
+            CACHE_KEY,
+            JSON.stringify({ count: total, ts: Date.now() })
+          );
+        } catch {}
       }
     } catch {}
   }

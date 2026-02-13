@@ -3,10 +3,8 @@ import { Image } from "astro:assets";
 import type { Locale } from "../i18n/i18n";
 import { t } from "../i18n/i18n";
 
-import deviceRouterDark from "../assets/images/device-router-dark.png";
-import deviceRouterLight from "../assets/images/device-router-light.png";
-import deviceMifiDark from "../assets/images/device-mifi-dark.png";
-import deviceMifiLight from "../assets/images/device-mifi-light.png";
+import deviceRouter from "../assets/images/device-router.webp";
+import deviceMifi from "../assets/images/device-mifi.webp";
 
 interface Props {
   locale: Locale;
@@ -18,14 +16,12 @@ const i = t(locale);
 const deviceGroups = [
   {
     type: "router" as const,
-    imageDark: deviceRouterDark,
-    imageLight: deviceRouterLight,
+    image: deviceRouter,
     models: ["B310", "B311", "B312", "etc."],
   },
   {
     type: "mifi" as const,
-    imageDark: deviceMifiDark,
-    imageLight: deviceMifiLight,
+    image: deviceMifi,
     models: ["E5573", "E5577", "etc."],
   },
 ];
@@ -66,17 +62,9 @@ const deviceGroups = [
             <div class="relative w-48 h-48 mx-auto mb-6">
               <div class="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-accent-500/10 rounded-2xl blur-xl" />
               <Image
-                src={group.imageDark}
-                alt={`Huawei ${group.type} (Dark)`}
-                class="relative w-full h-full object-contain drop-shadow-lg hidden dark:block rounded-xl"
-                format="webp"
-                quality={80}
-                loading="lazy"
-              />
-              <Image
-                src={group.imageLight}
-                alt={`Huawei ${group.type} (Light)`}
-                class="relative w-full h-full object-contain drop-shadow-lg block dark:hidden rounded-xl"
+                src={group.image}
+                alt={`Huawei ${group.type}`}
+                class="relative w-full h-full object-contain drop-shadow-lg rounded-xl"
                 format="webp"
                 quality={80}
                 loading="lazy"
