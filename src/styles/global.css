@@ -32,9 +32,11 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
+  overflow-x: hidden;
   @apply bg-surface-50 text-surface-900 dark:bg-surface-950 dark:text-surface-100 font-sans transition-colors duration-300;
 }
 
