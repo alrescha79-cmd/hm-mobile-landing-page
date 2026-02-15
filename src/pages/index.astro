@@ -1,14 +1,15 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Hero from '../components/Hero.astro';
-import Features from '../components/Features.astro';
-import Showcase from '../components/Showcase.astro';
-import DeviceSupport from '../components/DeviceSupport.astro';
-import Download from '../components/Download.astro';
-import Footer from '../components/Footer.astro';
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import Features from "../components/Features.astro";
+import Showcase from "../components/Showcase.astro";
+import DeviceSupport from "../components/DeviceSupport.astro";
+import Download from "../components/Download.astro";
+import FAQ from "../components/FAQ.astro";
+import Footer from "../components/Footer.astro";
 
-const locale = 'en' as const;
+const locale = "en" as const;
 ---
 
 <Layout locale={locale}>
@@ -19,6 +20,7 @@ const locale = 'en' as const;
     <Showcase locale={locale} />
     <DeviceSupport locale={locale} />
     <Download locale={locale} />
+    <FAQ locale={locale} />
   </main>
   <Footer locale={locale} />
 </Layout>

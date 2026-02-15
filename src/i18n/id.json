@@ -9,6 +9,7 @@
     "features": "Fitur",
     "devices": "Perangkat",
     "download": "Unduh",
+    "faq": "FAQ",
     "github": "GitHub"
   },
   "hero": {
@@ -69,7 +70,7 @@
     "sectionDescription": "Jelajahi antarmuka aplikasi yang dirancang untuk kemudahan dan kehandalan.",
     "dashboard": {
       "title": "Dashboard",
-      "description": "Pantau kekuatan sinyal, penggunaan data, dan kecepatan koneksi dalam satu tampilan."
+      "description": "Pantau kecepatan koneksi, penggunaan data, dan riwayat penggunaan dalam satu tampilan."
     },
     "signalFinder": {
       "title": "Signal Finder",
@@ -131,5 +132,43 @@
   "language": {
     "en": "English",
     "id": "Indonesia"
+  },
+  "faq": {
+    "sectionTitle": "Pertanyaan Umum",
+    "sectionDescription": "Jawaban cepat untuk pertanyaan umum tentang Huawei Manager Mobile.",
+    "questions": [
+      {
+        "q": "Modem apa saja yang didukung?",
+        "a": "Sebagian besar modem Huawei LTE dengan dukungan API standar kompatibel. Ini termasuk seri B310, B311, B312 (Modem CPE) atau E5573, E5577 (MiFi) dan seri Modem/MiFi lainnya. Aplikasi ini telah diuji secara khusus pada Huawei B312-929 (Orbit Star 2)."
+      },
+      {
+        "q": "Bisakah saya mengunci band 4G/LTE tertentu?",
+        "a": "Ya. Jika firmware modem Anda mendukungnya, aplikasi memungkinkan Anda memilih dan mengunci pita frekuensi tertentu untuk meningkatkan stabilitas sinyal atau kecepatan."
+      },
+      {
+        "q": "Apakah aplikasi melacak penggunaan data dengan akurat?",
+        "a": "Aplikasi mengambil statistik konsumsi data langsung dari modem. Meskipun sangat akurat, kami menyarankan untuk melakukan pengecekan ulang dengan dashboard resmi provider Anda untuk keperluan tagihan."
+      },
+      {
+        "q": "Bagaimana cara kerja Signal Finder?",
+        "a": "Signal Finder memberikan pembacaan RSRP, RSRQ, dan SINR secara real-time dengan feedback visual dan suara, memudahkan Anda menemukan posisi fisik optimal untuk modem Anda."
+      },
+      {
+        "q": "Bisakah saya mengelola SMS melalui aplikasi?",
+        "a": "Ya. Anda dapat membaca, mengirim, dan bahkan menghapus banyak pesan SMS sekaligus langsung dari antarmuka aplikasi jika modem Anda mendukungnya."
+      },
+      {
+        "q": "Apakah password modem saya aman?",
+        "a": "Tentu saja. Kredensial Anda disimpan dengan aman di perangkat Anda dan hanya digunakan secara lokal untuk berkomunikasi dengan modem Anda. Tidak ada data yang dikirim ke server eksternal."
+      },
+      {
+        "q": "Apakah aplikasi ini gratis?",
+        "a": "Ya, aplikasi ini gratis dan open source. Anda dapat mengunduh dan menggunakannya tanpa biaya."
+      },
+      {
+        "q": "Apakah aplikasi ini bisa untuk modem Huawei terbaru?",
+        "a": "Ya, aplikasi ini bisa untuk modem Huawei terbaru. Namun, perlu diingat bahwa tidak semua modem Huawei mendukung semua fitur aplikasi ini. Beberapa fitur mungkin tidak tersedia pada modem tertentu."
+      }
+    ]
   }
 }
