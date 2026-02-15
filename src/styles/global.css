@@ -136,14 +136,13 @@ body {
 
 /* Mobile bottom nav */
 .mobile-nav-item {
-  @apply flex flex-col items-center justify-center gap-0.5 text-surface-500 dark:text-surface-400 no-underline transition-all duration-300 cursor-pointer bg-transparent border-none text-[10px] font-medium;
+  @apply flex flex-col items-center justify-center gap-0.5 text-surface-600 dark:text-surface-400 no-underline transition-all duration-300 cursor-pointer bg-transparent border-none text-[10px] font-bold py-2 px-1;
 }
-.mobile-nav-item:hover,
-.mobile-nav-item:active {
-  @apply text-primary-500 dark:text-primary-400;
+.mobile-nav-item:hover {
+  @apply text-primary-500 dark:text-white;
 }
 .mobile-nav-active {
-  @apply text-primary-500 dark:text-primary-400;
+  @apply text-surface-950 transition-colors duration-500;
 }
 
 /* Desktop nav active state */
