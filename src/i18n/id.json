@@ -3,7 +3,8 @@
     "title": "Huawei Manager Mobile — Kontrol & Monitor Modem Huawei LTE Anda",
     "description": "Aplikasi Android untuk mengontrol dan memonitor modem Huawei LTE. Mendukung B310, B311, B312, E5573, E5577 dan lainnya. Monitoring sinyal real-time, manajemen WiFi, SMS, pelacakan penggunaan data, dan kontrol orang tua.",
     "ogTitle": "Huawei Manager Mobile — Modem Anda, Kontrol Anda",
-    "ogDescription": "Aplikasi Android gratis untuk mengelola modem Huawei LTE. Monitor kualitas sinyal, kontrol WiFi, lacak penggunaan data, kelola SMS, dan banyak lagi."
+    "ogDescription": "Aplikasi Android gratis untuk mengelola modem Huawei LTE. Monitor kualitas sinyal, kontrol WiFi, lacak penggunaan data, kelola SMS, dan banyak lagi.",
+    "keywords": "huawei lte, modem manager, b312, b310, orbit star 2, signal finder, huawei manager, huawei manager mobile, hm mobile, cek sinyal orbit, pengelola modem"
   },
   "nav": {
     "features": "Fitur",
@@ -103,6 +104,7 @@
       "size": "~85 MB"
     },
     "downloadBtn": "Unduh APK",
+    "viewChangelog": "Lihat Catatan Rilis Terbaru",
     "version": "Versi Terbaru",
     "installGuide": {
       "title": "Cara Install",

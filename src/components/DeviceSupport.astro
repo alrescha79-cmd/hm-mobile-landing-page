@@ -30,7 +30,7 @@ const deviceGroups = [
 <section id="devices" class="py-20 sm:py-32 relative">
   <div class="absolute inset-0 -z-10">
     <div
-      class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-surface-200 dark:via-surface-800 to-transparent"
+      class="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-surface-200 dark:via-surface-800 to-transparent"
     >
     </div>
     <div
@@ -60,10 +60,10 @@ const deviceGroups = [
             }`}
           >
             <div class="relative w-48 h-48 mx-auto mb-6">
-              <div class="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-accent-500/10 rounded-2xl blur-xl" />
+              <div class="absolute inset-0 bg-linear-to-br from-primary-500/10 to-accent-500/10 rounded-2xl blur-xl" />
               <Image
                 src={group.image}
-                alt={`Huawei ${group.type}`}
+                alt={`${i.devices[group.type]} - Huawei LTE Modem`}
                 class="relative w-full h-full object-contain drop-shadow-lg rounded-xl"
                 format="webp"
                 quality={80}
