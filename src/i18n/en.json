@@ -1,10 +1,11 @@
 {
   "meta": {
-    "title": "Huawei Manager Mobile — Best Huawei Modem Manager & Signal Finder",
-    "description": "The ultimate Huawei Modem Manager for Android. Monitor signal quality, find the best LTE signal, manage WiFi, and track data usage globally.",
-    "ogTitle": "Huawei Manager Mobile — Your Ultimate Modem Manager",
-    "ogDescription": "Powerful Huawei LTE modem manager. Signal monitoring (RSRP/SINR), WiFi control, and data tracking for B310, B311, B312 and more.",
-    "keywords": "huawei manager, huawei manager mobile, hm mobile, huawei modem manager, lte monitor, modem control, signal finder, b312, orbit star"
+    "title": "Download Huawei Manager APK — Best Huawei Modem Manager App",
+    "description": "Download Huawei Manager APK for Android. The ultimate Huawei Modem Manager and LTE Signal Finder. Manage B310, B312, Orbit Star, and MiFi devices easily.",
+    "siteName": "Huawei Manager APK",
+    "ogTitle": "Huawei Manager APK — Download Best Huawei Modem Manager",
+    "ogDescription": "Download Huawei Manager APK to monitor LTE signal (RSRP/SINR), control WiFi, and manage Huawei modems globally. Official HM Mobile app.",
+    "keywords": "huawei manager apk, download huawei manager, huawei modem apk, huawei manager mobile, hm mobile, huawei modem manager, lte monitor, modem control, signal finder"
   },
   "nav": {
     "features": "Features",
@@ -14,8 +15,8 @@
     "github": "GitHub"
   },
   "hero": {
-    "badge": "Huawei Modem Manager • Free & Open Source",
-    "title": "Huawei Manager Mobile:\nAdvanced Modem Management",
+    "badge": "Download Huawei Manager APK • Free & Open Source",
+    "title": "Huawei Manager APK:\nComplete Modem Management",
     "description": "Monitor signal quality, manage WiFi, track data usage, control connected devices, and more — all from your Android phone.",
     "cta": "Download Now",
     "ctaSecondary": "View on GitHub",

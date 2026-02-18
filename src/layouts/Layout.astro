@@ -33,6 +33,7 @@ const canonical =
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={i.meta.siteName} />
     <meta property="og:title" content={i.meta.ogTitle} />
     <meta property="og:description" content={i.meta.ogDescription} />
     <meta property="og:image" content={`${siteUrl}/og-image.png`} />
@@ -84,31 +85,45 @@ const canonical =
     <!-- Structured Data -->
     <script
       type="application/ld+json"
-      set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        name: "Huawei Manager Mobile",
-        alternateName: "HM Mobile",
-        operatingSystem: "Android",
-        applicationCategory: "UtilitiesApplication",
-        description: i.meta.description,
-        keywords: i.meta.keywords,
-        url: siteUrl,
-        downloadUrl:
-          "https://github.com/alrescha79-cmd/huawei-manager-mobile/releases/latest",
-        softwareVersion: "1.1.25",
-        author: {
-          "@type": "Person",
-          name: "Anggun Caksono",
-          url: "https://github.com/alrescha79-cmd",
+      set:html={JSON.stringify([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: i.meta.siteName,
+          alternateName: ["Huawei Manager Mobile", "HM Mobile"],
+          url: siteUrl,
         },
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "USD",
+        {
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          name: "Huawei Manager Mobile",
+          alternateName: [
+            "HM Mobile",
+            "Huawei Manager APK",
+            "Huawei Modem Manager",
+          ],
+          operatingSystem: "Android",
+          applicationCategory: "UtilitiesApplication",
+          applicationSubCategory: "Network Management",
+          description: i.meta.description,
+          keywords: i.meta.keywords,
+          url: siteUrl,
+          downloadUrl:
+            "https://github.com/alrescha79-cmd/huawei-manager-mobile/releases/latest",
+          softwareVersion: "1.1.25",
+          author: {
+            "@type": "Person",
+            name: "Anggun Caksono",
+            url: "https://github.com/alrescha79-cmd",
+          },
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+          },
+          license: "https://opensource.org/licenses/MIT",
         },
-        license: "https://opensource.org/licenses/MIT",
-      })}
+      ])}
     ></script>
 
     <!-- Dark mode initialization (prevent flash) -->
