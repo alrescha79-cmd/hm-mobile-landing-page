@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "Huawei Manager Mobile — Kontrol & Monitor Modem Huawei LTE Anda",
-    "description": "Aplikasi Android untuk mengontrol dan memonitor modem Huawei LTE. Mendukung B310, B311, B312, E5573, E5577 dan lainnya. Monitoring sinyal real-time, manajemen WiFi, SMS, pelacakan penggunaan data, dan kontrol orang tua.",
-    "ogTitle": "Huawei Manager Mobile — Modem Anda, Kontrol Anda",
-    "ogDescription": "Aplikasi Android gratis untuk mengelola modem Huawei LTE. Monitor kualitas sinyal, kontrol WiFi, lacak penggunaan data, kelola SMS, dan banyak lagi.",
-    "keywords": "huawei lte, modem manager, b312, b310, orbit star 2, signal finder, huawei manager, huawei manager mobile, hm mobile, cek sinyal orbit, pengelola modem"
+    "title": "Huawei Manager Mobile — Cek Sinyal Orbit & Pengelola Modem Huawei",
+    "description": "Aplikasi Pengelola Modem Huawei terbaik untuk cek sinyal Orbit Star, B312, B310, dan MiFi. Monitor RSRP, SINR, kontrol WiFi, dan SMS secara real-time.",
+    "ogTitle": "Huawei Manager Mobile — Pengelola & Cek Sinyal Modem Huawei",
+    "ogDescription": "Monitor kualitas sinyal Orbit, kontrol WiFi, lacak penggunaan data, dan kelola SMS modem Huawei Anda dengan mudah.",
+    "keywords": "huawei manager, huawei manager mobile, hm mobile, cek sinyal orbit, pengelola modem, huawei lte, modem manager, b312, b310, orbit star 2, signal finder"
   },
   "nav": {
     "features": "Fitur",
@@ -14,8 +14,8 @@
     "github": "GitHub"
   },
   "hero": {
-    "badge": "Open Source • Gratis Selamanya",
-    "title": "Modem Huawei Anda,\nSepenuhnya dalam Kendali",
+    "badge": "Aplikasi Pengelola Modem Huawei • Gratis",
+    "title": "Huawei Manager Mobile:\nPengelola & Cek Sinyal Modem",
     "description": "Monitor kualitas sinyal, kelola WiFi, lacak penggunaan data, kontrol perangkat terhubung, dan banyak lagi — semua dari ponsel Android Anda.",
     "cta": "Unduh Sekarang",
     "ctaSecondary": "Lihat di GitHub",
@@ -23,11 +23,11 @@
     "totalDownloads": "Total Unduhan"
   },
   "features": {
-    "sectionTitle": "Fitur Lengkap",
-    "sectionDescription": "Semua yang Anda butuhkan untuk mengelola modem Huawei LTE, langsung dari ponsel.",
+    "sectionTitle": "Fitur Pengelola Modem Huawei",
+    "sectionDescription": "Semua yang Anda butuhkan untuk cek sinyal Orbit dan mengelola modem Huawei LTE langsung dari HP.",
     "signalMonitor": {
-      "title": "Monitor Sinyal",
-      "description": "Monitoring RSRP, RSRQ, RSSI, dan SINR secara real-time dengan mode Signal Finder untuk menemukan posisi sinyal terbaik."
+      "title": "Cek Sinyal Orbit & Huawei",
+      "description": "Monitoring RSRP, RSRQ, RSSI, dan SINR secara real-time dengan mode Signal Finder untuk cek sinyal Orbit Star terbaik."
     },
     "wifiManagement": {
       "title": "Manajemen WiFi",
@@ -136,8 +136,8 @@
     "id": "Indonesia"
   },
   "faq": {
-    "sectionTitle": "Pertanyaan Umum",
-    "sectionDescription": "Jawaban cepat untuk pertanyaan umum tentang Huawei Manager Mobile.",
+    "sectionTitle": "FAQ Pengelola Modem",
+    "sectionDescription": "Jawaban seputar aplikasi Huawei Manager Mobile dan cara cek sinyal Orbit.",
     "questions": [
       {
         "q": "Modem apa saja yang didukung?",
@@ -170,6 +170,10 @@
       {
         "q": "Apakah aplikasi ini bisa untuk modem Huawei terbaru?",
         "a": "Ya, aplikasi ini bisa untuk modem Huawei terbaru. Namun, perlu diingat bahwa tidak semua modem Huawei mendukung semua fitur aplikasi ini. Beberapa fitur mungkin tidak tersedia pada modem tertentu."
+      },
+      {
+        "q": "Apakah saya bisa cek sinyal Orbit Star dengan aplikasi ini?",
+        "a": "Sangat bisa. Aplikasi ini adalah solusi terbaik untuk cek sinyal Orbit Star 2 (B312) dan seri Orbit lainnya berbasis Huawei untuk mendapatkan kualitas jaringan maksimal."
       }
     ]
   }
