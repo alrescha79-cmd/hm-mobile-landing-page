@@ -1,6 +1,6 @@
 ---
 import type { Locale } from "../i18n/i18n";
-import { t } from "../i18n/i18n";
+import { t, getLocalizedPath } from "../i18n/i18n";
 
 interface Props {
   locale: Locale;
@@ -70,7 +70,7 @@ const currentYear = new Date().getFullYear();
               class="footer-link"
             >
               <svg
-                class="w-4 h-4 flex-shrink-0"
+                class="w-4 h-4 shrink-0"
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 ><path
@@ -88,7 +88,7 @@ const currentYear = new Date().getFullYear();
               class="footer-link"
             >
               <svg
-                class="w-4 h-4 flex-shrink-0"
+                class="w-4 h-4 shrink-0"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -103,6 +103,23 @@ const currentYear = new Date().getFullYear();
             </a>
           </li>
           <li>
+            <a href={`${getLocalizedPath(locale)}#support`} class="footer-link">
+              <svg
+                class="w-4 h-4 shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M5.636 18.364l3.536-3.536m0-5.656L5.636 5.636M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+              {i.nav.support}
+            </a>
+          </li>
+          <li>
             <a
               href="https://github.com/alrescha79-cmd/huawei-manager-mobile/issues"
               target="_blank"
@@ -110,7 +127,7 @@ const currentYear = new Date().getFullYear();
               class="footer-link"
             >
               <svg
-                class="w-4 h-4 flex-shrink-0"
+                class="w-4 h-4 shrink-0"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -131,7 +148,7 @@ const currentYear = new Date().getFullYear();
               class="footer-link"
             >
               <svg
-                class="w-4 h-4 flex-shrink-0"
+                class="w-4 h-4 shrink-0"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -164,7 +181,7 @@ const currentYear = new Date().getFullYear();
               class="footer-link"
             >
               <svg
-                class="w-4 h-4 flex-shrink-0"
+                class="w-4 h-4 shrink-0"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

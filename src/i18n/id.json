@@ -12,6 +12,7 @@
     "devices": "Perangkat",
     "download": "Unduh",
     "faq": "FAQ",
+    "support": "Dukungan",
     "github": "GitHub"
   },
   "hero": {
@@ -177,5 +178,24 @@
         "a": "Sangat bisa. Aplikasi ini adalah solusi terbaik untuk cek sinyal Orbit Star 2 (B312) dan seri Orbit lainnya berbasis Huawei untuk mendapatkan kualitas jaringan maksimal."
       }
     ]
+  },
+  "support": {
+    "sectionTitle": "Dukungan & Umpan Balik",
+    "sectionDescription": "Laporkan masalah atau ajukan fitur baru untuk HM Mobile. Kami akan menghubungi Anda kembali melalui kontak yang diberikan.",
+    "bugReport": "Lapor Bug",
+    "featureRequest": "Usul Fitur",
+    "deviceModel": "Nama Perangkat",
+    "devicePlaceholder": "Contoh: Huawei B312 / Orbit Star 2",
+    "contact": "Email / No. HP",
+    "contactPlaceholder": "email@anda.com atau 0812...",
+    "message": "Detail Masalah / Fitur",
+    "messagePlaceholder": "Jelaskan secara detail di sini...",
+    "screenshot": "Upload Screenshot (Opsional)",
+    "screenshotHint": "Klik untuk upload atau drag and drop",
+    "screenshotLimit": "PNG, JPG maksimal 5MB",
+    "submit": "Kirim Laporan",
+    "sending": "Mengirim...",
+    "success": "Laporan berhasil dikirim! Terima kasih atas kontribusi Anda.",
+    "error": "Gagal mengirim laporan. Silakan coba lagi nanti."
   }
 }

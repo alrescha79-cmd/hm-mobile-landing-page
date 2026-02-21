@@ -1,0 +1,274 @@
+---
+import { t } from "../i18n/i18n";
+import type { Locale } from "../i18n/i18n";
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i = t(locale);
+const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY;
+---
+
+<section id="support" class="py-20 sm:py-32 relative overflow-hidden">
+    <div class="absolute inset-0 -z-10">
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-500/5 rounded-full blur-[100px] opacity-50"
+        >
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 animate-fade-up">
+            <h2
+                class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight"
+            >
+                <span class="gradient-text">{i.support.sectionTitle}</span>
+            </h2>
+            <p class="mt-4 text-lg text-surface-600 dark:text-surface-400">
+                {i.support.sectionDescription}
+            </p>
+        </div>
+
+        <div class="glass-card p-4 sm:p-8 animate-fade-up stagger-1">
+            <form
+                action="https://api.web3forms.com/submit"
+                method="POST"
+                id="support-form"
+                class="space-y-6"
+                data-success={i.support.success}
+                data-error={i.support.error}
+                data-sending={i.support.sending}
+            >
+                <!-- Form Configuration -->
+                <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+                <input
+                    type="hidden"
+                    name="from_name"
+                    value="HM Mobile Support"
+                />
+                <input
+                    type="hidden"
+                    name="subject"
+                    id="form-subject"
+                    value="New Bug Report - HM Mobile"
+                />
+
+                <!-- Form Type Toggle -->
+                <div
+                    class="flex p-1 bg-surface-100 dark:bg-surface-800 rounded-xl max-w-sm mx-auto mb-8"
+                >
+                    <button
+                        type="button"
+                        id="type-bug"
+                        class="flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-all duration-300 bg-white dark:bg-surface-700 shadow-sm text-primary-500"
+                    >
+                        {i.support.bugReport}
+                    </button>
+                    <button
+                        type="button"
+                        id="type-feature"
+                        class="flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-all duration-300 text-surface-500 hover:text-surface-900 dark:hover:text-white"
+                    >
+                        {i.support.featureRequest}
+                    </button>
+                    <input
+                        type="hidden"
+                        name="type"
+                        id="support-type"
+                        value="Bug Report"
+                    />
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label
+                            for="device"
+                            class="block text-sm font-semibold text-surface-700 dark:text-surface-300"
+                        >
+                            {i.support.deviceModel}
+                        </label>
+                        <input
+                            type="text"
+                            name="device"
+                            id="device"
+                            required
+                            placeholder={i.support.devicePlaceholder}
+                            class="w-full px-4 py-3 rounded-xl bg-surface-50 dark:bg-surface-900 border border-surface-200 dark:border-surface-800 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all outline-none"
+                        />
+                    </div>
+                    <div class="space-y-2">
+                        <label
+                            for="contact"
+                            class="block text-sm font-semibold text-surface-700 dark:text-surface-300"
+                        >
+                            {i.support.contact}
+                        </label>
+                        <input
+                            type="text"
+                            name="contact"
+                            id="contact"
+                            required
+                            placeholder={i.support.contactPlaceholder}
+                            class="w-full px-4 py-3 rounded-xl bg-surface-50 dark:bg-surface-900 border border-surface-200 dark:border-surface-800 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all outline-none"
+                        />
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label
+                        for="message"
+                        class="block text-sm font-semibold text-surface-700 dark:text-surface-300"
+                    >
+                        {i.support.message}
+                    </label>
+                    <textarea
+                        name="message"
+                        id="message"
+                        rows="4"
+                        required
+                        placeholder={i.support.messagePlaceholder}
+                        class="w-full px-4 py-3 rounded-xl bg-surface-50 dark:bg-surface-900 border border-surface-200 dark:border-surface-800 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all outline-none resize-none"
+                    ></textarea>
+                </div>
+
+                <button
+                    type="submit"
+                    id="submit-btn"
+                    class="w-full py-4 px-6 text-white font-bold bg-linear-to-r from-primary-500 to-accent-500 rounded-2xl shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                    <span>{i.support.submit}</span>
+                    <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+
+                <div
+                    id="form-result"
+                    class="hidden text-center text-sm font-medium py-3 rounded-xl transition-all"
+                >
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script is:inline>
+    const form = document.getElementById("support-form");
+    const result = document.getElementById("form-result");
+    const submitBtn = document.getElementById("submit-btn");
+    const typeBug = document.getElementById("type-bug");
+    const typeFeature = document.getElementById("type-feature");
+    const supportType = document.getElementById("support-type");
+    const formSubject = document.getElementById("form-subject");
+
+    // Toggle Type Logic
+
+    typeBug?.addEventListener("click", () => {
+        typeBug.classList.add(
+            "bg-white",
+            "dark:bg-surface-700",
+            "shadow-sm",
+            "text-primary-500"
+        );
+        typeBug.classList.remove("text-surface-500");
+        typeFeature.classList.remove(
+            "bg-white",
+            "dark:bg-surface-700",
+            "shadow-sm",
+            "text-primary-500"
+        );
+        typeFeature.classList.add("text-surface-500");
+        supportType.value = "Bug Report";
+        formSubject.value = "New Bug Report - HM Mobile";
+    });
+
+    typeFeature?.addEventListener("click", () => {
+        typeFeature.classList.add(
+            "bg-white",
+            "dark:bg-surface-700",
+            "shadow-sm",
+            "text-primary-500"
+        );
+        typeFeature.classList.remove("text-surface-500");
+        typeBug.classList.remove(
+            "bg-white",
+            "dark:bg-surface-700",
+            "shadow-sm",
+            "text-primary-500"
+        );
+        typeBug.classList.add("text-surface-500");
+        supportType.value = "Feature Request";
+        formSubject.value = "New Feature Request - HM Mobile";
+    });
+
+    // AJAX Submission
+    form?.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
+
+        submitBtn.disabled = true;
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = `<span>${form.dataset.sending}</span>`;
+
+        fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: json,
+        })
+            .then(async (response) => {
+                let json = await response.json().catch(() => ({}));
+                if (response.status === 200) {
+                    result.classList.remove(
+                        "hidden",
+                        "text-red-500",
+                        "bg-red-500/10"
+                    );
+                    result.classList.add("text-green-500", "bg-green-500/10");
+                    result.textContent = form.dataset.success;
+                    form.reset();
+                } else {
+                    console.log(response);
+                    result.classList.remove(
+                        "hidden",
+                        "text-green-500",
+                        "bg-green-500/10"
+                    );
+                    result.classList.add("text-red-500", "bg-red-500/10");
+                    result.textContent = json.message || form.dataset.error;
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                result.classList.remove(
+                    "hidden",
+                    "text-green-500",
+                    "bg-green-500/10"
+                );
+                result.classList.add("text-red-500", "bg-red-500/10");
+                result.textContent = form.dataset.error;
+            })
+            .then(function () {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                setTimeout(() => {
+                    result.classList.add("hidden");
+                }, 5000);
+            });
+    });
+</script>

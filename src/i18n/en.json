@@ -12,6 +12,7 @@
     "devices": "Devices",
     "download": "Download",
     "faq": "FAQ",
+    "support": "Support",
     "github": "GitHub"
   },
   "hero": {
@@ -173,6 +174,25 @@
         "a": "Yes, this app can work with latest Huawei modems. However, please note that not all Huawei modems support all features of this app. Some features may not be available on certain modems."
       }
     ]
+  },
+  "support": {
+    "sectionTitle": "Support & Feedback",
+    "sectionDescription": "Report bugs or request new features for HM Mobile. We will get back to you via the contact info provided.",
+    "bugReport": "Bug Report",
+    "featureRequest": "Feature Request",
+    "deviceModel": "Device Model",
+    "devicePlaceholder": "Ex: Huawei B312 / Orbit Star 2",
+    "contact": "Email / Phone",
+    "contactPlaceholder": "email@example.com or +62...",
+    "message": "Problem / Feature Details",
+    "messagePlaceholder": "Describe in detail here...",
+    "screenshot": "Upload Screenshot (Optional)",
+    "screenshotHint": "Click to upload or drag and drop",
+    "screenshotLimit": "PNG, JPG up to 5MB",
+    "submit": "Submit Report",
+    "sending": "Sending...",
+    "success": "Report submitted successfully! Thank you for your contribution.",
+    "error": "Failed to send report. Please try again later."
   }
 }
 
