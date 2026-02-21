@@ -40,6 +40,7 @@ const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_KEY;
                 data-success={i.support.success}
                 data-error={i.support.error}
                 data-sending={i.support.sending}
+                data-already-submitted={i.support.alreadySubmitted}
             >
                 <!-- Form Configuration -->
                 <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
@@ -215,6 +216,26 @@ const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_KEY;
     // AJAX Submission
     form?.addEventListener("submit", function (e) {
         e.preventDefault();
+
+        // Check Rate Limit
+        const lastSubmitted = localStorage.getItem("support_last_submitted");
+        if (lastSubmitted) {
+            const lastDate = new Date(parseInt(lastSubmitted));
+            const now = new Date();
+            const diffHours = (now - lastDate) / (1000 * 60 * 60);
+
+            if (diffHours < 24) {
+                result.classList.remove(
+                    "hidden",
+                    "text-green-500",
+                    "bg-green-500/10"
+                );
+                result.classList.add("text-amber-500", "bg-amber-500/10");
+                result.textContent = form.dataset.alreadySubmitted;
+                return;
+            }
+        }
+
         const formData = new FormData(form);
         const object = Object.fromEntries(formData);
         const json = JSON.stringify(object);
@@ -241,6 +262,13 @@ const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_KEY;
                     );
                     result.classList.add("text-green-500", "bg-green-500/10");
                     result.textContent = form.dataset.success;
+
+                    // Set Rate Limit on Success
+                    localStorage.setItem(
+                        "support_last_submitted",
+                        Date.now().toString()
+                    );
+
                     form.reset();
                 } else {
                     console.log(response);

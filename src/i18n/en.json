@@ -192,7 +192,8 @@
     "submit": "Submit Report",
     "sending": "Sending...",
     "success": "Report submitted successfully! Thank you for your contribution.",
-    "error": "Failed to send report. Please try again later."
+    "error": "Failed to send report. Please try again later.",
+    "alreadySubmitted": "You have already sent a report today. Please try again tomorrow."
   }
 }
 

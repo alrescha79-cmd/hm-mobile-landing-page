@@ -196,6 +196,7 @@
     "submit": "Kirim Laporan",
     "sending": "Mengirim...",
     "success": "Laporan berhasil dikirim! Terima kasih atas kontribusi Anda.",
-    "error": "Gagal mengirim laporan. Silakan coba lagi nanti."
+    "error": "Gagal mengirim laporan. Silakan coba lagi nanti.",
+    "alreadySubmitted": "Anda sudah mengirim laporan hari ini. Silakan coba lagi besok."
   }
 }
