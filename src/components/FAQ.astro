@@ -74,19 +74,21 @@ const faq = i.faq;
 </section>
 
 <script>
-    // Accordion behavior: ensure only one FAQ item is open at a time
-    const details = document.querySelectorAll<HTMLDetailsElement>(
-        'details[name="faq"]'
-    );
+    document.addEventListener("astro:page-load", () => {
+        // Accordion behavior: ensure only one FAQ item is open at a time
+        const details = document.querySelectorAll<HTMLDetailsElement>(
+            'details[name="faq"]'
+        );
 
-    details.forEach((targetDetail) => {
-        targetDetail.addEventListener("toggle", (e) => {
-            if (!targetDetail.open) return;
+        details.forEach((targetDetail) => {
+            targetDetail.addEventListener("toggle", (e) => {
+                if (!targetDetail.open) return;
 
-            details.forEach((detail) => {
-                if (detail !== targetDetail && detail.open) {
-                    detail.open = false;
-                }
+                details.forEach((detail) => {
+                    if (detail !== targetDetail && detail.open) {
+                        detail.open = false;
+                    }
+                });
             });
         });
     });

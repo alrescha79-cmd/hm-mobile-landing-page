@@ -165,138 +165,147 @@ const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_KEY;
 </section>
 
 <script is:inline>
-    const form = document.getElementById("support-form");
-    const result = document.getElementById("form-result");
-    const submitBtn = document.getElementById("submit-btn");
-    const typeBug = document.getElementById("type-bug");
-    const typeFeature = document.getElementById("type-feature");
-    const supportType = document.getElementById("support-type");
-    const formSubject = document.getElementById("form-subject");
+    document.addEventListener("astro:page-load", () => {
+        const form = document.getElementById("support-form");
+        if (!form) return;
 
-    // Toggle Type Logic
+        const result = document.getElementById("form-result");
+        const submitBtn = document.getElementById("submit-btn");
+        const typeBug = document.getElementById("type-bug");
+        const typeFeature = document.getElementById("type-feature");
+        const supportType = document.getElementById("support-type");
+        const formSubject = document.getElementById("form-subject");
 
-    typeBug?.addEventListener("click", () => {
-        typeBug.classList.add(
-            "bg-white",
-            "dark:bg-surface-700",
-            "shadow-sm",
-            "text-primary-500"
-        );
-        typeBug.classList.remove("text-surface-500");
-        typeFeature.classList.remove(
-            "bg-white",
-            "dark:bg-surface-700",
-            "shadow-sm",
-            "text-primary-500"
-        );
-        typeFeature.classList.add("text-surface-500");
-        supportType.value = "Bug Report";
-        formSubject.value = "New Bug Report - HM Mobile";
-    });
+        // Toggle Type Logic
 
-    typeFeature?.addEventListener("click", () => {
-        typeFeature.classList.add(
-            "bg-white",
-            "dark:bg-surface-700",
-            "shadow-sm",
-            "text-primary-500"
-        );
-        typeFeature.classList.remove("text-surface-500");
-        typeBug.classList.remove(
-            "bg-white",
-            "dark:bg-surface-700",
-            "shadow-sm",
-            "text-primary-500"
-        );
-        typeBug.classList.add("text-surface-500");
-        supportType.value = "Feature Request";
-        formSubject.value = "New Feature Request - HM Mobile";
-    });
+        typeBug?.addEventListener("click", () => {
+            typeBug.classList.add(
+                "bg-white",
+                "dark:bg-surface-700",
+                "shadow-sm",
+                "text-primary-500"
+            );
+            typeBug.classList.remove("text-surface-500");
+            typeFeature.classList.remove(
+                "bg-white",
+                "dark:bg-surface-700",
+                "shadow-sm",
+                "text-primary-500"
+            );
+            typeFeature.classList.add("text-surface-500");
+            supportType.value = "Bug Report";
+            formSubject.value = "New Bug Report - HM Mobile";
+        });
 
-    // AJAX Submission
-    form?.addEventListener("submit", function (e) {
-        e.preventDefault();
+        typeFeature?.addEventListener("click", () => {
+            typeFeature.classList.add(
+                "bg-white",
+                "dark:bg-surface-700",
+                "shadow-sm",
+                "text-primary-500"
+            );
+            typeFeature.classList.remove("text-surface-500");
+            typeBug.classList.remove(
+                "bg-white",
+                "dark:bg-surface-700",
+                "shadow-sm",
+                "text-primary-500"
+            );
+            typeBug.classList.add("text-surface-500");
+            supportType.value = "Feature Request";
+            formSubject.value = "New Feature Request - HM Mobile";
+        });
 
-        // Check Rate Limit
-        const lastSubmitted = localStorage.getItem("support_last_submitted");
-        if (lastSubmitted) {
-            const lastDate = new Date(parseInt(lastSubmitted));
-            const now = new Date();
-            const diffHours = (now - lastDate) / (1000 * 60 * 60);
+        // AJAX Submission
+        form?.addEventListener("submit", function (e) {
+            e.preventDefault();
 
-            if (diffHours < 24) {
-                result.classList.remove(
-                    "hidden",
-                    "text-green-500",
-                    "bg-green-500/10"
-                );
-                result.classList.add("text-amber-500", "bg-amber-500/10");
-                result.textContent = form.dataset.alreadySubmitted;
-                return;
-            }
-        }
+            // Check Rate Limit
+            const lastSubmitted = localStorage.getItem(
+                "support_last_submitted"
+            );
+            if (lastSubmitted) {
+                const lastDate = new Date(parseInt(lastSubmitted));
+                const now = new Date();
+                const diffHours = (now - lastDate) / (1000 * 60 * 60);
 
-        const formData = new FormData(form);
-        const object = Object.fromEntries(formData);
-        const json = JSON.stringify(object);
-
-        submitBtn.disabled = true;
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = `<span>${form.dataset.sending}</span>`;
-
-        fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-            },
-            body: json,
-        })
-            .then(async (response) => {
-                let json = await response.json().catch(() => ({}));
-                if (response.status === 200) {
+                if (diffHours < 24) {
                     result.classList.remove(
                         "hidden",
-                        "text-red-500",
-                        "bg-red-500/10"
+                        "text-green-500",
+                        "bg-green-500/10"
                     );
-                    result.classList.add("text-green-500", "bg-green-500/10");
-                    result.textContent = form.dataset.success;
+                    result.classList.add("text-amber-500", "bg-amber-500/10");
+                    result.textContent = form.dataset.alreadySubmitted;
+                    return;
+                }
+            }
 
-                    // Set Rate Limit on Success
-                    localStorage.setItem(
-                        "support_last_submitted",
-                        Date.now().toString()
-                    );
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
 
-                    form.reset();
-                } else {
-                    console.log(response);
+            submitBtn.disabled = true;
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = `<span>${form.dataset.sending}</span>`;
+
+            fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: json,
+            })
+                .then(async (response) => {
+                    let json = await response.json().catch(() => ({}));
+                    if (response.status === 200) {
+                        result.classList.remove(
+                            "hidden",
+                            "text-red-500",
+                            "bg-red-500/10"
+                        );
+                        result.classList.add(
+                            "text-green-500",
+                            "bg-green-500/10"
+                        );
+                        result.textContent = form.dataset.success;
+
+                        // Set Rate Limit on Success
+                        localStorage.setItem(
+                            "support_last_submitted",
+                            Date.now().toString()
+                        );
+
+                        form.reset();
+                    } else {
+                        console.log(response);
+                        result.classList.remove(
+                            "hidden",
+                            "text-green-500",
+                            "bg-green-500/10"
+                        );
+                        result.classList.add("text-red-500", "bg-red-500/10");
+                        result.textContent = json.message || form.dataset.error;
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
                     result.classList.remove(
                         "hidden",
                         "text-green-500",
                         "bg-green-500/10"
                     );
                     result.classList.add("text-red-500", "bg-red-500/10");
-                    result.textContent = json.message || form.dataset.error;
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-                result.classList.remove(
-                    "hidden",
-                    "text-green-500",
-                    "bg-green-500/10"
-                );
-                result.classList.add("text-red-500", "bg-red-500/10");
-                result.textContent = form.dataset.error;
-            })
-            .then(function () {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-                setTimeout(() => {
-                    result.classList.add("hidden");
-                }, 5000);
-            });
+                    result.textContent = form.dataset.error;
+                })
+                .then(function () {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                    setTimeout(() => {
+                        result.classList.add("hidden");
+                    }, 5000);
+                });
+        });
     });
 </script>

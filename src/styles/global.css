@@ -38,6 +38,12 @@ html {
 body {
   overflow-x: hidden;
   @apply bg-surface-50 text-surface-900 dark:bg-surface-950 dark:text-surface-100 font-sans transition-colors duration-300;
+  transition: opacity 0.2s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+body.lang-switching {
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .glass-card {

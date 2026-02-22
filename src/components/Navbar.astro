@@ -358,7 +358,9 @@ const altLocale = locale === "en" ? "id" : "en";
   </div>
 </div>
 
-<script is:inline>
+<script>
+  import { navigate } from "astro:transitions/client";
+
   function toggleTheme() {
     var html = document.documentElement;
     if (html.classList.contains("dark")) {
@@ -370,139 +372,173 @@ const altLocale = locale === "en" ? "id" : "en";
     }
   }
 
-  document
-    .getElementById("theme-toggle")
-    ?.addEventListener("click", toggleTheme);
-  document
-    .getElementById("theme-toggle-mobile")
-    ?.addEventListener("click", toggleTheme);
+  // Global variables that should persist or be cleaned up
+  var navObserver: IntersectionObserver | null = null;
+  var navScrollHandler: (() => void) | null = null;
 
-  // Navbar background on scroll (desktop)
-  window.addEventListener("scroll", function () {
-    var navbar = document.getElementById("navbar");
-    var mobileTop = document.getElementById("mobile-top-bar");
-    if (navbar) {
-      if (window.scrollY > 20) {
-        navbar.classList.add("nav-scrolled");
-      } else {
-        navbar.classList.remove("nav-scrolled");
-      }
-    }
-    if (mobileTop) {
-      if (window.scrollY > 20) {
-        mobileTop.classList.add("nav-scrolled");
-      } else {
-        mobileTop.classList.remove("nav-scrolled");
-      }
-    }
-  });
-
-  // Scroll-spy: highlight active section in nav
-  var sectionIds = ["features", "devices", "download", "support", "faq"];
-  var currentActive = "";
-
-  function setActiveSection(sectionId) {
-    if (sectionId === currentActive) return;
-    currentActive = sectionId;
-
-    // Desktop nav links
+  function initNavbar() {
     document
-      .querySelectorAll(".nav-link[data-section]")
-      .forEach(function (link) {
-        if (link.dataset.section === sectionId) {
-          link.classList.add("nav-link-active");
-        } else {
-          link.classList.remove("nav-link-active");
-        }
-      });
+      .getElementById("theme-toggle")
+      ?.addEventListener("click", toggleTheme);
+    document
+      .getElementById("theme-toggle-mobile")
+      ?.addEventListener("click", toggleTheme);
 
-    // Mobile nav items
-    var mobileItems = document.querySelectorAll(
-      ".mobile-nav-item[data-section]"
-    );
-    var indicator = document.getElementById("mobile-nav-indicator");
+    // Clean up previous event listeners if they exist
+    if (navScrollHandler) {
+      window.removeEventListener("scroll", navScrollHandler);
+    }
+    if (navObserver) {
+      navObserver.disconnect();
+    }
 
-    mobileItems.forEach(function (item) {
-      if (item.dataset.section === sectionId) {
-        item.classList.add("mobile-nav-active");
-        if (indicator) {
-          indicator.style.opacity = "1";
-          const padding = 8;
-          indicator.style.left = item.offsetLeft + padding + "px";
-          indicator.style.width = item.offsetWidth - padding * 2 + "px";
-        }
-      } else {
-        item.classList.remove("mobile-nav-active");
-      }
-    });
-  }
+    var sectionIds = ["features", "devices", "download", "support", "faq"];
+    var currentActive = "";
 
-  var observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    },
-    { rootMargin: "-20% 0px -60% 0px", threshold: 0 }
-  );
+    function setActiveSection(sectionId: string) {
+      if (sectionId === currentActive) return;
+      currentActive = sectionId;
 
-  sectionIds.forEach(function (id) {
-    var section = document.getElementById(id);
-    if (section) observer.observe(section);
-  });
-
-  // Handle language switch with hash preservation
-  document.querySelectorAll(".lang-toggle").forEach(function (link) {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      const baseHref = link.dataset.baseHref;
-      if (!baseHref) return;
-
-      // Use currentActive from scroll-spy, or find most visible section manually
-      let targetHash = currentActive;
-
-      if (!targetHash) {
-        // Fallback: Check which section is most visible in the viewport
-        let maxVisible = -1;
-        sectionIds.forEach(function (id) {
-          const el = document.getElementById(id);
-          if (el) {
-            const rect = el.getBoundingClientRect();
-            const visibleHeight =
-              Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-            if (visibleHeight > maxVisible) {
-              maxVisible = visibleHeight;
-              targetHash = id;
-            }
+      document
+        .querySelectorAll<HTMLElement>(".nav-link[data-section]")
+        .forEach(function (link) {
+          if (link.dataset.section === sectionId) {
+            link.classList.add("nav-link-active");
+          } else {
+            link.classList.remove("nav-link-active");
           }
         });
+
+      var mobileItems = document.querySelectorAll<HTMLElement>(
+        ".mobile-nav-item[data-section]"
+      );
+      var indicator = document.getElementById("mobile-nav-indicator");
+
+      mobileItems.forEach(function (item) {
+        if ((item as HTMLElement).dataset.section === sectionId) {
+          item.classList.add("mobile-nav-active");
+          if (indicator) {
+            indicator.style.opacity = "1";
+            const padding = 8;
+            indicator.style.left =
+              (item as HTMLElement).offsetLeft + padding + "px";
+            indicator.style.width =
+              (item as HTMLElement).offsetWidth - padding * 2 + "px";
+          }
+        } else {
+          item.classList.remove("mobile-nav-active");
+        }
+      });
+    }
+
+    navObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-20% 0px -60% 0px", threshold: 0 }
+    );
+
+    sectionIds.forEach(function (id) {
+      var section = document.getElementById(id);
+      if (section && navObserver) navObserver.observe(section);
+    });
+
+    // Handle language switch with hash preservation
+    document
+      .querySelectorAll<HTMLElement>(".lang-toggle")
+      .forEach(function (link) {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const baseHref = link.dataset.baseHref;
+          if (!baseHref) return;
+
+          let targetHash = currentActive;
+
+          if (!targetHash) {
+            let maxVisible = -1;
+            sectionIds.forEach(function (id) {
+              const el = document.getElementById(id);
+              if (el) {
+                const rect = el.getBoundingClientRect();
+                const visibleHeight =
+                  Math.min(rect.bottom, window.innerHeight) -
+                  Math.max(rect.top, 0);
+                if (visibleHeight > maxVisible) {
+                  maxVisible = visibleHeight;
+                  targetHash = id;
+                }
+              }
+            });
+          }
+
+          // We save the current Y position, then use astro's keepScroll option or manually restore it
+          sessionStorage.setItem(
+            "hm_lang_switch_scroll",
+            window.scrollY.toString()
+          );
+
+          // Add a fade-out effect to the body to mask the loading delay
+          document.body.classList.add("lang-switching");
+
+          navigate(baseHref, { history: "replace" });
+        });
+      });
+
+    // Restore scroll position and remove fade effect if we just switched languages
+    const savedScroll = sessionStorage.getItem("hm_lang_switch_scroll");
+    if (savedScroll) {
+      window.scrollTo({ top: parseInt(savedScroll, 10), behavior: "instant" });
+      sessionStorage.removeItem("hm_lang_switch_scroll");
+      // Slight delay to ensure the new DOM is fully painted before fading in
+      requestAnimationFrame(() => {
+        document.body.classList.remove("lang-switching");
+      });
+    }
+
+    navScrollHandler = function () {
+      var navbar = document.getElementById("navbar");
+      var mobileTop = document.getElementById("mobile-top-bar");
+      if (navbar) {
+        if (window.scrollY > 20) {
+          navbar.classList.add("nav-scrolled");
+        } else {
+          navbar.classList.remove("nav-scrolled");
+        }
+      }
+      if (mobileTop) {
+        if (window.scrollY > 20) {
+          mobileTop.classList.add("nav-scrolled");
+        } else {
+          mobileTop.classList.remove("nav-scrolled");
+        }
       }
 
-      const finalHash = targetHash ? `#${targetHash}` : "";
-      window.location.href = baseHref + finalHash;
-    });
-  });
+      if (window.scrollY < 200) {
+        currentActive = "";
+        document
+          .querySelectorAll(".nav-link[data-section]")
+          .forEach(function (l) {
+            l.classList.remove("nav-link-active");
+          });
+        document
+          .querySelectorAll(".mobile-nav-item[data-section]")
+          .forEach(function (i) {
+            i.classList.remove("mobile-nav-active");
+          });
+        var ind = document.getElementById("mobile-nav-indicator");
+        if (ind) ind.style.opacity = "0";
+      }
+    };
 
-  // Clear active state when at top of page (hero section)
-  window.addEventListener("scroll", function () {
-    if (window.scrollY < 200) {
-      currentActive = "";
-      document
-        .querySelectorAll(".nav-link[data-section]")
-        .forEach(function (l) {
-          l.classList.remove("nav-link-active");
-        });
-      document
-        .querySelectorAll(".mobile-nav-item[data-section]")
-        .forEach(function (i) {
-          i.classList.remove("mobile-nav-active");
-        });
-      var ind = document.getElementById("mobile-nav-indicator");
-      if (ind) ind.style.opacity = "0";
-    }
-  });
+    window.addEventListener("scroll", navScrollHandler);
+    navScrollHandler(); // invoke once to set initial state
+  }
+
+  document.addEventListener("astro:page-load", initNavbar);
 </script>
 
 <style>

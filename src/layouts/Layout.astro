@@ -1,6 +1,7 @@
 ---
 import type { Locale } from "../i18n/i18n";
 import { t } from "../i18n/i18n";
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 
 interface Props {
@@ -21,6 +22,7 @@ const canonical =
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+    <ClientRouter />
 
     <title>{i.meta.title}</title>
     <meta name="description" content={i.meta.description} />
@@ -128,7 +130,7 @@ const canonical =
 
     <!-- Dark mode initialization (prevent flash) -->
     <script is:inline>
-      (function () {
+      function initTheme() {
         const saved = localStorage.getItem("theme");
         if (saved === "light") {
           document.documentElement.classList.remove("dark");
@@ -137,7 +139,9 @@ const canonical =
         } else if (!window.matchMedia("(prefers-color-scheme: dark)").matches) {
           document.documentElement.classList.remove("dark");
         }
-      })();
+      }
+      initTheme();
+      document.addEventListener("astro:after-swap", initTheme);
     </script>
   </head>
   <body class="min-h-screen overflow-x-hidden">
