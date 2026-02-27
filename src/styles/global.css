@@ -142,13 +142,20 @@ body.lang-switching {
 
 /* Mobile bottom nav */
 .mobile-nav-item {
-  @apply flex flex-col items-center justify-center gap-0.5 text-surface-600 dark:text-surface-400 no-underline transition-all duration-300 cursor-pointer bg-transparent border-none text-[10px] font-bold py-2 px-1;
+  @apply flex flex-col items-center justify-center gap-0.5 text-surface-500 dark:text-surface-400 no-underline transition-all duration-300 cursor-pointer bg-transparent border-none text-[10px] font-medium py-1 px-1;
 }
 .mobile-nav-item:hover {
-  @apply text-primary-500 dark:text-white;
+  @apply text-[#1a73e8] dark:text-white;
 }
 .mobile-nav-active {
-  @apply text-surface-950 transition-colors duration-500;
+  @apply text-[#1a73e8] dark:text-white transition-colors duration-500;
+}
+.mobile-nav-active .nav-icon-container {
+  @apply bg-[#1a73e8] text-white shadow-lg shadow-[#1a73e8]/30 dark:shadow-none;
+  transform: translateY(-4px) scale(1.1);
+}
+.nav-icon-container {
+  @apply w-12 h-8 rounded-full flex items-center justify-center transition-all duration-300;
 }
 
 /* Desktop nav active state */
