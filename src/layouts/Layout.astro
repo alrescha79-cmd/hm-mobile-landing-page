@@ -2,6 +2,10 @@
 import type { Locale } from "../i18n/i18n";
 import { t } from "../i18n/i18n";
 import { ClientRouter } from "astro:transitions";
+import { getImage } from "astro:assets";
+import screenshotHomeDark from "../assets/images/screenshot-home-dark.png";
+import screenshotHomeLight from "../assets/images/screenshot-home-light.png";
+import "@fontsource-variable/inter";
 import "../styles/global.css";
 
 interface Props {
@@ -14,6 +18,9 @@ const i = t(locale);
 const siteUrl = "https://hm.cakson.my.id";
 const canonical =
   canonicalUrl || (locale === "en" ? siteUrl : `${siteUrl}/id/`);
+
+const optimizedDark = await getImage({ src: screenshotHomeDark, format: "avif", width: 360, quality: 80 });
+const optimizedLight = await getImage({ src: screenshotHomeLight, format: "avif", width: 360, quality: 80 });
 ---
 
 <!DOCTYPE html>
@@ -57,32 +64,21 @@ const canonical =
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Self-hosted Fonts -->
-    <link
-      rel="preload"
-      href="/_astro/inter-latin-wght-normal.Dx4kXJAl.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
     <!-- Critical Image Preloads (LCP) -->
     <link
       rel="preload"
-      href="/_astro/screenshot-home-dark.B9eoF5P2_Z2aoKOu.avif"
+      href={optimizedDark.src}
       as="image"
       type="image/avif"
       media="(prefers-color-scheme: dark)"
     />
     <link
       rel="preload"
-      href="/_astro/screenshot-home-light.CAUnEdF4_1MFCHr.avif"
+      href={optimizedLight.src}
       as="image"
       type="image/avif"
       media="(prefers-color-scheme: light)"
     />
-    <script>
-      import "@fontsource-variable/inter";
-    </script>
 
     <!-- Structured Data -->
     <script

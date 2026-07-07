@@ -3,12 +3,12 @@ import { Image } from 'astro:assets';
 import type { Locale } from '../i18n/i18n';
 import { t } from '../i18n/i18n';
 
-import screenshotHomeScrollDark from '../assets/images/screenshot-home-scroll-dark.jpg';
-import screenshotHomeScrollLight from '../assets/images/screenshot-home-scroll-light.jpg';
-import screenshotSignalDark from '../assets/images/screenshot-signal-dark.jpg';
-import screenshotSignalLight from '../assets/images/screenshot-signal-light.jpg';
-import screenshotWifiDark from '../assets/images/screenshot-wifi-dark.jpg';
-import screenshotWifiLight from '../assets/images/screenshot-wifi-light.jpg';
+import screenshotHomeScrollDark from '../assets/images/screenshot-home-scroll-dark.png';
+import screenshotHomeScrollLight from '../assets/images/screenshot-home-scroll-light.png';
+import screenshotSignalDark from '../assets/images/screenshot-signal-dark.png';
+import screenshotSignalLight from '../assets/images/screenshot-signal-light.png';
+import screenshotWifiDark from '../assets/images/screenshot-wifi-dark.png';
+import screenshotWifiLight from '../assets/images/screenshot-wifi-light.png';
 
 interface Props {
   locale: Locale;
@@ -63,15 +63,24 @@ const screenshots = [
               <div class="absolute -inset-3 bg-linear-to-r from-primary-500 to-accent-500/15 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
               <div
-        class="relative mx-auto max-w-[300px] aspect-[9/19.5] bg-surface-950 rounded-3xl shadow-2xl border-4 border-surface-200 dark:border-surface-800 overflow-hidden"
-      >
-                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-2 h-2 bg-surface-400 dark:bg-surface-950 rounded-full z-10 ring-1 ring-surface-500/50 dark:ring-surface-700/50"></div>
-                <div class="relative rounded-3xl overflow-hidden bg-surface-950 aspect-[9/19.5]">
+                class="relative mx-auto max-w-[300px] bg-surface-800 dark:bg-surface-300 rounded-4xl p-1 shadow-2xl shadow-surface-900/30 border border-surface-300/50 dark:border-surface-700/50"
+              >
+                <!-- Punch-hole camera -->
+                <div
+                  class="absolute top-2 left-1/2 -translate-x-1/2 w-3 h-3 bg-surface-400 dark:bg-surface-950 rounded-full z-10 ring-1 ring-surface-500/50 dark:ring-surface-700/50"
+                >
+                </div>
+
+                <!-- Screen -->
+                <div
+                  class="relative rounded-[2rem] overflow-hidden bg-surface-950 aspect-[9/19.5]"
+                >
                   <Image
                     src={item.dark}
                     alt={`${data.title} (Dark)`}
                     class="w-full h-full object-cover hidden dark:block"
-                    format="webp"
+                    format="avif"
+                    width={320}
                     quality={80}
                     loading="lazy"
                   />
@@ -79,7 +88,8 @@ const screenshots = [
                     src={item.light}
                     alt={`${data.title} (Light)`}
                     class="w-full h-full object-cover block dark:hidden"
-                    format="webp"
+                    format="avif"
+                    width={320}
                     quality={80}
                     loading="lazy"
                   />

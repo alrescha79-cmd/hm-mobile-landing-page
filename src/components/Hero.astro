@@ -2,8 +2,8 @@
 import { Image } from "astro:assets";
 import type { Locale } from "../i18n/i18n";
 import { t } from "../i18n/i18n";
-import screenshotHomeDark from "../assets/images/screenshot-home-dark.jpg";
-import screenshotHomeLight from "../assets/images/screenshot-home-light.jpg";
+import screenshotHomeDark from "../assets/images/screenshot-home-dark.png";
+import screenshotHomeLight from "../assets/images/screenshot-home-light.png";
 
 interface Props {
   locale: Locale;
@@ -185,6 +185,7 @@ const i = t(locale);
                   alt="Huawei Manager Mobile - Home Screen (Dark)"
                   class="w-full h-full object-cover hidden dark:block"
                   format="avif"
+                  width={360}
                   quality={80}
                   loading="eager"
                   fetchpriority="high"
@@ -194,6 +195,7 @@ const i = t(locale);
                   alt="Huawei Manager Mobile - Home Screen (Light)"
                   class="w-full h-full object-cover block dark:hidden"
                   format="avif"
+                  width={360}
                   quality={80}
                   loading="eager"
                   fetchpriority="high"

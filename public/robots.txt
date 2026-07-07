@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /_astro/
 
 Sitemap: https://hm.cakson.my.id/sitemap-index.xml

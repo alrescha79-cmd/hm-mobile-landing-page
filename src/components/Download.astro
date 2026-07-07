@@ -107,39 +107,36 @@ const downloads = [
       <p class="mt-4 text-lg text-surface-600 dark:text-surface-400">
         {i.download.sectionDescription}
       </p>
-      {
-        releaseData.tag !== "latest" && (
-          <div class="mt-2 flex flex-col items-center gap-4">
-            <p class="text-sm text-surface-500">
-              {i.download.version}:{" "}
-              <span class="font-mono font-semibold text-primary-500">
-                {releaseData.tag}
-              </span>
-            </p>
-            <a
-              href={`https://github.com/${REPO}/releases/tag/${releaseData.tag}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold text-surface-700 dark:text-surface-300 bg-surface-100/50 dark:bg-surface-800/50 hover:bg-surface-200 dark:hover:bg-surface-700 border border-surface-200 dark:border-surface-700 transition-all duration-300 hover:-translate-y-0.5"
-            >
-              <svg
-                class="w-4 h-4 text-primary-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                />
-              </svg>
-              {i.download.viewChangelog}
-            </a>
-          </div>
-        )
-      }
+      <div id="release-info" class="mt-2 flex flex-col items-center gap-4" style={releaseData.tag === "latest" ? "display: none;" : ""}>
+        <p class="text-sm text-surface-500">
+          {i.download.version}:{" "}
+          <span id="release-tag" class="font-mono font-semibold text-primary-500" data-repo={REPO}>
+            {releaseData.tag}
+          </span>
+        </p>
+        <a
+          id="changelog-link"
+          href={`https://github.com/${REPO}/releases/tag/${releaseData.tag}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold text-surface-700 dark:text-surface-300 bg-surface-100/50 dark:bg-surface-800/50 hover:bg-surface-200 dark:hover:bg-surface-700 border border-surface-200 dark:border-surface-700 transition-all duration-300 hover:-translate-y-0.5"
+        >
+          <svg
+            class="w-4 h-4 text-primary-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+            />
+          </svg>
+          {i.download.viewChangelog}
+        </a>
+      </div>
     </div>
 
     <!-- Download cards -->
@@ -178,13 +175,18 @@ const downloads = [
                 {dlData.description}
               </p>
 
-              {size && (
-                <p class="text-xs text-surface-500 mb-4 font-mono">{size}</p>
-              )}
+              <p
+                class="text-xs text-surface-500 mb-4 font-mono download-size-el"
+                data-pattern={dl.pattern}
+                style={size ? "" : "display: none;"}
+              >
+                {size}
+              </p>
 
               <a
                 href={url}
-                class={`inline-flex items-center justify-center gap-2 w-full px-6 py-3 text-sm font-semibold text-white bg-linear-to-r ${dl.gradient} rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 ring-1 ${dl.ring}`}
+                data-pattern={dl.pattern}
+                class={`download-link-el inline-flex items-center justify-center gap-2 w-full px-6 py-3 text-sm font-semibold text-white bg-linear-to-r ${dl.gradient} rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 ring-1 ${dl.ring}`}
               >
                 <svg
                   class="w-4 h-4"
@@ -244,3 +246,93 @@ const downloads = [
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    async function fetchLatestRelease() {
+      const releaseTagEl = document.getElementById("release-tag");
+      if (!releaseTagEl) return;
+
+      const repo = releaseTagEl.dataset.repo;
+      const CACHE_KEY = "hm_latest_release";
+      const CACHE_TTL = 3600000;
+
+      function updateUI(tag: string, assets: any[]) {
+        releaseTagEl!.textContent = tag;
+
+        const releaseInfoEl = document.getElementById("release-info");
+        if (releaseInfoEl) {
+          releaseInfoEl.style.display = "flex";
+        }
+
+        const changelogLinkEl = document.getElementById("changelog-link") as HTMLAnchorElement | null;
+        if (changelogLinkEl) {
+          changelogLinkEl.href = `https://github.com/${repo}/releases/tag/${tag}`;
+        }
+
+        const linkEls = document.querySelectorAll(".download-link-el") as NodeListOf<HTMLAnchorElement>;
+        linkEls.forEach((el) => {
+          const pattern = el.dataset.pattern;
+          if (!pattern) return;
+          const asset = assets.find((a: any) => a.name.includes(pattern));
+          if (asset && asset.url) {
+            el.href = asset.url;
+          } else {
+            el.href = `https://github.com/${repo}/releases/latest/download/huawei-manager-${pattern}.apk`;
+          }
+        });
+
+        const sizeEls = document.querySelectorAll(".download-size-el") as NodeListOf<HTMLParagraphElement>;
+        sizeEls.forEach((el) => {
+          const pattern = el.dataset.pattern;
+          if (!pattern) return;
+          const asset = assets.find((a: any) => a.name.includes(pattern));
+          if (asset && asset.size) {
+            const formattedSize = `${(asset.size / (1024 * 1024)).toFixed(0)} MB`;
+            el.textContent = formattedSize;
+            el.style.display = "block";
+          }
+        });
+      }
+
+      try {
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+          const { tag, assets, ts } = JSON.parse(cached);
+          if (Date.now() - ts < CACHE_TTL && tag) {
+            updateUI(tag, assets);
+            return;
+          }
+        }
+      } catch {}
+
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${repo}/releases/latest`,
+          { headers: { Accept: "application/vnd.github.v3+json" } }
+        );
+        if (!res.ok) return;
+
+        const data = await res.json();
+        const tag = data.tag_name;
+        const assets = (data.assets || []).map((a: any) => ({
+          name: a.name,
+          url: a.browser_download_url,
+          size: a.size,
+        }));
+
+        if (tag) {
+          updateUI(tag, assets);
+          try {
+            localStorage.setItem(
+              CACHE_KEY,
+              JSON.stringify({ tag, assets, ts: Date.now() })
+            );
+          } catch {}
+        }
+      } catch {}
+    }
+
+    fetchLatestRelease();
+  });
+</script>
