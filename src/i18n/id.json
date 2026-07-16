@@ -108,6 +108,11 @@
     "downloadBtn": "Unduh APK",
     "viewChangelog": "Lihat Catatan Rilis Terbaru",
     "version": "Versi Terbaru",
+    "latest": "Terbaru",
+    "preRelease": "Pre-release",
+    "preReleaseVersion": "Versi Pre-release",
+    "preReleaseWarning": "Ini adalah build pre-release dan mungkin tidak stabil.",
+    "noPreRelease": "Tidak ada pre-release tersedia",
     "installGuide": {
       "title": "Cara Install",
       "steps": [
@@ -187,7 +192,7 @@
     "deviceModel": "Nama Perangkat",
     "devicePlaceholder": "Contoh: Huawei B312 / Orbit Star 2",
     "contact": "Email / No. HP",
-    "contactPlaceholder": "email@anda.com atau 0812...",
+    "contactPlaceholder": "nama@email.com atau 0812...",
     "message": "Detail Masalah / Fitur",
     "messagePlaceholder": "Jelaskan secara detail di sini...",
     "screenshot": "Upload Screenshot (Opsional)",

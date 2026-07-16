@@ -3,8 +3,10 @@ import { Image } from "astro:assets";
 import type { Locale } from "../i18n/i18n";
 import { t } from "../i18n/i18n";
 
-import deviceRouter from "../assets/images/device-router.webp";
-import deviceMifi from "../assets/images/device-mifi.webp";
+import deviceRouterDark from "../assets/images/device-router-dark.png";
+import deviceRouterLight from "../assets/images/device-router-light.png";
+import deviceMifiDark from "../assets/images/device-mifi-dark.png";
+import deviceMifiLight from "../assets/images/device-mifi-light.png";
 
 interface Props {
   locale: Locale;
@@ -16,12 +18,14 @@ const i = t(locale);
 const deviceGroups = [
   {
     type: "router" as const,
-    image: deviceRouter,
+    imageDark: deviceRouterDark,
+    imageLight: deviceRouterLight,
     models: ["B310", "B311", "B312", "etc."],
   },
   {
     type: "mifi" as const,
-    image: deviceMifi,
+    imageDark: deviceMifiDark,
+    imageLight: deviceMifiLight,
     models: ["E5573", "E5577", "etc."],
   },
 ];
@@ -33,20 +37,16 @@ const deviceGroups = [
       class="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-surface-200 dark:via-surface-800 to-transparent"
     >
     </div>
-    <div
-      class="absolute bottom-1/3 left-0 w-96 h-96 bg-accent-500/5 rounded-full blur-3xl"
-    >
-    </div>
   </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center max-w-3xl mx-auto mb-16">
       <h2
-        class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight"
+        class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight"
       >
-        <span class="gradient-text">{i.devices.sectionTitle}</span>
+        {i.devices.sectionTitle}
       </h2>
-      <p class="mt-4 text-lg text-surface-600 dark:text-surface-400">
+      <p class="mt-4 text-lg text-surface-500 dark:text-surface-400">
         {i.devices.sectionDescription}
       </p>
     </div>
@@ -55,28 +55,37 @@ const deviceGroups = [
       {
         deviceGroups.map((group, gIdx) => (
           <div
-            class={`glass-card p-8 text-center hover:shadow-xl hover:shadow-primary-500/5 transition-all duration-500 hover:-translate-y-1 animate-fade-up stagger-${
+            class={`glass-card p-8 text-center hover:scale-[1.02] transition-all duration-300 animate-fade-up stagger-${
               gIdx + 1
             }`}
           >
             <div class="relative w-48 h-48 mx-auto mb-6">
-              <div class="absolute inset-0 bg-linear-to-br from-primary-500/10 to-accent-500/10 rounded-2xl blur-xl" />
+              <div class="absolute inset-0 bg-primary-500/5 dark:bg-accent-500/5 rounded-2xl blur-xl" />
               <Image
-                src={group.image}
-                alt={`${i.devices[group.type]} - Huawei LTE Modem`}
-                class="relative w-full h-full object-contain drop-shadow-lg rounded-xl"
+                src={group.imageDark}
+                alt={`${i.devices[group.type]} - Huawei LTE Modem (Dark)`}
+                class="relative w-full h-full object-contain drop-shadow-lg rounded-xl hidden dark:block"
+                format="avif"
+                width={192}
+                quality={80}
+                loading="lazy"
+              />
+              <Image
+                src={group.imageLight}
+                alt={`${i.devices[group.type]} - Huawei LTE Modem (Light)`}
+                class="relative w-full h-full object-contain drop-shadow-lg rounded-xl block dark:hidden"
                 format="avif"
                 width={192}
                 quality={80}
                 loading="lazy"
               />
             </div>
-            <h3 class="text-lg font-bold text-surface-900 dark:text-white mb-2">
+            <h3 class="text-lg font-semibold text-surface-950 dark:text-surface-50 mb-2">
               {i.devices[group.type]}
             </h3>
             <div class="flex flex-wrap justify-center gap-2 mt-4">
               {group.models.map((model) => (
-                <span class="px-3 py-1.5 text-sm font-semibold rounded-lg bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 border border-surface-200/50 dark:border-surface-700/50">
+                <span class="px-3 py-1.5 text-sm font-medium rounded-full bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400">
                   {model}
                 </span>
               ))}
@@ -87,17 +96,17 @@ const deviceGroups = [
     </div>
 
     <p
-      class="text-center mt-8 text-sm text-surface-500 dark:text-surface-400 italic"
+      class="text-center mt-8 text-sm text-surface-400 dark:text-surface-500"
     >
       {i.devices.andMore}
     </p>
 
     <div class="mt-8 text-center">
       <div
-        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/10 dark:bg-primary-500/15 border border-primary-500/20"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/10 dark:bg-accent-500/10"
       >
         <svg
-          class="w-4 h-4 text-primary-500"
+          class="w-4 h-4 text-primary-500 dark:text-accent-500"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -108,7 +117,7 @@ const deviceGroups = [
             stroke-linejoin="round"
             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
-        <span class="text-sm font-medium text-primary-600 dark:text-primary-400"
+        <span class="text-sm font-medium text-primary-600 dark:text-accent-500"
           >{i.devices.testedOn}
         </span>
       </div>

@@ -108,6 +108,11 @@
     "downloadBtn": "Download APK",
     "viewChangelog": "View Latest Release Notes",
     "version": "Latest Version",
+    "latest": "Latest",
+    "preRelease": "Pre-release",
+    "preReleaseVersion": "Pre-release Version",
+    "preReleaseWarning": "This is a pre-release build and may be unstable.",
+    "noPreRelease": "No pre-release available",
     "installGuide": {
       "title": "How to Install",
       "steps": [
@@ -183,7 +188,7 @@
     "deviceModel": "Device Model",
     "devicePlaceholder": "Ex: Huawei B312 / Orbit Star 2",
     "contact": "Email / Phone",
-    "contactPlaceholder": "email@example.com or +62...",
+    "contactPlaceholder": "email@example.com or +628...",
     "message": "Problem / Feature Details",
     "messagePlaceholder": "Describe in detail here...",
     "screenshot": "Upload Screenshot (Optional)",

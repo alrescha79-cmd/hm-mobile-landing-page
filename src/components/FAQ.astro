@@ -12,22 +12,14 @@ const faq = i.faq;
 ---
 
 <section id="faq" class="py-20 sm:py-32 relative overflow-hidden">
-    <!-- Dynamic Background Decoration -->
-    <div class="absolute inset-0 -z-10">
-        <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-500/5 rounded-full blur-[120px] opacity-50"
-        >
-        </div>
-    </div>
-
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16 animate-fade-up">
             <h2
-                class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight"
+                class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight"
             >
-                <span class="gradient-text">{faq.sectionTitle}</span>
+                {faq.sectionTitle}
             </h2>
-            <p class="mt-4 text-lg text-surface-600 dark:text-surface-400">
+            <p class="mt-4 text-lg text-surface-500 dark:text-surface-400">
                 {faq.sectionDescription}
             </p>
         </div>
@@ -37,14 +29,14 @@ const faq = i.faq;
                 faq.questions.map((item, index) => (
                     <details
                         name="faq"
-                        class="group glass-card border-surface-200/50 dark:border-surface-700/50 transition-all duration-300 animate-fade-up hover:border-primary-500/30"
+                        class="group glass-card transition-all duration-300 animate-fade-up hover:border-primary-500/30 dark:hover:border-accent-500/30"
                         style={`animation-delay: ${index * 100}ms`}
                     >
                         <summary class="flex items-center justify-between p-6 cursor-pointer list-none focus:outline-none">
-                            <h3 class="text-lg font-semibold text-surface-900 dark:text-white group-open:text-primary-500 transition-colors duration-300 pr-8">
+                            <h3 class="text-lg font-medium text-surface-950 dark:text-surface-50 group-open:text-primary-500 dark:group-open:text-accent-500 transition-colors duration-300 pr-8">
                                 {item.q}
                             </h3>
-                            <div class="relative shrink-0 w-6 h-6 text-surface-400 group-open:text-primary-500 transition-colors duration-300">
+                            <div class="relative shrink-0 w-6 h-6 text-surface-400 group-open:text-primary-500 dark:group-open:text-accent-500 transition-colors duration-300">
                                 <svg
                                     class="absolute inset-0 w-6 h-6 transform transition-transform duration-300 group-open:rotate-180"
                                     fill="none"
@@ -61,8 +53,8 @@ const faq = i.faq;
                             </div>
                         </summary>
                         <div class="px-6 pb-6 pt-0">
-                            <div class="h-px bg-surface-200/50 dark:bg-surface-700/50 mb-4" />
-                            <p class="text-surface-600 dark:text-surface-400 leading-relaxed">
+                            <div class="h-px bg-surface-200/60 dark:bg-surface-700/40 mb-4" />
+                            <p class="text-surface-500 dark:text-surface-400 leading-relaxed">
                                 {item.a}
                             </p>
                         </div>
