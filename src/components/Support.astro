@@ -12,21 +12,14 @@ const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_KEY;
 ---
 
 <section id="support" class="py-20 sm:py-32 relative overflow-hidden">
-    <div class="absolute inset-0 -z-10">
-        <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-500/5 rounded-full blur-[100px] opacity-50"
-        >
-        </div>
-    </div>
-
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12 animate-fade-up">
             <h2
-                class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight"
+                class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight"
             >
-                <span class="gradient-text">{i.support.sectionTitle}</span>
+                {i.support.sectionTitle}
             </h2>
-            <p class="mt-4 text-lg text-surface-600 dark:text-surface-400">
+            <p class="mt-4 text-lg text-surface-500 dark:text-surface-400">
                 {i.support.sectionDescription}
             </p>
         </div>
@@ -56,37 +49,39 @@ const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_KEY;
                     value="New Bug Report - HM Mobile"
                 />
 
-                <!-- Form Type Toggle -->
-                <div
-                    class="flex p-1 bg-surface-100 dark:bg-surface-800 rounded-xl max-w-sm mx-auto mb-8"
-                >
-                    <button
-                        type="button"
-                        id="type-bug"
-                        class="flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-all duration-300 bg-white dark:bg-surface-700 shadow-sm text-primary-500"
+                <!-- Form Type Toggle — Apple segmented control -->
+                <div class="text-center mb-8">
+                    <div
+                        class="inline-flex p-1 bg-surface-100 dark:bg-surface-800 rounded-full"
                     >
-                        {i.support.bugReport}
-                    </button>
-                    <button
-                        type="button"
-                        id="type-feature"
-                        class="flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-all duration-300 text-surface-500 hover:text-surface-900 dark:hover:text-white"
-                    >
-                        {i.support.featureRequest}
-                    </button>
-                    <input
-                        type="hidden"
-                        name="type"
-                        id="support-type"
-                        value="Bug Report"
-                    />
+                        <button
+                            type="button"
+                            id="type-bug"
+                            class="px-5 py-2 text-sm font-medium rounded-full transition-all duration-300 bg-surface-50 dark:bg-surface-700 shadow-sm text-primary-500 dark:text-accent-500"
+                        >
+                            {i.support.bugReport}
+                        </button>
+                        <button
+                            type="button"
+                            id="type-feature"
+                            class="px-5 py-2 text-sm font-medium rounded-full transition-all duration-300 text-surface-500 hover:text-surface-950 dark:hover:text-surface-50"
+                        >
+                            {i.support.featureRequest}
+                        </button>
+                    </div>
                 </div>
+                <input
+                    type="hidden"
+                    name="type"
+                    id="support-type"
+                    value="Bug Report"
+                />
 
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label
                             for="device"
-                            class="block text-sm font-semibold text-surface-700 dark:text-surface-300"
+                            class="block text-sm font-medium text-surface-700 dark:text-surface-300"
                         >
                             {i.support.deviceModel}
                         </label>
@@ -96,13 +91,13 @@ const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_KEY;
                             id="device"
                             required
                             placeholder={i.support.devicePlaceholder}
-                            class="w-full px-4 py-3 rounded-xl bg-surface-50 dark:bg-surface-900 border border-surface-200 dark:border-surface-800 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all outline-none"
+                            class="w-full px-4 py-3 rounded-xl bg-surface-100 dark:bg-surface-900 border border-transparent focus:ring-2 focus:ring-primary-500 dark:focus:ring-accent-500 focus:border-transparent transition-all outline-none"
                         />
                     </div>
                     <div class="space-y-2">
                         <label
                             for="contact"
-                            class="block text-sm font-semibold text-surface-700 dark:text-surface-300"
+                            class="block text-sm font-medium text-surface-700 dark:text-surface-300"
                         >
                             {i.support.contact}
                         </label>
@@ -112,7 +107,7 @@ const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_KEY;
                             id="contact"
                             required
                             placeholder={i.support.contactPlaceholder}
-                            class="w-full px-4 py-3 rounded-xl bg-surface-50 dark:bg-surface-900 border border-surface-200 dark:border-surface-800 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all outline-none"
+                            class="w-full px-4 py-3 rounded-xl bg-surface-100 dark:bg-surface-900 border border-transparent focus:ring-2 focus:ring-primary-500 dark:focus:ring-accent-500 focus:border-transparent transition-all outline-none"
                         />
                     </div>
                 </div>
@@ -120,7 +115,7 @@ const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_KEY;
                 <div class="space-y-2">
                     <label
                         for="message"
-                        class="block text-sm font-semibold text-surface-700 dark:text-surface-300"
+                        class="block text-sm font-medium text-surface-700 dark:text-surface-300"
                     >
                         {i.support.message}
                     </label>
@@ -130,28 +125,16 @@ const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_KEY;
                         rows="4"
                         required
                         placeholder={i.support.messagePlaceholder}
-                        class="w-full px-4 py-3 rounded-xl bg-surface-50 dark:bg-surface-900 border border-surface-200 dark:border-surface-800 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all outline-none resize-none"
+                        class="w-full px-4 py-3 rounded-xl bg-surface-100 dark:bg-surface-900 border border-transparent focus:ring-2 focus:ring-primary-500 dark:focus:ring-accent-500 focus:border-transparent transition-all outline-none resize-none"
                     ></textarea>
                 </div>
 
                 <button
                     type="submit"
                     id="submit-btn"
-                    class="w-full py-4 px-6 text-white font-bold bg-linear-to-r from-primary-500 to-accent-500 rounded-2xl shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
+                    class="w-full py-4 px-6 text-white font-medium bg-primary-500 hover:bg-primary-600 dark:bg-accent-500 dark:hover:bg-accent-600 rounded-full transition-all duration-300 flex items-center justify-center gap-2"
                 >
                     <span>{i.support.submit}</span>
-                    <svg
-                        class="w-5 h-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
-                    </svg>
                 </button>
 
                 <div
@@ -177,41 +160,23 @@ const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_KEY;
         const formSubject = document.getElementById("form-subject");
 
         // Toggle Type Logic
+        const activeClasses = ["bg-surface-50", "dark:bg-surface-700", "shadow-sm", "text-primary-500", "dark:text-accent-500"];
+        const inactiveClasses = ["text-surface-500", "hover:text-surface-950", "dark:hover:text-surface-50"];
 
         typeBug?.addEventListener("click", () => {
-            typeBug.classList.add(
-                "bg-white",
-                "dark:bg-surface-700",
-                "shadow-sm",
-                "text-primary-500"
-            );
-            typeBug.classList.remove("text-surface-500");
-            typeFeature.classList.remove(
-                "bg-white",
-                "dark:bg-surface-700",
-                "shadow-sm",
-                "text-primary-500"
-            );
-            typeFeature.classList.add("text-surface-500");
+            typeBug.classList.add(...activeClasses);
+            typeBug.classList.remove(...inactiveClasses);
+            typeFeature.classList.remove(...activeClasses);
+            typeFeature.classList.add(...inactiveClasses);
             supportType.value = "Bug Report";
             formSubject.value = "New Bug Report - HM Mobile";
         });
 
         typeFeature?.addEventListener("click", () => {
-            typeFeature.classList.add(
-                "bg-white",
-                "dark:bg-surface-700",
-                "shadow-sm",
-                "text-primary-500"
-            );
-            typeFeature.classList.remove("text-surface-500");
-            typeBug.classList.remove(
-                "bg-white",
-                "dark:bg-surface-700",
-                "shadow-sm",
-                "text-primary-500"
-            );
-            typeBug.classList.add("text-surface-500");
+            typeFeature.classList.add(...activeClasses);
+            typeFeature.classList.remove(...inactiveClasses);
+            typeBug.classList.remove(...activeClasses);
+            typeBug.classList.add(...inactiveClasses);
             supportType.value = "Feature Request";
             formSubject.value = "New Feature Request - HM Mobile";
         });
