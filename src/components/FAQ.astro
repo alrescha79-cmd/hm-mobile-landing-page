@@ -11,9 +11,9 @@ const i = t(locale);
 const faq = i.faq;
 ---
 
-<section id="faq" class="py-20 sm:py-32 relative overflow-hidden">
+<section id="faq" class="py-20 sm:py-32 relative overflow-hidden section-glow">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16 animate-fade-up">
+        <div class="reveal text-center mb-16">
             <h2
                 class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight"
             >
@@ -24,13 +24,12 @@ const faq = i.faq;
             </p>
         </div>
 
-        <div class="space-y-4">
+        <div class="reveal-group space-y-4">
             {
                 faq.questions.map((item, index) => (
                     <details
                         name="faq"
-                        class="group glass-card transition-all duration-300 animate-fade-up hover:border-primary-500/30 dark:hover:border-accent-500/30"
-                        style={`animation-delay: ${index * 100}ms`}
+                        class="group glass-card transition-all duration-300 hover:border-primary-500/30 dark:hover:border-accent-500/30"
                     >
                         <summary class="flex items-center justify-between p-6 cursor-pointer list-none focus:outline-none">
                             <h3 class="text-lg font-medium text-surface-950 dark:text-surface-50 group-open:text-primary-500 dark:group-open:text-accent-500 transition-colors duration-300 pr-8">

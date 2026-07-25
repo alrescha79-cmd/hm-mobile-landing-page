@@ -31,7 +31,7 @@ const deviceGroups = [
 ];
 ---
 
-<section id="devices" class="py-20 sm:py-32 relative">
+<section id="devices" class="py-20 sm:py-32 relative section-glow">
   <div class="absolute inset-0 -z-10">
     <div
       class="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-surface-200 dark:via-surface-800 to-transparent"
@@ -40,7 +40,7 @@ const deviceGroups = [
   </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-3xl mx-auto mb-16">
+    <div class="reveal text-center max-w-3xl mx-auto mb-16">
       <h2
         class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight"
       >
@@ -51,20 +51,18 @@ const deviceGroups = [
       </p>
     </div>
 
-    <div class="grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
+    <div class="reveal-group grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
       {
         deviceGroups.map((group, gIdx) => (
           <div
-            class={`glass-card p-8 text-center hover:scale-[1.02] transition-all duration-300 animate-fade-up stagger-${
-              gIdx + 1
-            }`}
+            class="glass-card p-8 text-center group"
           >
             <div class="relative w-48 h-48 mx-auto mb-6">
               <div class="absolute inset-0 bg-primary-500/5 dark:bg-accent-500/5 rounded-2xl blur-xl" />
               <Image
                 src={group.imageDark}
                 alt={`${i.devices[group.type]} - Huawei LTE Modem (Dark)`}
-                class="relative w-full h-full object-contain drop-shadow-lg rounded-xl hidden dark:block"
+                class="relative w-full h-full object-contain drop-shadow-lg rounded-xl hidden dark:block transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-1"
                 format="avif"
                 width={192}
                 quality={80}
@@ -73,7 +71,7 @@ const deviceGroups = [
               <Image
                 src={group.imageLight}
                 alt={`${i.devices[group.type]} - Huawei LTE Modem (Light)`}
-                class="relative w-full h-full object-contain drop-shadow-lg rounded-xl block dark:hidden"
+                class="relative w-full h-full object-contain drop-shadow-lg rounded-xl block dark:hidden transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-1"
                 format="avif"
                 width={192}
                 quality={80}
@@ -96,14 +94,14 @@ const deviceGroups = [
     </div>
 
     <p
-      class="text-center mt-8 text-sm text-surface-400 dark:text-surface-500"
+      class="reveal text-center mt-8 text-sm text-surface-400 dark:text-surface-500"
     >
       {i.devices.andMore}
     </p>
 
-    <div class="mt-8 text-center">
+    <div class="reveal mt-8 text-center">
       <div
-        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/10 dark:bg-accent-500/10"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/10 dark:bg-accent-500/10 transition-all duration-300 hover:bg-primary-500/15 dark:hover:bg-accent-500/15 hover:scale-[1.02]"
       >
         <svg
           class="w-4 h-4 text-primary-500 dark:text-accent-500"

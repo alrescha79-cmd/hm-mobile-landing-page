@@ -61,7 +61,7 @@ const features = [
 ];
 ---
 
-<section id="features" class="py-20 sm:py-32 relative">
+<section id="features" class="py-20 sm:py-32 relative section-glow">
   <div class="absolute inset-0 -z-10">
     <div
       class="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-surface-200 dark:via-surface-800 to-transparent"
@@ -71,7 +71,7 @@ const features = [
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section header -->
-    <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+    <div class="reveal text-center max-w-3xl mx-auto mb-16 sm:mb-20">
       <h2
         class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight"
       >
@@ -83,7 +83,7 @@ const features = [
     </div>
 
     <!-- Features grid -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="reveal-group grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {
         features.map((feature, idx) => {
           const featureData = i.features[
@@ -91,12 +91,10 @@ const features = [
           ] as { title: string; description: string };
           return (
             <div
-              class={`group glass-card p-6 hover:scale-[1.02] transition-all duration-300 animate-fade-up stagger-${
-                idx + 1
-              }`}
+              class="glass-card p-6 group"
             >
               <div
-                class={`w-12 h-12 rounded-xl ${feature.bgColor} flex items-center justify-center mb-4 ${feature.iconColor} transition-transform group-hover:scale-110`}
+                class={`w-12 h-12 rounded-xl ${feature.bgColor} flex items-center justify-center mb-4 ${feature.iconColor} transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}
               >
                 <Fragment set:html={feature.icon} />
               </div>
