@@ -17,7 +17,8 @@ export function getLocaleFromUrl(url: URL): Locale {
     return 'en';
 }
 
-export function getLocalizedPath(locale: Locale, hash?: string): string {
-    const base = locale === 'en' ? '/' : '/id/';
-    return hash ? `${base}#${hash}` : base;
+export function getLocalizedPath(locale: Locale, path?: string, hash?: string): string {
+    const prefix = locale === 'en' ? '' : '/id';
+    const basePath = path ? `${prefix}/${path}` : prefix || '/';
+    return hash ? `${basePath}#${hash}` : basePath;
 }

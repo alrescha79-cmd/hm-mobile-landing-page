@@ -17,14 +17,15 @@ const i = t(locale);
   id="hero"
   class="relative min-h-screen flex items-center justify-center pt-16 md:pt-12 overflow-hidden"
 >
-  <!-- Background decoration — subtle Apple-style -->
-  <div class="absolute inset-0 -z-10">
+  <!-- Background decoration — animated blobs -->
+  <div class="absolute inset-0 -z-10 overflow-hidden">
     <div
-      class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/5 dark:bg-accent-500/5 rounded-full blur-3xl"
+      class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/5 dark:bg-accent-500/5 rounded-full blur-3xl animate-pulse-glow"
     >
     </div>
     <div
-      class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-500/5 dark:bg-accent-500/5 rounded-full blur-3xl"
+      class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-500/5 dark:bg-accent-500/5 rounded-full blur-3xl animate-pulse-glow"
+      style="animation-delay: 2s;"
     >
     </div>
   </div>
@@ -35,9 +36,9 @@ const i = t(locale);
       <div class="text-center lg:text-left">
         <div class="animate-fade-up">
           <span
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-primary-500/10 dark:bg-accent-500/10 text-primary-600 dark:text-accent-500 mb-6"
+            class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-primary-500/10 dark:bg-accent-500/10 text-primary-600 dark:text-accent-500 mb-6 animate-float"
           >
-            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
             {i.hero.badge}
           </span>
         </div>
@@ -73,7 +74,7 @@ const i = t(locale);
         >
           <a
             href="#download"
-            class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-medium text-white bg-primary-500 hover:bg-primary-600 dark:bg-accent-500 dark:hover:bg-accent-600 rounded-full transition-all duration-300 hover:scale-[1.02]"
+            class="btn-primary inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-medium text-white bg-primary-500 hover:bg-primary-600 dark:bg-accent-500 dark:hover:bg-accent-600 rounded-full transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary-500/25 dark:hover:shadow-accent-500/25"
           >
             <svg
               class="w-5 h-5"
@@ -153,7 +154,7 @@ const i = t(locale);
       <div
         class="animate-fade-up stagger-3 relative flex justify-center lg:justify-end"
       >
-        <div class="relative">
+        <div class="relative animate-float-slow">
           <!-- Subtle glow behind phone -->
           <div
             class="absolute -inset-4 bg-primary-500/10 dark:bg-accent-500/10 rounded-3xl blur-2xl"

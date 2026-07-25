@@ -36,13 +36,13 @@ const screenshots = [
 ];
 ---
 
-<section id="showcase" class="py-20 sm:py-32 relative overflow-hidden">
+<section id="showcase" class="py-20 sm:py-32 relative overflow-hidden section-glow">
   <div class="absolute inset-0 -z-10">
     <div class="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-surface-200 dark:via-surface-800 to-transparent"></div>
   </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+    <div class="reveal text-center max-w-3xl mx-auto mb-16 sm:mb-20">
       <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
         {i.showcase.sectionTitle}
       </h2>
@@ -51,11 +51,11 @@ const screenshots = [
       </p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+    <div class="reveal-group grid md:grid-cols-3 gap-8 lg:gap-12">
       {screenshots.map((item, idx) => {
         const data = i.showcase[item.key] as { title: string; description: string };
         return (
-          <div class={`group animate-fade-up stagger-${idx + 1}`}>
+          <div class="group">
             <!-- Phone mockup -->
             <div class="relative mx-auto w-56 sm:w-64 mb-6">
               <div class="absolute -inset-3 bg-primary-500/5 dark:bg-accent-500/5 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

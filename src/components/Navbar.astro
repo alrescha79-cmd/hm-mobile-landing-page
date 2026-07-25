@@ -9,6 +9,9 @@ interface Props {
 const { locale } = Astro.props;
 const i = t(locale);
 const altLocale = locale === "en" ? "id" : "en";
+const currentPath = Astro.url.pathname;
+const isNoticePage = currentPath.includes("/notice");
+const noticePath = isNoticePage ? "notice" : undefined;
 ---
 
 <!-- Desktop/Tablet Top Navbar -->
@@ -88,9 +91,9 @@ const altLocale = locale === "en" ? "id" : "en";
       <div class="flex items-center gap-2">
         <!-- Language Switcher -->
         <a
-          href={getLocalizedPath(altLocale)}
+          href={getLocalizedPath(altLocale, noticePath)}
           class="lang-toggle group"
-          data-base-href={getLocalizedPath(altLocale)}
+          data-base-href={getLocalizedPath(altLocale, noticePath)}
           aria-label={locale === "en" ? "Switch language to Indonesian" : "Ubah bahasa ke Bahasa Inggris"}
         >
           <span
@@ -287,9 +290,9 @@ const altLocale = locale === "en" ? "id" : "en";
     <!-- Language & Theme (same style as desktop) -->
     <div class="flex items-center gap-2">
       <a
-        href={getLocalizedPath(altLocale)}
+        href={getLocalizedPath(altLocale, noticePath)}
         class="lang-toggle group"
-        data-base-href={getLocalizedPath(altLocale)}
+        data-base-href={getLocalizedPath(altLocale, noticePath)}
         aria-label={locale === "en" ? "Switch language to Indonesian" : "Ubah bahasa ke Bahasa Inggris"}
       >
         <span

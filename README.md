@@ -1,43 +1,59 @@
-# Astro Starter Kit: Minimal
+<div align="center">
 
-```sh
-npm create astro@latest -- --template minimal
+# Huawei Manager Mobile - Landing Page
+
+**The official landing page for the Huawei Manager Mobile Android application.**
+
+[![Astro](https://img.shields.io/badge/Astro-v4.10-FF5D01?logo=astro&logoColor=white)](https://astro.build)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3.4-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![Vercel](https://img.shields.io/badge/Hosted_on-Vercel-black?logo=vercel&logoColor=white)](https://vercel.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+</div>
+
+This repository contains the source code for the official landing page of **Huawei Manager Mobile (HM Mobile)**, a modern, fast, and responsive website built with [Astro](https://astro.build) and styled with [Tailwind CSS](https://tailwindcss.com).
+
+The landing page serves as the primary information and download hub for the HM Mobile Android application, providing users with feature overviews, download links, and support channels.
+
+## ✨ Key Features
+
+-   **Blazing Fast Performance**: Built with Astro for a static, server-rendered site with zero client-side JavaScript by default.
+-   **Responsive Design**: A mobile-first approach ensures a seamless experience on all devices, from desktops to smartphones.
+-   **Dark/Light Mode**: Automatic theme switching based on system preference, with a manual toggle for user control.
+-   **i18n Support**: Fully localized in English and Indonesian (`en`/`id`).
+-   **Dynamic Downloads**: Fetches the latest and pre-release versions directly from the GitHub Releases API.
+-   **SEO Optimized**: Comprehensive meta tags, Open Graph, Twitter Cards, and structured data (JSON-LD) for maximum visibility.
+-   **PWA-Ready**: Includes a service worker and manifest for a native-like experience.
+
+## 🛠️ Tech Stack
+
+-   **Framework**: [Astro](https://astro.build)
+-   **Styling**: [Tailwind CSS](https://tailwindcss.com)
+-   **Hosting**: [Vercel](https://vercel.com)
+-   **Package Manager**: [npm](https://www.npmjs.com/)
+
+## 📁 Project Structure
+
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
 /
-├── public/
+├── public/              # Static assets (favicon, robots.txt)
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── assets/          # Images and other assets processed by Astro
+│   ├── components/      # Reusable Astro components (.astro)
+│   ├── i18n/            # Internationalization (en.json, id.json)
+│   ├── layouts/         # Base layout component
+│   ├── pages/           # Astro pages and routes
+│   └── styles/          # Global CSS and Tailwind styles
+├── astro.config.mjs     # Astro configuration
+├── package.json         # Project dependencies
+└── tsconfig.json        # TypeScript configuration
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🤝 Contributing
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Contributions are welcome! If you have suggestions for improvements or find any issues, please open an issue or submit a pull request.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 📄 License
 
-## 🧞 Commands
+This project is licensed under the **MIT License**. See the [LICENSE](https://github.com/alrescha79-cmd/lp-hm/blob/main/LICENSE) file for details.
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

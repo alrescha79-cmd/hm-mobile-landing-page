@@ -55,9 +55,23 @@ body.lang-switching {
   pointer-events: none;
 }
 
-/* Apple frosted glass card */
+/* Apple frosted glass card — enhanced hover */
 .glass-card {
   @apply bg-surface-50/80 dark:bg-surface-800/60 backdrop-blur-xl border border-surface-200/60 dark:border-surface-700/40 rounded-2xl;
+  transition: transform var(--dur-normal) var(--ease-out-expo),
+              box-shadow var(--dur-normal) var(--ease-out-expo),
+              border-color var(--dur-normal) var(--ease-out-expo);
+}
+.glass-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08),
+              0 4px 12px -2px rgba(0, 0, 0, 0.04);
+  border-color: oklch(0.7 0.05 250 / 0.3);
+}
+.dark .glass-card:hover {
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4),
+              0 4px 12px -2px rgba(0, 0, 0, 0.2);
+  border-color: oklch(0.6 0.08 250 / 0.25);
 }
 
 /* Apple accent text (no gradients — solid color) */
@@ -65,8 +79,84 @@ body.lang-switching {
   @apply text-primary-500 dark:text-accent-500;
 }
 
+/* ── Animation tokens ── */
+--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+--ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+--ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+--dur-fast: 0.2s;
+--dur-normal: 0.4s;
+--dur-slow: 0.8s;
+--dur-reveal: 0.7s;
+
+/* ── Scroll-reveal system ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity var(--dur-reveal) var(--ease-out-expo),
+              transform var(--dur-reveal) var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Directional variants */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity var(--dur-reveal) var(--ease-out-expo),
+              transform var(--dur-reveal) var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity var(--dur-reveal) var(--ease-out-expo),
+              transform var(--dur-reveal) var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity var(--dur-reveal) var(--ease-out-expo),
+              transform var(--dur-reveal) var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger children inside a reveal group */
+.reveal-group > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur-slow) var(--ease-out-expo),
+              transform var(--dur-slow) var(--ease-out-expo);
+}
+.reveal-group.revealed > *:nth-child(1) { transition-delay: 0.00s; opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(2) { transition-delay: 0.06s; opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(3) { transition-delay: 0.12s; opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(4) { transition-delay: 0.18s; opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(5) { transition-delay: 0.24s; opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(6) { transition-delay: 0.30s; opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(7) { transition-delay: 0.36s; opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(8) { transition-delay: 0.42s; opacity: 1; transform: translateY(0); }
+
+/* ── Legacy fade-up (kept for SSR no-JS fallback) ── */
 .animate-fade-up {
-  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fadeUp var(--dur-slow) var(--ease-out-expo) both;
 }
 
 @keyframes fadeUp {
@@ -89,19 +179,73 @@ body.lang-switching {
 .stagger-7 { animation-delay: 0.56s; }
 .stagger-8 { animation-delay: 0.64s; }
 
-/* Nav link styles — Apple minimal */
+/* ── Floating / pulse keyframes ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-12px) scale(1.02); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-float { animation: float 5s ease-in-out infinite; }
+.animate-float-slow { animation: floatSlow 7s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+
+/* Nav link styles — Apple minimal, enhanced pill morph */
 .nav-link {
-  @apply relative px-3 py-2 text-sm font-medium text-surface-500 dark:text-surface-400 no-underline rounded-full transition-all duration-300;
+  @apply relative px-3 py-2 text-sm font-medium text-surface-500 dark:text-surface-400 no-underline rounded-full;
+  transition: color var(--dur-fast) ease, background-color var(--dur-fast) ease;
 }
 .nav-link:hover {
   @apply text-surface-950 dark:text-surface-50 bg-surface-100 dark:bg-surface-800;
 }
 .nav-link::after {
   content: '';
-  @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary-500 dark:bg-accent-500 rounded-full transition-all duration-300;
+  @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary-500 dark:bg-accent-500 rounded-full;
+  transition: width var(--dur-normal) var(--ease-out-expo);
 }
 .nav-link:hover::after {
   @apply w-0;
+}
+
+/* Primary CTA button — shimmer on hover */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 75%
+  );
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  transition: background-position 0.6s var(--ease-out-expo);
+  pointer-events: none;
+  z-index: 1;
+}
+.btn-primary:hover::after {
+  background-position: -200% 0;
 }
 
 .nav-scrolled {
@@ -174,10 +318,54 @@ body.lang-switching {
   @apply text-primary-500 dark:text-accent-500;
 }
 
-/* Footer link — Apple minimal */
+/* Footer link — Apple minimal, slide underline */
 .footer-link {
-  @apply flex items-center gap-2.5 text-sm text-surface-500 dark:text-surface-400 no-underline transition-all duration-300;
+  @apply flex items-center gap-2.5 text-sm text-surface-500 dark:text-surface-400 no-underline;
+  transition: color var(--dur-fast) ease, transform var(--dur-fast) ease;
 }
 .footer-link:hover {
   @apply text-primary-500 dark:text-accent-500;
+  transform: translateX(4px);
+}
+
+/* Section divider glow on scroll */
+.section-glow {
+  position: relative;
+}
+.section-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-primary-500, #0071e3), transparent);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.section-glow.revealed::before {
+  opacity: 0.5;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right, .reveal-scale,
+  .reveal-group > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-float, .animate-float-slow, .animate-pulse-glow {
+    animation: none;
+  }
+  .glass-card:hover {
+    transform: none;
+  }
+  .footer-link:hover {
+    transform: none;
+  }
+  .btn-primary::after {
+    display: none;
+  }
 }
