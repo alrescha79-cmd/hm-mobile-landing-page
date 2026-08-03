@@ -148,10 +148,19 @@ const jsonLd: object[] = [
         navigated = true;
       });
       document.addEventListener('astro:page-load', () => {
+        // #support (hardcoded by the app for bug/feature reports) → #feedback
+        if (location.hash === '#support') {
+          history.replaceState(null, '', '#feedback');
+          navigated = false;
+          const fb = document.getElementById('feedback');
+          if (fb) fb.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+
         const preserved = window.__hmPreserveScroll || 0;
         window.__hmPreserveScroll = 0;
         if (preserved > 0) { window.scrollTo({ top: preserved, behavior: 'instant' }); return; }
-        if (!navigated) return; // initial load / reload → browser default
+        if (!navigated && !location.hash) return; // initial load without hash → browser default
         navigated = false;
         if (location.hash) {
           const el = document.getElementById(location.hash.slice(1));
@@ -162,9 +171,6 @@ const jsonLd: object[] = [
       });
     </script>
     <script is:inline data-astro-rerun>
-      // #support → #feedback redirect
-      if (location.hash === '#support') { history.replaceState(null, '', '#feedback'); }
-
       // Scroll reveal animation
       if (!window.__revealInit) {
         window.__revealInit = true;

@@ -13,11 +13,17 @@
         : accept.startsWith('id') || accept.startsWith('ms')
           ? 'id'
           : 'en';
-      location.replace(`/${lang}/`);
+      location.replace(`/${lang}/${location.search}${location.hash}`);
     </script>
     <noscript><meta http-equiv="refresh" content="0;url=/en/" /></noscript>
   </head>
   <body>
-    <p><a href="/en/">Huawei Manager Mobile →</a></p>
+    <style>
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #fafafa; }
+      .loader { width: 28px; height: 28px; border-radius: 50%; border: 3px solid #2563EB33; border-top-color: #2563EB; animation: spin 0.7s linear infinite; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+    <div class="loader" role="status" aria-label="Loading"></div>
+    <noscript><p><a href="/en/">Huawei Manager Mobile →</a></p></noscript>
   </body>
 </html>

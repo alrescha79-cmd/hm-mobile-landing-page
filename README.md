@@ -1,15 +1,14 @@
 # hm-landing
 
-Landing page for **Huawei Manager Mobile** — Astro 5 + Tailwind 4, mobile-first, EN/ID, hosted on Vercel (`hm.cakson.my.id`).
+Landing page for **Huawei Manager Mobile** — an Android app that manages Huawei LTE modems. Static site built with Astro 5 + Tailwind 4, mobile-first, bilingual (EN/ID), deployed to Vercel at `hm.cakson.my.id`.
 
-## Commands
+## Overview
 
-| Command | Action |
-| --- | --- |
-| `npm install` | Install deps |
-| `npm run dev` | Dev server `localhost:4321` |
-| `npm run build` | Build to `dist/` (SSG) |
-| `npm run preview` | Preview built site |
+- **SSG**: Astro 5 outputs a fully static `dist/`; one serverless function `/api/releases` feeds live GitHub release data.
+- **Live data**: stats, versions, APK download links, and release notes are fetched live from the GitHub API — no committed snapshot.
+- **i18n**: `en` + `id`, default prefixed. Copy in `src/i18n/{en,id}.json` with `en` as fallback.
+- **Design**: Hallmark Cobalt — cool-white paper, electric-blue accent, Space Grotesk + Inter + JetBrains Mono. Floating pill nav on desktop, macOS-style magnifying dock on mobile.
+- **Feedback form**: Web3Forms via `PUBLIC_WEB3FORMS_KEY`; the app deep-links to `hm.cakson.my.id/#support`, which redirects to the feedback section.
 
 ## Structure
 
@@ -18,26 +17,17 @@ src/
   components/   Hero · Stats · Preview · Features · HowItWorks · ModemSupport · Download · FAQ · Feedback · Navbar · Footer
   data/         modems.ts · site.ts · types.ts (Release, ReleasesCache)
   i18n/         en.json · id.json · index.ts (t() lookup with EN fallback)
-  layouts/      Base.astro (SEO, JSON-LD, hreflang, OG)
+  layouts/      Base.astro (SEO, JSON-LD, hreflang, OG, scroll/#support handling)
   pages/        index.astro (lang redirect) · [lang]/index.astro · [lang]/releases.astro · api/releases.ts (live GitHub)
-  styles/       global.css (Hallmark Cobalt tokens, Tailwind 4 + dark theme)
+  styles/       global.css (design tokens, Tailwind 4, dark theme)
 ```
-
-## Data freshness
-
-No committed snapshot. `/api/releases` fetches live `https://api.github.com/repos/alrescha79-cmd/huawei-manager-mobile/releases?per_page=30` (+ stars/forks) with `GITHUB_TOKEN` if set, else unauthenticated (60 req/h). Returns full `body` markdown. Client components (`Hero`, `Stats`, `Download`, releases page) fetch `/api/releases` on load + hourly interval (`setInterval 1h`). Cache headers `public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400` (Vercel edge).
 
 ## Env (Vercel)
 
-```
-PUBLIC_SITE_URL=https://hm.cakson.my.id
-PUBLIC_WEB3FORMS_KEY=    # Web3Forms access key (client-side form)
-GITHUB_TOKEN=            # higher GitHub API rate limit for /api/releases
-PUBLIC_GSC_VERIFICATION= # optional Google Search Console verification
-```
+`.env.example` documents the required variables. `PUBLIC_WEB3FORMS_KEY` is required for the feedback form; `GITHUB_TOKEN` is optional (raises the GitHub API rate limit).
 
-`.env.example` has placeholders; real values live in Vercel.
+## Verification
 
-## Design
+`npm run build` is the only verification gate; `npx @astrojs/check` validates TypeScript across components.
 
-Hallmark Cobalt (modern-minimal): cool white paper, electric blue accent, Space Grotesk display + Inter body + JetBrains Mono outlier. Desktop: floating pill nav. Mobile: macOS-style bottom dock with magnify. See `.hallmark/log.json`.
+See `AGENTS.md` for project conventions and `design.md` for the design system.

@@ -36,7 +36,7 @@ const types = [
         data-success={t(lang, 'feedback.success')}
         data-error={t(lang, 'feedback.error')}
       >
-        <input type="text" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <input type="text" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <div>
           <label for="name" class="block text-[13px] font-medium text-[color:var(--color-muted)] mb-1.5">{t(lang, 'feedback.name')}</label>
           <input id="name" name="name" type="text" class="w-full rounded-(--radius-md) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] px-4 py-3 text-[14px] outline-none transition-[border-color,box-shadow] duration-[var(--dur-micro)] focus:border-[color:var(--color-accent)] focus:shadow-(--shadow-ring)" />
@@ -93,14 +93,24 @@ const types = [
     const errorMsg = form.dataset.error || 'Something went wrong. Please try again.';
     const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || '';
 
+    const showStatus = (msg: string, color: string) => {
+      if (!status) return;
+      status.textContent = msg;
+      status.style.color = color;
+    };
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const honey = form.querySelector('input[name="botcheck"]') as HTMLInputElement | null;
       if (honey && honey.value) return;
+      if (!accessKey) {
+        showStatus(errorMsg, 'var(--color-warn)');
+        return;
+      }
       const data = new FormData(form);
       const payload = Object.fromEntries(data.entries()) as Record<string, string>;
-      (payload as Record<string, string>).access_key = accessKey;
-      (payload as Record<string, string>).subject = `HM Landing — ${payload.type === 'feature' ? 'Feature request' : 'Bug report'}${payload.modem ? ` (${payload.modem})` : ''}`;
+      payload.access_key = accessKey;
+      payload.subject = `HM Landing — ${payload.type === 'feature' ? 'Feature request' : 'Bug report'}${payload.modem ? ` (${payload.modem})` : ''}`;
       btn.disabled = true;
       if (label) label.textContent = sendingLabel;
       try {
@@ -109,24 +119,15 @@ const types = [
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(payload),
         });
-        const out = await res.json();
+        const out = await res.json().catch(() => ({}));
         if (res.ok && out.success) {
-          if (status) {
-            status.textContent = successMsg;
-            status.style.color = 'var(--color-success)';
-          }
+          showStatus(successMsg, 'var(--color-success)');
           form.reset();
         } else {
-          if (status) {
-            status.textContent = errorMsg;
-            status.style.color = 'var(--color-warn)';
-          }
+          showStatus(out.message || errorMsg, 'var(--color-warn)');
         }
       } catch {
-        if (status) {
-          status.textContent = errorMsg;
-          status.style.color = 'var(--color-warn)';
-        }
+        showStatus(errorMsg, 'var(--color-warn)');
       }
       btn.disabled = false;
       if (label) label.textContent = submitLabel;
