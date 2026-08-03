@@ -1,0 +1,77 @@
+---
+import type { Lang } from '@/i18n';
+import { t } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const rawStats = [
+  { key: 'total-downloads', icon: 'M12 3v12m0 0 4-4m-4 4-4-4M4 21h16' },
+  { key: 'latest-version', icon: 'M12 3v12m0 0 4-4m-4 4-4-4M4 21h16' },
+  { key: 'stars', icon: 'M12 2 15.09 8.26 22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01Z' },
+  { key: 'modems', icon: 'M3 7h18M3 12h18M3 17h18M7 3v18M17 3v18' },
+];
+
+const stats = [
+  { key: 'total-downloads', value: '—', label: t(lang, 'stats.downloads'), icon: rawStats[0].icon },
+  { key: 'latest-version', value: '—', label: t(lang, 'stats.latest'), icon: rawStats[1].icon },
+  { key: 'stars', value: '—', label: t(lang, 'stats.stars'), icon: rawStats[2].icon },
+  { key: 'modems', value: '20+', label: t(lang, 'stats.modems'), icon: rawStats[3].icon },
+];
+---
+
+<section id="stats" class="px-5 md:px-6 pb-6 scroll-mt-24" aria-label="Statistics">
+  <div class="mx-auto max-w-6xl">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      {stats.map((s, i) => (
+        <div class="rounded-(--radius-lg) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] p-5 hover-lift" data-reveal data-reveal-delay={String(Math.min(i + 1, 6))}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[color:var(--color-accent-deep)] mb-3" aria-hidden="true"><path d={s.icon} /></svg>
+          <p class="font-display text-2xl font-bold tracking-tight tabular-nums" data-stat-key={s.key}>{s.value}</p>
+          <p class="text-[13px] text-[color:var(--color-muted)] mt-0.5">{s.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+<script>
+  (() => {
+    const lang = document.documentElement.lang || 'en';
+    const fmt = (n: number) => new Intl.NumberFormat(lang === 'id' ? 'id-ID' : 'en-US').format(n);
+    type ReleaseAsset = { downloads: number };
+    type Release = { tag: string; prerelease: boolean; assets: ReleaseAsset[] };
+    type ReleasesCache = { releases: Release[]; stars: number };
+    const updateStats = (data: ReleasesCache) => {
+      if (!data?.releases) return;
+      const totalDownloads = data.releases.reduce((sum: number, r: Release) => sum + r.assets.reduce((s: number, a: ReleaseAsset) => s + a.downloads, 0), 0);
+      const latest = data.releases.find((r: Release) => !r.prerelease && r.tag.startsWith('v'));
+      const map: Record<string, string> = {
+        'total-downloads': fmt(totalDownloads),
+        'latest-version': latest?.tag ?? '—',
+        'stars': fmt(data.stars ?? 0),
+      };
+      document.querySelectorAll('[data-stat-key]').forEach((el) => {
+        const k = el.getAttribute('data-stat-key');
+        if (!k) return;
+        const v = map[k];
+        if (v) el.textContent = v;
+      });
+    };
+    const fetchLive = async () => {
+      try {
+        const res = await fetch('/api/releases');
+        if (!res.ok) throw new Error(String(res.status));
+        const data = await res.json();
+        updateStats(data);
+      } catch {}
+    };
+    if (!window.__hmStatsFetch) {
+      window.__hmStatsFetch = true;
+      document.addEventListener('astro:page-load', fetchLive);
+      setInterval(fetchLive, 60 * 60 * 1000);
+    }
+  })();
+</script>
+</section>

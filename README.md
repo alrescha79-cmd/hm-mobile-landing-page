@@ -1,59 +1,43 @@
-<div align="center">
+# hm-landing
 
-# Huawei Manager Mobile - Landing Page
+Landing page for **Huawei Manager Mobile** — Astro 5 + Tailwind 4, mobile-first, EN/ID, hosted on Vercel (`hm.cakson.my.id`).
 
-**The official landing page for the Huawei Manager Mobile Android application.**
+## Commands
 
-[![Astro](https://img.shields.io/badge/Astro-v4.10-FF5D01?logo=astro&logoColor=white)](https://astro.build)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3.4-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
-[![Vercel](https://img.shields.io/badge/Hosted_on-Vercel-black?logo=vercel&logoColor=white)](https://vercel.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+| Command | Action |
+| --- | --- |
+| `npm install` | Install deps |
+| `npm run dev` | Dev server `localhost:4321` |
+| `npm run build` | Build to `dist/` (SSG) |
+| `npm run preview` | Preview built site |
 
-</div>
-
-This repository contains the source code for the official landing page of **Huawei Manager Mobile (HM Mobile)**, a modern, fast, and responsive website built with [Astro](https://astro.build) and styled with [Tailwind CSS](https://tailwindcss.com).
-
-The landing page serves as the primary information and download hub for the HM Mobile Android application, providing users with feature overviews, download links, and support channels.
-
-## ✨ Key Features
-
--   **Blazing Fast Performance**: Built with Astro for a static, server-rendered site with zero client-side JavaScript by default.
--   **Responsive Design**: A mobile-first approach ensures a seamless experience on all devices, from desktops to smartphones.
--   **Dark/Light Mode**: Automatic theme switching based on system preference, with a manual toggle for user control.
--   **i18n Support**: Fully localized in English and Indonesian (`en`/`id`).
--   **Dynamic Downloads**: Fetches the latest and pre-release versions directly from the GitHub Releases API.
--   **SEO Optimized**: Comprehensive meta tags, Open Graph, Twitter Cards, and structured data (JSON-LD) for maximum visibility.
--   **PWA-Ready**: Includes a service worker and manifest for a native-like experience.
-
-## 🛠️ Tech Stack
-
--   **Framework**: [Astro](https://astro.build)
--   **Styling**: [Tailwind CSS](https://tailwindcss.com)
--   **Hosting**: [Vercel](https://vercel.com)
--   **Package Manager**: [npm](https://www.npmjs.com/)
-
-## 📁 Project Structure
+## Structure
 
 ```
-/
-├── public/              # Static assets (favicon, robots.txt)
-├── src/
-│   ├── assets/          # Images and other assets processed by Astro
-│   ├── components/      # Reusable Astro components (.astro)
-│   ├── i18n/            # Internationalization (en.json, id.json)
-│   ├── layouts/         # Base layout component
-│   ├── pages/           # Astro pages and routes
-│   └── styles/          # Global CSS and Tailwind styles
-├── astro.config.mjs     # Astro configuration
-├── package.json         # Project dependencies
-└── tsconfig.json        # TypeScript configuration
+src/
+  components/   Hero · Stats · Preview · Features · HowItWorks · ModemSupport · Download · FAQ · Feedback · Navbar · Footer
+  data/         modems.ts · site.ts · types.ts (Release, ReleasesCache)
+  i18n/         en.json · id.json · index.ts (t() lookup with EN fallback)
+  layouts/      Base.astro (SEO, JSON-LD, hreflang, OG)
+  pages/        index.astro (lang redirect) · [lang]/index.astro · [lang]/releases.astro · api/releases.ts (live GitHub)
+  styles/       global.css (Hallmark Cobalt tokens, Tailwind 4 + dark theme)
 ```
 
-## 🤝 Contributing
+## Data freshness
 
-Contributions are welcome! If you have suggestions for improvements or find any issues, please open an issue or submit a pull request.
+No committed snapshot. `/api/releases` fetches live `https://api.github.com/repos/alrescha79-cmd/huawei-manager-mobile/releases?per_page=30` (+ stars/forks) with `GITHUB_TOKEN` if set, else unauthenticated (60 req/h). Returns full `body` markdown. Client components (`Hero`, `Stats`, `Download`, releases page) fetch `/api/releases` on load + hourly interval (`setInterval 1h`). Cache headers `public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400` (Vercel edge).
 
-## 📄 License
+## Env (Vercel)
 
-This project is licensed under the **MIT License**. See the [LICENSE](https://github.com/alrescha79-cmd/lp-hm/blob/main/LICENSE) file for details.
+```
+PUBLIC_SITE_URL=https://hm.cakson.my.id
+PUBLIC_WEB3FORMS_KEY=    # Web3Forms access key (client-side form)
+GITHUB_TOKEN=            # higher GitHub API rate limit for /api/releases
+PUBLIC_GSC_VERIFICATION= # optional Google Search Console verification
+```
 
+`.env.example` has placeholders; real values live in Vercel.
+
+## Design
+
+Hallmark Cobalt (modern-minimal): cool white paper, electric blue accent, Space Grotesk display + Inter body + JetBrains Mono outlier. Desktop: floating pill nav. Mobile: macOS-style bottom dock with magnify. See `.hallmark/log.json`.

@@ -1,525 +1,173 @@
 ---
-import type { Locale } from "../i18n/i18n";
-import { t, getLocalizedPath } from "../i18n/i18n";
+import type { Lang } from '@/i18n';
+import { t } from '@/i18n';
+import ThemeToggle from './ThemeToggle.astro';
 
 interface Props {
-  locale: Locale;
+  lang: Lang;
+  path: string;
 }
 
-const { locale } = Astro.props;
-const i = t(locale);
-const altLocale = locale === "en" ? "id" : "en";
-const currentPath = Astro.url.pathname;
-const isNoticePage = currentPath.includes("/notice");
-const noticePath = isNoticePage ? "notice" : undefined;
+const { lang, path } = Astro.props;
+const isHomePage = path === `/${lang}/`;
+const sectionHref = (id: string) => (isHomePage ? `#${id}` : `/${lang}/#${id}`);
+const links = [
+  { id: 'features', href: sectionHref('features'), label: t(lang, 'nav.features') },
+  { id: 'how', href: sectionHref('how'), label: t(lang, 'nav.how') },
+  { id: 'modems', href: sectionHref('modems'), label: t(lang, 'nav.modems') },
+  { id: 'download', href: sectionHref('download'), label: t(lang, 'nav.download') },
+  { id: 'faq', href: sectionHref('faq'), label: t(lang, 'nav.faq') },
+];
+const alt = lang === 'en' ? 'id' : 'en';
+const altHref = path.replace(/^\/(en|id)/, '') === '' ? `/${alt}/` : `/${alt}${path.replace(/^\/(en|id)/, '')}`;
 ---
 
-<!-- Desktop/Tablet Top Navbar -->
-<nav
-  id="navbar"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 hidden md:block"
->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-12">
-      <!-- Logo -->
-      <a href={getLocalizedPath(locale)} class="flex items-center gap-2 group">
-        <div
-          class="w-7 h-7 rounded-lg bg-primary-500 dark:bg-accent-500 flex items-center justify-center transition-all duration-300 group-hover:scale-105"
-        >
-          <svg
-            class="w-4 h-4 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.858 15.355-5.858 21.213 0"
-            ></path>
-          </svg>
-        </div>
-        <span class="text-sm font-semibold text-surface-950 dark:text-surface-50 tracking-tight"
-          >HM Mobile
-        </span>
+<!-- Desktop: N5 floating pill -->
+<nav class="hidden md:block fixed top-5 inset-x-0 z-(--z-nav) px-4" aria-label="Primary">
+  <div class="mx-auto max-w-5xl rounded-(--radius-pill) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)]/85 backdrop-blur-xl shadow-(--shadow-soft)">
+    <div class="flex items-center justify-between gap-3 px-5 py-2.5">
+      <a href={`/${lang}/`} class="flex items-center gap-2.5 no-underline" aria-label="Huawei Manager Mobile home">
+        <img src="/favicon.svg" width="24" height="24" alt="" class="rounded-md" aria-hidden="true" />
+        <span class="font-display font-bold tracking-tight text-[15px]">Huawei Manager</span>
       </a>
-
-      <!-- Desktop Nav Links -->
       <div class="flex items-center gap-1">
-        <a
-          href={`${getLocalizedPath(locale)}#features`}
-          class="nav-link"
-          data-section="features"
-          >{i.nav.features}
-        </a>
-        <a
-          href={`${getLocalizedPath(locale)}#devices`}
-          class="nav-link"
-          data-section="devices"
-          >{i.nav.devices}
-        </a>
-        <a
-          href={`${getLocalizedPath(locale)}#download`}
-          class="nav-link"
-          data-section="download"
-          >{i.nav.download}
-        </a>
-        <a
-          href={`${getLocalizedPath(locale)}#faq`}
-          class="nav-link"
-          data-section="faq"
-          >{i.nav.faq}
-        </a>
-        <a
-          href={`${getLocalizedPath(locale)}#support`}
-          class="nav-link"
-          data-section="support"
-          >{i.nav.support}
-        </a>
-        <a
-          href="https://github.com/alrescha79-cmd/huawei-manager-mobile"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="nav-link"
-        >
-          {i.nav.github}
-        </a>
+        {links.map((l) => (
+          <a
+            href={l.href}
+            class="px-3.5 py-2 text-[13px] font-medium text-[color:var(--color-muted)] hover:text-[color:var(--color-ink)] no-underline transition-colors duration-[var(--dur-micro)] rounded-(--radius-pill) whitespace-nowrap"
+          >{l.label}</a>
+        ))}
       </div>
-
-      <!-- Actions -->
       <div class="flex items-center gap-2">
-        <!-- Language Switcher -->
-        <a
-          href={getLocalizedPath(altLocale, noticePath)}
-          class="lang-toggle group"
-          data-base-href={getLocalizedPath(altLocale, noticePath)}
-          aria-label={locale === "en" ? "Switch language to Indonesian" : "Ubah bahasa ke Bahasa Inggris"}
-        >
-          <span
-            class="lang-toggle-option"
-            data-active={locale === "en" ? "true" : "false"}>EN</span
-          >
-          <span
-            class="lang-toggle-option"
-            data-active={locale === "id" ? "true" : "false"}>ID</span
-          >
+        <ThemeToggle />
+        <a href={altHref} data-lang-switch={alt} class="px-3 py-2 text-[13px] font-semibold no-underline whitespace-nowrap" aria-label="Switch language">
+          {alt === 'en' ? 'EN' : 'ID'}
         </a>
-
-        <!-- Theme Toggle -->
-        <button
-          id="theme-toggle"
-          type="button"
-          aria-label="Toggle theme"
-          class="theme-toggle-btn"
+        <a
+          href={sectionHref('download')}
+          class="inline-flex items-center gap-1.5 rounded-(--radius-pill) bg-[color:var(--color-ink)] px-4 py-2 text-[13px] font-semibold text-[color:var(--color-paper)] no-underline whitespace-nowrap transition-[transform,background-color] duration-[var(--dur-micro)] ease-[var(--ease-out)] hover:-translate-y-px active:translate-y-0"
         >
-          <div class="theme-toggle-track">
-            <svg
-              class="theme-icon sun-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-              ></path>
-            </svg>
-            <svg
-              class="theme-icon moon-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-              ></path>
-            </svg>
-            <div class="theme-toggle-thumb"></div>
-          </div>
-        </button>
+          {t(lang, 'hero.ctaPrimary')}
+        </a>
       </div>
     </div>
   </div>
 </nav>
 
-<!-- Mobile Bottom Navigation Bar -->
-<nav
-  id="mobile-bottom-nav"
-  class="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-md overflow-hidden bg-surface-50/80 dark:bg-surface-800/80 backdrop-blur-xl border border-surface-200/60 dark:border-surface-700/40 rounded-full shadow-lg shadow-surface-900/5 dark:shadow-black/40"
->
-  <div class="relative grid grid-cols-5 items-center h-16 px-2">
-    <!-- Mobile nav items -->
-    <a
-      href={`${getLocalizedPath(locale)}#features`}
-      class="mobile-nav-item relative z-10"
-      data-section="features"
-    >
-      <div
-        class="nav-icon-container relative flex items-center justify-center w-8 h-8 mb-0.5 rounded-full transition-colors duration-300"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="w-5 h-5"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z"></path>
-        </svg>
-      </div>
-      <span>{i.nav.features}</span>
+<!-- Mobile: top bar (home left · lang + theme right) -->
+<div class="md:hidden fixed top-0 inset-x-0 z-(--z-nav) px-4 pt-[max(env(safe-area-inset-top),10px)]" style="pointer-events: none">
+  <div class="flex items-center justify-between gap-2 rounded-(--radius-pill) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)]/85 px-3 py-2 backdrop-blur-xl shadow-(--shadow-soft)" style="pointer-events: auto">
+    <a href={`/${lang}/`} class="flex items-center gap-2 no-underline" aria-label="Huawei Manager Mobile home">
+      <img src="/favicon.svg" width="22" height="22" alt="" class="rounded-md" aria-hidden="true" />
+      <span class="font-display font-bold tracking-tight text-[14px]">Huawei Manager</span>
     </a>
-
-    <a
-      href={`${getLocalizedPath(locale)}#devices`}
-      class="mobile-nav-item relative z-10"
-      data-section="devices"
-    >
-      <div
-        class="nav-icon-container relative flex items-center justify-center w-8 h-8 mb-0.5 rounded-full transition-colors duration-300"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="w-5 h-5"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path
-            d="M16 4.22v2.53C17.9 7.42 19.38 8.84 20 10.68l1.88-.63C21.03 7.56 18.9 5.61 16 4.22zm-5 0c-2.9 1.39-5.03 3.34-5.88 5.83l1.88.63c.62-1.84 2.1-3.26 4-4.22V4.22zM19 13H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 18H6v-2h2v2zm3.5 0h-2v-2h2v2zm3.5 0h-2v-2h2v2zm3.5 0h-2v-2h2v2z"
-          ></path>
-        </svg>
-      </div>
-      <span>{i.nav.devices}</span>
-    </a>
-
-    <a
-      href={`${getLocalizedPath(locale)}#download`}
-      class="mobile-nav-item relative z-10"
-      data-section="download"
-    >
-      <div
-        class="nav-icon-container relative flex items-center justify-center w-8 h-8 mb-0.5 rounded-full transition-colors duration-300"
-      >
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
-        </svg>
-      </div>
-      <span>{i.nav.download}</span>
-    </a>
-
-    <a
-      href={`${getLocalizedPath(locale)}#support`}
-      class="mobile-nav-item relative z-10"
-      data-section="support"
-    >
-      <div
-        class="nav-icon-container relative flex items-center justify-center w-8 h-8 mb-0.5 rounded-full transition-colors duration-300"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="w-5 h-5"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path
-            d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h4v1h-7v2h6c1.66 0 3-1.34 3-3V10c0-4.97-4.03-9-9-9z"
-          ></path>
-        </svg>
-      </div>
-      <span>{i.nav.support}</span>
-    </a>
-
-    <a
-      href={`${getLocalizedPath(locale)}#faq`}
-      class="mobile-nav-item relative z-10"
-      data-section="faq"
-    >
-      <div
-        class="nav-icon-container relative flex items-center justify-center w-8 h-8 mb-0.5 rounded-full transition-colors duration-300"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="w-5 h-5"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path
-            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-          ></path>
-        </svg>
-      </div>
-      <span>{i.nav.faq}</span>
-    </a>
-  </div>
-</nav>
-
-<!-- Mobile Top Bar (logo only) -->
-<div
-  class="md:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-  id="mobile-top-bar"
->
-  <div class="px-4 h-12 flex items-center justify-between">
-    <a href={getLocalizedPath(locale)} class="flex items-center gap-2 group">
-      <div
-        class="w-7 h-7 rounded-lg bg-primary-500 dark:bg-accent-500 flex items-center justify-center"
-      >
-        <svg
-          class="w-4 h-4 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.858 15.355-5.858 21.213 0"
-          ></path>
-        </svg>
-      </div>
-      <span class="text-sm font-semibold text-surface-950 dark:text-surface-50 tracking-tight"
-        >HM Mobile
-      </span>
-    </a>
-
-    <!-- Language & Theme (same style as desktop) -->
     <div class="flex items-center gap-2">
-      <a
-        href={getLocalizedPath(altLocale, noticePath)}
-        class="lang-toggle group"
-        data-base-href={getLocalizedPath(altLocale, noticePath)}
-        aria-label={locale === "en" ? "Switch language to Indonesian" : "Ubah bahasa ke Bahasa Inggris"}
-      >
-        <span
-          class="lang-toggle-option"
-          data-active={locale === "en" ? "true" : "false"}>EN</span
-        >
-        <span
-          class="lang-toggle-option"
-          data-active={locale === "id" ? "true" : "false"}>ID</span
-        >
+      <a href={altHref} data-lang-switch={alt} class="inline-flex items-center rounded-(--radius-pill) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)]/80 px-2.5 py-1.5 text-[12px] font-semibold no-underline whitespace-nowrap" aria-label="Switch language">
+        {alt === 'en' ? 'EN' : 'ID'}
       </a>
-
-      <button
-        id="theme-toggle-mobile"
-        type="button"
-        aria-label="Toggle theme"
-        class="theme-toggle-btn"
-      >
-        <div class="theme-toggle-track">
-          <svg
-            class="theme-icon sun-icon"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-            ></path>
-          </svg>
-          <svg
-            class="theme-icon moon-icon"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-            ></path>
-          </svg>
-          <div class="theme-toggle-thumb"></div>
-        </div>
-      </button>
+      <ThemeToggle />
     </div>
   </div>
 </div>
 
-<script>
-  import { navigate } from "astro:transitions/client";
-
-  function toggleTheme() {
-    var html = document.documentElement;
-    if (html.classList.contains("dark")) {
-      html.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    } else {
-      html.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    }
-  }
-
-  // Global variables that should persist or be cleaned up
-  var navObserver: IntersectionObserver | null = null;
-  var navScrollHandler: (() => void) | null = null;
-
-  function initNavbar() {
-    document
-      .getElementById("theme-toggle")
-      ?.addEventListener("click", toggleTheme);
-    document
-      .getElementById("theme-toggle-mobile")
-      ?.addEventListener("click", toggleTheme);
-
-    // Clean up previous event listeners if they exist
-    if (navScrollHandler) {
-      window.removeEventListener("scroll", navScrollHandler);
-    }
-    if (navObserver) {
-      navObserver.disconnect();
-    }
-
-    var sectionIds = ["features", "devices", "download", "support", "faq"];
-    var currentActive = "";
-
-    function setActiveSection(sectionId: string) {
-      if (sectionId === currentActive) return;
-      currentActive = sectionId;
-
-      document
-        .querySelectorAll<HTMLElement>(".nav-link[data-section]")
-        .forEach(function (link) {
-          if (link.dataset.section === sectionId) {
-            link.classList.add("nav-link-active");
-          } else {
-            link.classList.remove("nav-link-active");
-          }
-        });
-
-      var mobileItems = document.querySelectorAll<HTMLElement>(
-        ".mobile-nav-item[data-section]"
-      );
-      mobileItems.forEach(function (item) {
-        if ((item as HTMLElement).dataset.section === sectionId) {
-          item.classList.add("mobile-nav-active");
-        } else {
-          item.classList.remove("mobile-nav-active");
-        }
-      });
-    }
-
-    navObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: "-20% 0px -60% 0px", threshold: 0 }
-    );
-
-    sectionIds.forEach(function (id) {
-      var section = document.getElementById(id);
-      if (section && navObserver) navObserver.observe(section);
-    });
-
-    // Handle language switch with hash preservation
-    document
-      .querySelectorAll<HTMLElement>(".lang-toggle")
-      .forEach(function (link) {
-        link.addEventListener("click", function (e) {
-          e.preventDefault();
-          const baseHref = link.dataset.baseHref;
-          if (!baseHref) return;
-
-          let targetHash = currentActive;
-
-          if (!targetHash) {
-            let maxVisible = -1;
-            sectionIds.forEach(function (id) {
-              const el = document.getElementById(id);
-              if (el) {
-                const rect = el.getBoundingClientRect();
-                const visibleHeight =
-                  Math.min(rect.bottom, window.innerHeight) -
-                  Math.max(rect.top, 0);
-                if (visibleHeight > maxVisible) {
-                  maxVisible = visibleHeight;
-                  targetHash = id;
-                }
-              }
-            });
-          }
-
-          // We save the current Y position, then use astro's keepScroll option or manually restore it
-          sessionStorage.setItem(
-            "hm_lang_switch_scroll",
-            window.scrollY.toString()
-          );
-
-          // Add a fade-out effect to the body to mask the loading delay
-          document.body.classList.add("lang-switching");
-
-          navigate(baseHref, { history: "replace" });
-        });
-      });
-
-    // Restore scroll position and remove fade effect if we just switched languages
-    const savedScroll = sessionStorage.getItem("hm_lang_switch_scroll");
-    if (savedScroll) {
-      window.scrollTo({ top: parseInt(savedScroll, 10), behavior: "instant" });
-      sessionStorage.removeItem("hm_lang_switch_scroll");
-      // Slight delay to ensure the new DOM is fully painted before fading in
-      requestAnimationFrame(() => {
-        document.body.classList.remove("lang-switching");
-      });
-    }
-
-    navScrollHandler = function () {
-      var navbar = document.getElementById("navbar");
-      var mobileTop = document.getElementById("mobile-top-bar");
-      if (navbar) {
-        if (window.scrollY > 20) {
-          navbar.classList.add("nav-scrolled");
-        } else {
-          navbar.classList.remove("nav-scrolled");
-        }
-      }
-      if (mobileTop) {
-        if (window.scrollY > 20) {
-          mobileTop.classList.add("nav-scrolled");
-        } else {
-          mobileTop.classList.remove("nav-scrolled");
-        }
-      }
-
-      if (window.scrollY < 200) {
-        currentActive = "";
-        document
-          .querySelectorAll(".nav-link[data-section]")
-          .forEach(function (l) {
-            l.classList.remove("nav-link-active");
-          });
-        document
-          .querySelectorAll(".mobile-nav-item[data-section]")
-          .forEach(function (i) {
-            i.classList.remove("mobile-nav-active");
-          });
-        var ind = document.getElementById("mobile-nav-indicator");
-        if (ind) ind.style.opacity = "0";
-      }
-    };
-
-    window.addEventListener("scroll", navScrollHandler);
-    navScrollHandler(); // invoke once to set initial state
-  }
-
-  document.addEventListener("astro:page-load", initNavbar);
-</script>
+<!-- Mobile: macOS-style bottom dock -->
+<div class="md:hidden fixed bottom-0 inset-x-0 z-(--z-dock) px-3 pb-[max(env(safe-area-inset-bottom),12px)]" style="pointer-events: none">
+  <nav class="dock mx-auto flex items-end justify-center gap-1.5 px-3 pt-2 pb-2 rounded-[28px] border border-[color:var(--color-rule)] bg-[color:var(--color-paper)]/85 backdrop-blur-xl shadow-(--shadow-soft)" style="pointer-events: auto" aria-label="Mobile navigation">
+    {links.map((l, i) => (
+      <a
+        href={l.href}
+        class="dock-item flex flex-col items-center gap-1 px-2 pb-1.5 no-underline"
+        style={`--i: ${i}`}
+        aria-label={l.label}
+      >
+        <span class="dock-tile flex h-10 w-10 items-center justify-center rounded-[12px]">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            {l.id === 'features' && <path d="M4 6h16M4 12h16M4 18h10" />}
+            {l.id === 'how' && <><path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="9" /></>}
+            {l.id === 'modems' && <path d="M3 7h18M3 12h18M3 17h18M7 3v18M17 3v18" />}
+            {l.id === 'download' && <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" />}
+            {l.id === 'faq' && <><path d="M4 6h16M4 12h16M4 18h10" /><circle cx="18" cy="18" r="2.5" /></>}
+          </svg>
+        </span>
+        <span class="dock-label text-[9px] leading-none whitespace-nowrap">{l.label}</span>
+      </a>
+    ))}
+  </nav>
+</div>
 
 <style>
-  .safe-area-bottom {
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+  .dock-item {
+    transition: transform var(--dur-short) var(--ease-out);
+    transform-origin: bottom center;
+  }
+  .dock-tile {
+    background: transparent;
+    color: var(--color-ink);
+    opacity: 0.55;
+    transition: width var(--dur-short) var(--ease-out), height var(--dur-short) var(--ease-out),
+      background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out),
+      opacity var(--dur-micro) var(--ease-out), border-radius var(--dur-short) var(--ease-out);
+    will-change: width, height;
+  }
+  .dock-label {
+    color: var(--color-ink);
+    transition: color var(--dur-micro) var(--ease-out), opacity var(--dur-micro) var(--ease-out);
+  }
+  .dock-item.active .dock-tile {
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 16px;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    opacity: 1;
+  }
+  .dock-item.active .dock-label { color: var(--color-ink); font-weight: 600; opacity: 1; }
+  @media (max-width: 24rem) {
+    .dock { gap: 2px; padding-left: 6px; padding-right: 6px; }
+    .dock-item { padding-left: 2px; padding-right: 2px; }
+    .dock-label { font-size: 8px; }
   }
 </style>
+
+<script>
+  const init = () => {
+    const nav = document.querySelector('.dock') as HTMLElement | null;
+    if (!nav || (nav as any).dataset.dockInit) return;
+    (nav as any).dataset.dockInit = 'true';
+
+    const items = Array.from(nav.querySelectorAll('.dock-item')) as HTMLElement[];
+    if (!items.length) return;
+    const setActive = (href: string) => items.forEach((it) => it.classList.toggle('active', it.getAttribute('href') === href));
+    const localLinks = items.map((it) => it.getAttribute('href')).filter((h): h is string => !!h && h.startsWith('#'));
+    const sections = localLinks.map((h) => document.querySelector(h)).filter(Boolean) as Element[];
+    if (localLinks.length) setActive(location.hash && localLinks.includes(location.hash) ? location.hash : localLinks[0]);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) setActive(`#${e.target.id}`);
+        }
+      },
+      { rootMargin: '-45% 0px -45% 0px' }
+    );
+    sections.forEach((s) => observer.observe(s));
+
+    if (window.matchMedia('(pointer: fine)').matches) {
+      nav.addEventListener('pointermove', (ev: PointerEvent) => {
+        const dockItems = Array.from(nav.querySelectorAll('.dock-item')) as HTMLElement[];
+        for (const item of dockItems) {
+          const r = item.getBoundingClientRect();
+          const dist = Math.abs(ev.clientX - (r.left + r.width / 2));
+          const scale = Math.min(1.55, Math.max(1, 1.55 - dist / 90));
+          item.style.transform = `scale(${scale})`;
+        }
+      });
+      nav.addEventListener('pointerleave', () => {
+        const dockItems = Array.from(nav.querySelectorAll('.dock-item')) as HTMLElement[];
+        for (const item of dockItems) item.style.transform = '';
+      });
+    }
+  };
+
+  document.addEventListener('astro:page-load', init);
+</script>

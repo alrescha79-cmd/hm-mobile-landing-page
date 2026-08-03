@@ -1,204 +1,213 @@
 {
   "meta": {
-    "title": "Download Huawei Manager APK — Best Huawei Modem Manager App",
-    "description": "Download Huawei Manager APK for Android. The ultimate Huawei Modem Manager and LTE Signal Finder. Manage B310, B312, Orbit Star, and MiFi devices easily.",
-    "siteName": "Huawei Manager APK",
-    "ogTitle": "Huawei Manager APK — Download Best Huawei Modem Manager",
-    "ogDescription": "Download Huawei Manager APK to monitor LTE signal (RSRP/SINR), control WiFi, and manage Huawei modems globally. Official HM Mobile app.",
-    "keywords": "huawei manager apk, download huawei manager, huawei modem apk, huawei manager mobile, hm mobile, huawei modem manager, lte monitor, modem control, signal finder"
+    "title": "Huawei Manager Mobile — Control B310 B312 E5577 LTE Modem Easily",
+    "titleId": "Huawei Manager — Aplikasi Kontrol Modem B310 B312 Orbit Star 2 Terbaik",
+    "description": "Free Android app to monitor signal, lock LTE bands, manage WiFi devices and SMS. Local, private, no cloud. Tested on Orbit Star 2 B312-929."
   },
   "nav": {
+    "home": "Home",
     "features": "Features",
-    "devices": "Devices",
+    "how": "How It Works",
+    "modems": "Modems",
     "download": "Download",
     "faq": "FAQ",
-    "support": "Support",
-    "github": "GitHub"
+    "feedback": "Feedback",
+    "releases": "All Releases"
   },
   "hero": {
-    "badge": "Download Huawei Manager APK • Free & Open Source",
-    "title": "Huawei Manager APK,\nComplete Modem Management",
-    "description": "Monitor signal quality, manage WiFi, track data usage, control connected devices, and more — all from your Android phone.",
-    "cta": "Download Now",
-    "ctaSecondary": "View on GitHub",
-    "builtWith": "Built with Expo SDK 54",
-    "totalDownloads": "Total Downloads"
+    "badge": "Free · Open Source · Android",
+    "title": "Your Huawei modem, finally under control",
+    "titleHighlight": "under control",
+    "sub": "Monitor signal strength, lock LTE bands, manage WiFi devices and SMS — all local, all private, no cloud. Tested on the Orbit Star 2 B312-929.",
+    "ctaPrimary": "Download Free",
+    "ctaSecondary": "View pre-releases",
+    "trust": "Android · No root needed",
+    "version": "v1.1.70"
+  },
+  "stats": {
+    "label": "Trusted numbers",
+    "downloads": "Total downloads",
+    "latest": "Latest version",
+    "stars": "GitHub stars",
+    "modems": "Supported modems",
+    "chartTitle": "Download growth",
+    "chartNote": "Weekly download count from GitHub Releases"
+  },
+  "preview": {
+    "label": "Built for Huawei LTE modems",
+    "title": "See the app in action",
+    "sub": "Real screenshots from the app. Dark and light themes, English and Indonesian.",
+    "dark": "Dark theme",
+    "light": "Light theme",
+    "home": "Realtime dashboard",
+    "wifi": "WiFi device management",
+    "settings": "Apps & Modem settings"
   },
   "features": {
-    "sectionTitle": "Huawei Modem Manager Features",
-    "sectionDescription": "Everything you need to manage your Huawei LTE modem and find the best signal directly from your phone.",
-    "signalMonitor": {
-      "title": "LTE Signal Finder & Monitor",
-      "description": "Real-time RSRP, RSRQ, RSSI, and SINR monitoring with Signal Finder mode to locate the best Huawei signal position."
-    },
-    "wifiManagement": {
-      "title": "WiFi Management",
-      "description": "View and manage WiFi settings, connected devices, and network configurations easily."
-    },
-    "dataUsage": {
-      "title": "Data Usage Tracking",
-      "description": "Monitor daily and monthly data consumption with visual charts and detailed statistics."
-    },
-    "smsManagement": {
-      "title": "SMS Management",
-      "description": "Read, send, and manage SMS messages through your modem. Supports multi-select delete."
-    },
-    "parentalControl": {
-      "title": "Parental Controls",
-      "description": "Create profiles to block or restrict internet access for specific connected devices."
-    },
-    "batteryStatus": {
-      "title": "MiFi Battery Status",
-      "description": "Monitor battery level and power status on Huawei MiFi devices that support battery reporting."
-    },
-    "darkMode": {
-      "title": "Dark & Light Mode",
-      "description": "Interface that adapts to your system theme preference or toggle manually."
-    },
-    "multiLanguage": {
-      "title": "Multi-Language",
-      "description": "Full English and Bahasa Indonesia support for all menus, labels, and notifications."
-    }
-  },
-  "devices": {
-    "sectionTitle": "Supported Devices",
-    "sectionDescription": "Compatible with popular Huawei LTE modem series.",
-    "testedOn": "Tested on Huawei B312-929 (Orbit Star 2) with Android 15",
-    "andMore": "And other Huawei LTE modems using the standard API",
-    "router": "Modem CPE",
-    "mifi": "Portable MiFi"
-  },
-  "showcase": {
-    "sectionTitle": "See It in Action",
-    "sectionDescription": "Explore the app interface designed for simplicity and power.",
+    "label": "What it does",
+    "title": "Everything the stock Web UI can't",
+    "sub": "The modem's built-in interface hides most of what the device can do. Huawei Manager opens it up.",
     "dashboard": {
-      "title": "Dashboard",
-      "description": "Monitor connection speed, data usage, and usage history in a single view."
+      "title": "Realtime dashboard",
+      "desc": "Signal (RSSI, RSRP, RSRQ, SINR, band), traffic speedometer, connection status and power source at a glance."
     },
     "signalFinder": {
       "title": "Signal Finder",
-      "description": "Find the best position for your modem with real-time RSRP and SINR readings."
+      "desc": "Rotate or reposition the modem while watching live metrics to find the strongest spot."
     },
-    "wifiSettings": {
-      "title": "WiFi Management",
-      "description": "Manage network settings and see all connected devices."
+    "bandLock": {
+      "title": "LTE Band Lock",
+      "desc": "Pick specific LTE bands, including 5G NR and carrier aggregation combos like B3+B1+N40."
+    },
+    "wifi": {
+      "title": "WiFi device control",
+      "desc": "List connected devices with vendor icons, kick or block devices, rename them, see 2.4/5 GHz and lease time."
+    },
+    "guest": {
+      "title": "Guest WiFi",
+      "desc": "Second SSID with a time limit. Extend in 30-minute steps from the app."
+    },
+    "parental": {
+      "title": "Parental controls",
+      "desc": "Per-device schedules by day and time range. Cut internet at bedtime automatically."
+    },
+    "sms": {
+      "title": "SMS management",
+      "desc": "Read, compose, send and delete SMS, with unread count and search. When the modem supports it."
+    },
+    "network": {
+      "title": "Network & APN",
+      "desc": "APN profiles, mobile data toggle, Ethernet, DHCP and PPPoE configuration."
+    },
+    "widget": {
+      "title": "Home screen widget",
+      "desc": "Signal and traffic status right on your home screen, refreshed hourly."
+    },
+    "notify": {
+      "title": "Usage alerts",
+      "desc": "Push notifications when daily or monthly data hits your threshold, when the IP changes, or a new version lands."
+    },
+    "speedtest": {
+      "title": "Speed test",
+      "desc": "In-app internet speed test plus quick actions for the things you toggle most."
+    },
+    "debug": {
+      "title": "Debug mode",
+      "desc": "Log every API call and export a HAR file to report issues precisely."
+    },
+    "privacy": {
+      "title": "Private by design",
+      "desc": "The app talks directly to your modem over WiFi. No account, no data collection, no cloud."
     }
+  },
+  "how": {
+    "label": "How it works",
+    "title": "Three steps, no root",
+    "sub": "If you can open the modem's admin page in a browser, this app can control it.",
+    "step1": {
+      "title": "Connect to the modem",
+      "desc": "Join the modem's WiFi network, just like you do for the admin page."
+    },
+    "step2": {
+      "title": "Log in",
+      "desc": "Use the same username and password as the Web UI. The app auto-detects the modem IP (192.168.8.1)."
+    },
+    "step3": {
+      "title": "Monitor & control",
+      "desc": "Signal, bands, devices, SMS, quota — everything in one place."
+    }
+  },
+  "modems": {
+    "label": "Compatibility",
+    "title": "Works with any Huawei LTE router",
+    "sub": "Any device exposing the classic Huawei XML API on 192.168.8.1 — tested on the Orbit Star 2.",
+    "tested": "Tested",
+    "popular": "Most popular in Indonesia",
+    "generic": "Any Huawei LTE modem with the XML API",
+    "note": "SMS and some settings depend on what the specific modem exposes."
   },
   "download": {
-    "sectionTitle": "Download Now",
-    "sectionDescription": "Choose the right APK for your device. Free and open source.",
-    "arm64": {
-      "title": "ARM64 (64-bit)",
-      "description": "Recommended for most Android phones released after 2016.",
-      "badge": "Recommended",
-      "size": "~35 MB"
-    },
-    "armv7": {
-      "title": "ARMv7 (32-bit)",
-      "description": "For older or low-end 32-bit Android devices. Smaller file size.",
-      "badge": "Small Size",
-      "size": "~29 MB"
-    },
-    "universal": {
-      "title": "Universal",
-      "description": "Contains libraries for all architectures. Use if unsure which version to pick.",
-      "badge": "All Devices",
-      "size": "~85 MB"
-    },
-    "downloadBtn": "Download APK",
-    "viewChangelog": "View Latest Release Notes",
-    "version": "Latest Version",
-    "latest": "Latest",
-    "preRelease": "Pre-release",
-    "preReleaseVersion": "Pre-release Version",
-    "preReleaseWarning": "This is a pre-release build and may be unstable.",
-    "noPreRelease": "No pre-release available",
-    "installGuide": {
-      "title": "How to Install",
-      "steps": [
-        "Download the APK suitable for your device (ARM64 recommended).",
-        "Enable \"Install from unknown sources\" in Android Settings.",
-        "Open the APK file to install."
-      ]
-    }
-  },
-  "footer": {
-    "description": "An independent open-source project. Not affiliated with Huawei Technologies.",
-    "madeWith": "Made with ❤️ by",
-    "author": "Anggun Caksono",
-    "license": "MIT License",
-    "links": {
-      "github": "GitHub",
-      "releases": "Releases",
-      "issues": "Report a Bug",
-      "docs": "Documentation"
-    }
-  },
-  "theme": {
-    "light": "Light",
-    "dark": "Dark"
-  },
-  "language": {
-    "en": "English",
-    "id": "Indonesia"
+    "label": "Download",
+    "title": "Get Huawei Manager",
+    "sub": "Three architectures, all free. No ads in core features.",
+    "stable": "Latest stable",
+    "prerelease": "Pre-releases",
+    "preWarning": "Early access — may contain bugs",
+    "recommended": "Recommended",
+    "small": "Smaller size",
+    "universal": "All devices",
+    "size": "size",
+    "downloads": "downloads",
+    "date": "released",
+    "released": "Published",
+    "viewAll": "View all releases",
+    "viewDetail": "Release notes",
+    "loading": "Loading releases from GitHub…",
+    "attestation": "Signed & attested via GitHub Actions",
+    "qr": "Scan to download"
   },
   "faq": {
-    "sectionTitle": "Modem Manager FAQ",
-    "sectionDescription": "Quick answers to common questions about the Huawei Manager Mobile app.",
-    "questions": [
+    "label": "FAQ",
+    "title": "Questions, answered",
+    "items": [
+      {
+        "q": "Do I need root?",
+        "a": "No. The app talks to the modem's local API over your WiFi — no root, no cloud account."
+      },
       {
         "q": "Which modems are supported?",
-        "a": "Most Huawei LTE modems with standard API support are compatible. This includes the B310, B311, B312 (Modem CPE) or E5573, E5577 (MiFi) series and other Modem/MiFi models. The app has been specifically tested on the Huawei B312-929 (Orbit Star 2)."
+        "a": "Any Huawei LTE router that exposes the classic XML API — B310, B311, B312, B525, B535, B818, E5573, E5577 and more. The Orbit Star 2 (B312-929) is tested and popular in Indonesia."
       },
       {
-        "q": "Can I lock specific 4G/LTE bands?",
-        "a": "Yes. If your modem's firmware supports it, the app allows you to select and lock specific frequency bands to improve signal stability or speed."
+        "q": "Does it collect my data?",
+        "a": "No. Everything runs locally between your phone and the modem. There is no account and no analytics server."
       },
       {
-        "q": "Does the app track data usage accurately?",
-        "a": "The app fetches data consumption statistics directly from the modem. While highly accurate, we recommend cross-checking with your provider's official dashboard for billing purposes."
+        "q": "Why are there ads?",
+        "a": "Ads cover the push-notification server costs. Core features stay free and ad-free."
       },
       {
-        "q": "How does the Signal Finder work?",
-        "a": "Signal Finder provides real-time RSRP, RSRQ, and SINR readings with visual and audio feedback, making it easier to find the optimal physical placement for your modem."
+        "q": "My modem doesn't support SMS. Why?",
+        "a": "SMS depends on the modem's firmware. The app hides the feature when the API doesn't expose it."
       },
       {
-        "q": "Can I manage SMS through the app?",
-        "a": "Yes. You can read, send, and even perform multi-select deletion of SMS messages directly from the app interface if your modem supports it."
-      },
-      {
-        "q": "Is my modem password safe?",
-        "a": "Absolutely. Your credentials are stored securely on your device and are only used locally to communicate with your modem. No data is ever sent to external servers."
-      },
-      {
-        "q": "Is this app free?",
-        "a": "Yes, this app is free and open source. You can download and use it at no cost."
-      },
-      {
-        "q": "Can this app work with the latest Huawei modems?",
-        "a": "Yes, this app can work with latest Huawei modems. However, please note that not all Huawei modems support all features of this app. Some features may not be available on certain modems."
+        "q": "Is there an iOS version?",
+        "a": "Not yet. The app is Android-only today, built with Expo so iOS is possible in the future."
       }
     ]
   },
-  "support": {
-    "sectionTitle": "Support & Feedback",
-    "sectionDescription": "Report bugs or request new features for HM Mobile. We will get back to you via the contact info provided.",
-    "bugReport": "Bug Report",
-    "featureRequest": "Feature Request",
-    "deviceModel": "Device Model",
-    "devicePlaceholder": "Ex: Huawei B312 / Orbit Star 2",
-    "contact": "Email / Phone",
-    "contactPlaceholder": "email@example.com or +628...",
-    "message": "Problem / Feature Details",
-    "messagePlaceholder": "Describe in detail here...",
-    "screenshot": "Upload Screenshot (Optional)",
-    "screenshotHint": "Click to upload or drag and drop",
-    "screenshotLimit": "PNG, JPG up to 5MB",
-    "submit": "Submit Report",
-    "sending": "Sending...",
-    "success": "Report submitted successfully! Thank you for your contribution.",
-    "error": "Failed to send report. Please try again later.",
-    "alreadySubmitted": "You have already sent a report today. Please try again tomorrow."
+  "feedback": {
+    "label": "Feedback",
+    "title": "Found a bug? Want a feature?",
+    "sub": "Help make the app better. We read everything.",
+    "name": "Name (optional)",
+    "email": "Email",
+    "emailPh": "you@example.com",
+    "type": "Type",
+    "typeBug": "Bug report",
+    "typeFeature": "Feature request",
+    "modem": "Modem model",
+    "modemPh": "e.g. B312-929 (Orbit Star 2)",
+    "message": "Message",
+    "messagePh": "Describe the problem or the feature you'd like…",
+    "submit": "Send feedback",
+    "sending": "Sending…",
+    "success": "Thank you! Your feedback was sent.",
+    "error": "Something went wrong. Please try again or open a GitHub issue.",
+    "gh": "Or open a GitHub issue directly"
+  },
+  "releases": {
+    "loading": "Loading releases from GitHub…"
+  },
+  "footer": {
+    "statement": "Take control of your modem today.",
+    "sub": "Free · Open source · MIT licensed",
+    "github": "GitHub",
+    "source": "Source code",
+    "sponsor": "Sponsor the project",
+    "docs": "GitHub",
+    "license": "MIT License",
+    "rights": "Not affiliated with Huawei.",
+    "local": "Local-first · Private · No cloud"
   }
 }
-

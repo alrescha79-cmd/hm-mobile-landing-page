@@ -1,207 +1,213 @@
 {
   "meta": {
-    "title": "Download Huawei Manager APK — Cek Sinyal Orbit & Pengelola Modem",
-    "description": "Download Huawei Manager APK terbaru untuk cek sinyal Orbit Star, B312, B310, dan MiFi. Aplikasi Pengelola Modem Huawei (HM Mobile) resmi dengan monitor RSRP & SINR.",
-    "siteName": "Huawei Manager APK",
-    "ogTitle": "Huawei Manager APK — Download Pengelola Modem Huawei Gratis",
-    "ogDescription": "Download Huawei Manager APK untuk monitor sinyal Orbit, kontrol WiFi, dan kelola SMS modem Huawei Anda. Aplikasi HM Mobile resmi dan gratis.",
-    "keywords": "huawei manager apk, download huawei manager, huawei modem apk, huawei manager mobile, hm mobile, cek sinyal orbit, pengelola modem, huawei lte, b312, b310, orbit star 2"
+    "title": "Huawei Manager — Aplikasi Kontrol Modem B310 B312 Orbit Star 2 Terbaik",
+    "titleId": "Huawei Manager — Aplikasi Kontrol Modem B310 B312 Orbit Star 2 Terbaik",
+    "description": "Aplikasi Android gratis untuk mengontrol modem Huawei — pantau sinyal, kunci band LTE, kelola WiFi dan SMS. Lokal, privat, tanpa cloud. Teruji untuk Orbit Star 2 B312-929."
   },
   "nav": {
+    "home": "Beranda",
     "features": "Fitur",
-    "devices": "Perangkat",
-    "download": "Unduh",
+    "how": "Cara Kerja",
+    "modems": "Modem",
+    "download": "Download",
     "faq": "FAQ",
-    "support": "Dukungan",
-    "github": "GitHub"
+    "feedback": "Masukan",
+    "releases": "Semua Rilis"
   },
   "hero": {
-    "badge": "Download Huawei Manager APK Resmi • Gratis",
-    "title": "Huawei Manager APK,\nCek Sinyal & Kelola Modem",
-    "description": "Monitor kualitas sinyal, kelola WiFi, lacak penggunaan data, kontrol perangkat terhubung, dan banyak lagi — semua dari ponsel Android Anda.",
-    "cta": "Unduh Sekarang",
-    "ctaSecondary": "Lihat di GitHub",
-    "builtWith": "Dibangun dengan Expo SDK 54",
-    "totalDownloads": "Total Unduhan"
+    "badge": "Gratis · Open Source · Android",
+    "title": "Kendalikan modem Huawei-mu sepenuhnya",
+    "titleHighlight": "sepenuhnya",
+    "sub": "Pantau sinyal, kunci band LTE, kelola perangkat WiFi dan SMS — semua jalan lokal, privat, tanpa cloud. Sudah teruji di Orbit Star 2 B312-929.",
+    "ctaPrimary": "Download Gratis",
+    "ctaSecondary": "Lihat pre-release",
+    "trust": "Android · Tanpa root",
+    "version": "v1.1.70"
+  },
+  "stats": {
+    "label": "Dipercaya banyak orang",
+    "downloads": "Total Download",
+    "latest": "Versi terbaru",
+    "stars": "Star di GitHub",
+    "modems": "Modem didukung",
+    "chartTitle": "Pertumbuhan unduhan",
+    "chartNote": "Jumlah unduhan mingguan dari GitHub Releases"
+  },
+  "preview": {
+    "label": "Garis besar tampilannya",
+    "title": "Lihat langsung dari aplikasinya",
+    "sub": "Screenshot asli dari dalam aplikasi. Ada tema gelap & terang, plus bahasa Inggris dan Indonesia.",
+    "dark": "Tema gelap",
+    "light": "Tema terang",
+    "home": "Dashboard realtime",
+    "wifi": "Kelola perangkat WiFi",
+    "settings": "Pengaturan aplikasi & modem"
   },
   "features": {
-    "sectionTitle": "Fitur Pengelola Modem Huawei",
-    "sectionDescription": "Semua yang Anda butuhkan untuk cek sinyal Orbit dan mengelola modem Huawei LTE langsung dari HP.",
-    "signalMonitor": {
-      "title": "Cek Sinyal Orbit & Huawei",
-      "description": "Monitoring RSRP, RSRQ, RSSI, dan SINR secara real-time dengan mode Signal Finder untuk cek sinyal Orbit Star terbaik."
-    },
-    "wifiManagement": {
-      "title": "Manajemen WiFi",
-      "description": "Lihat dan kelola pengaturan WiFi, perangkat terhubung, dan konfigurasi jaringan dengan mudah."
-    },
-    "dataUsage": {
-      "title": "Pelacakan Data",
-      "description": "Pantau konsumsi data harian dan bulanan dengan grafik visual dan statistik terperinci."
-    },
-    "smsManagement": {
-      "title": "Manajemen SMS",
-      "description": "Baca, kirim, dan kelola pesan SMS melalui modem Anda. Mendukung hapus multi-pilih."
-    },
-    "parentalControl": {
-      "title": "Kontrol Orang Tua",
-      "description": "Buat profil untuk memblokir atau membatasi akses internet untuk perangkat tertentu yang terhubung."
-    },
-    "batteryStatus": {
-      "title": "Status Baterai MiFi",
-      "description": "Pantau level baterai dan status daya pada perangkat Huawei MiFi yang mendukung pelaporan baterai."
-    },
-    "darkMode": {
-      "title": "Mode Gelap & Terang",
-      "description": "Antarmuka yang menyesuaikan preferensi tema sistem Anda atau beralih secara manual."
-    },
-    "multiLanguage": {
-      "title": "Multi-Bahasa",
-      "description": "Dukungan penuh Bahasa Inggris dan Bahasa Indonesia untuk semua menu, label, dan notifikasi."
-    }
-  },
-  "devices": {
-    "sectionTitle": "Perangkat yang Didukung",
-    "sectionDescription": "Kompatibel dengan seri modem Huawei LTE populer.",
-    "testedOn": "Diuji pada Huawei B312-929 (Orbit Star 2) dengan Android 15",
-    "andMore": "Dan modem Huawei LTE lainnya yang menggunakan API standar",
-    "router": "Modem CPE",
-    "mifi": "MiFi Portable"
-  },
-  "showcase": {
-    "sectionTitle": "Lihat Langsung",
-    "sectionDescription": "Jelajahi antarmuka aplikasi yang dirancang untuk kemudahan dan kehandalan.",
+    "label": "Apa saja yang bisa dilakukan",
+    "title": "Semua yang nggak bisa dilakukan Web UI bawaan",
+    "sub": "Antarmuka bawaan modem nyembunyiin sebagian besar kemampuan perangkatnya. Di sini, Huawei Manager buka semuanya.",
     "dashboard": {
-      "title": "Dashboard",
-      "description": "Pantau kecepatan koneksi, penggunaan data, dan riwayat penggunaan dalam satu tampilan."
+      "title": "Dashboard realtime",
+      "desc": "Sinyal (RSSI, RSRP, RSRQ, SINR, band), speedometer traffic, status koneksi dan sumber daya — semua sekilas."
     },
     "signalFinder": {
-      "title": "Signal Finder",
-      "description": "Temukan posisi terbaik untuk modem Anda dengan pembacaan RSRP dan SINR secara real-time."
+      "title": "Pencari Sinyal",
+      "desc": "Putar atau pindahin modem sambil lihat metrik langsung, buat nemu spot yang sinyalnya paling kuat."
     },
-    "wifiSettings": {
-      "title": "Manajemen WiFi",
-      "description": "Kelola pengaturan jaringan WiFi dan lihat semua perangkat yang terhubung."
+    "bandLock": {
+      "title": "Kunci Band LTE",
+      "desc": "Pilih band LTE tertentu, termasuk 5G NR dan kombinasi carrier aggregation kayak B3+B1+N40."
+    },
+    "wifi": {
+      "title": "Kontrol perangkat WiFi",
+      "desc": "Daftar perangkat yang terhubung lengkap dengan ikon vendor, bisa kick atau blokir, rename, lihat 2.4/5 GHz dan durasi."
+    },
+    "guest": {
+      "title": "WiFi Tamu",
+      "desc": "SSID kedua dengan batas waktu. Perpanjang per 30 menit langsung dari aplikasi."
+    },
+    "parental": {
+      "title": "Kontrol orang tua",
+      "desc": "Jadwal per perangkat berdasarkan hari dan jam tertentu. Internet otomatis mati pas jam tidur."
+    },
+    "sms": {
+      "title": "Manajemen SMS",
+      "desc": "Baca, tulis, kirim dan hapus SMS, lengkap dengan jumlah belum dibaca dan pencarian. Kalau modem-nya nyediaain."
+    },
+    "network": {
+      "title": "Jaringan & APN",
+      "desc": "Profil APN, atur data seluler, konfigurasi Ethernet, DHCP dan PPPoE."
+    },
+    "widget": {
+      "title": "Widget di layar utama",
+      "desc": "Status sinyal dan traffic langsung tampil di layar utama, diperbarui tiap jam."
+    },
+    "notify": {
+      "title": "Peringatan pemakaian",
+      "desc": "Notifikasi pas data harian/bulanan lewat batas, pas IP berubah, atau pas ada versi baru rilis."
+    },
+    "speedtest": {
+      "title": "Tes Kecepatan",
+      "desc": "Tes kecepatan internet langsung di aplikasi, plus shortcut ke pengaturan yang paling sering diganti."
+    },
+    "debug": {
+      "title": "Mode debug",
+      "desc": "Catat setiap panggilan API dan export file HAR biar laporan masalah lebih presisi."
+    },
+    "privacy": {
+      "title": "Privat sejak dasar",
+      "desc": "Aplikasi ngobrol langsung ke modem lewat WiFi. Tanpa akun, tanpa ambil data, tanpa cloud."
     }
+  },
+  "how": {
+    "label": "Cara kerja",
+    "title": "Tiga langkah, tanpa root",
+    "sub": "Kalau kamu bisa buka halaman admin modem di browser, berarti aplikasi ini bisa ngendaliinnya.",
+    "step1": {
+      "title": "Nyambung ke modem",
+      "desc": "Gabung ke WiFi modemnya, persis kayak mau buka halaman admin."
+    },
+    "step2": {
+      "title": "Login",
+      "desc": "Pakai username dan password yang sama kayak Web UI. IP modem (192.168.8.1) dideteksi otomatis."
+    },
+    "step3": {
+      "title": "Pantau & kendalikan",
+      "desc": "Sinyal, band, perangkat, SMS, kuota — semua cukup dari satu tempat."
+    }
+  },
+  "modems": {
+    "label": "Kompatibilitas",
+    "title": "Mendukung semua router Huawei LTE",
+    "sub": "Semua perangkat yang menyediakan API XML klasik Huawei di 192.168.8.1 — sudah teruji dengan Orbit Star 2.",
+    "tested": "Teruji",
+    "popular": "Terpopuler di Indonesia",
+    "generic": "Semua modem Huawei LTE dengan API XML",
+    "note": "Fitur SMS dan sebagian pengaturan tergantung dukungan dari modem masing-masing."
   },
   "download": {
-    "sectionTitle": "Unduh Sekarang",
-    "sectionDescription": "Pilih APK yang tepat untuk perangkat Anda. Gratis dan open source.",
-    "arm64": {
-      "title": "ARM64 (64-bit)",
-      "description": "Direkomendasikan untuk sebagian besar HP Android keluaran di atas 2016.",
-      "badge": "Direkomendasikan",
-      "size": "~35 MB"
-    },
-    "armv7": {
-      "title": "ARMv7 (32-bit)",
-      "description": "Untuk perangkat Android lama atau low-end 32-bit. Ukuran file lebih kecil.",
-      "badge": "Ukuran Kecil",
-      "size": "~29 MB"
-    },
-    "universal": {
-      "title": "Universal",
-      "description": "Berisi library untuk semua arsitektur. Gunakan jika Anda ragu memilih versi.",
-      "badge": "Semua Perangkat",
-      "size": "~85 MB"
-    },
-    "downloadBtn": "Unduh APK",
-    "viewChangelog": "Lihat Catatan Rilis Terbaru",
-    "version": "Versi Terbaru",
-    "latest": "Terbaru",
-    "preRelease": "Pre-release",
-    "preReleaseVersion": "Versi Pre-release",
-    "preReleaseWarning": "Ini adalah build pre-release dan mungkin tidak stabil.",
-    "noPreRelease": "Tidak ada pre-release tersedia",
-    "installGuide": {
-      "title": "Cara Install",
-      "steps": [
-        "Download APK yang sesuai dengan perangkat Anda (ARM64 direkomendasikan).",
-        "Aktifkan \"Instal dari sumber tidak dikenal\" di Pengaturan Android.",
-        "Buka file APK untuk menginstall."
-      ]
-    }
-  },
-  "footer": {
-    "description": "Proyek open-source independen. Tidak berafiliasi dengan Huawei Technologies.",
-    "madeWith": "Dibuat dengan ❤️ oleh",
-    "author": "Anggun Caksono",
-    "license": "Lisensi MIT",
-    "links": {
-      "github": "GitHub",
-      "releases": "Rilis",
-      "issues": "Laporkan Bug",
-      "docs": "Dokumentasi"
-    }
-  },
-  "theme": {
-    "light": "Terang",
-    "dark": "Gelap"
-  },
-  "language": {
-    "en": "English",
-    "id": "Indonesia"
+    "label": "Download",
+    "title": "Dapatkan Huawei Manager",
+    "sub": "Tiga arsitektur, semuanya gratis. Tanpa iklan di fitur inti.",
+    "stable": "Versi stabil terbaru",
+    "prerelease": "Pre-release",
+    "preWarning": "Akses awal — mungkin masih ada bug",
+    "recommended": "Disarankan",
+    "small": "Ukuran lebih kecil",
+    "universal": "Semua perangkat",
+    "size": "ukuran",
+    "downloads": "unduhan",
+    "date": "rilis",
+    "released": "Dirilis",
+    "viewAll": "Lihat semua rilis",
+    "viewDetail": "Catatan rilis",
+    "loading": "Ngecek rilis dari GitHub…",
+    "attestation": "Ditandatangani & diverifikasi lewat GitHub Actions",
+    "qr": "Pindai untuk download"
   },
   "faq": {
-    "sectionTitle": "FAQ Pengelola Modem",
-    "sectionDescription": "Jawaban seputar aplikasi Huawei Manager Mobile dan cara cek sinyal Orbit.",
-    "questions": [
+    "label": "FAQ",
+    "title": "Pertanyaan umum",
+    "items": [
+      {
+        "q": "Perlu root nggak?",
+        "a": "Nggak. Aplikasi ngobrol langsung sama API lokal modem lewat WiFi kamu — tanpa root, tanpa akun cloud."
+      },
       {
         "q": "Modem apa saja yang didukung?",
-        "a": "Sebagian besar modem Huawei LTE dengan dukungan API standar kompatibel. Ini termasuk seri B310, B311, B312 (Modem CPE) atau E5573, E5577 (MiFi) dan seri Modem/MiFi lainnya. Aplikasi ini telah diuji secara khusus pada Huawei B312-929 (Orbit Star 2)."
+        "a": "Semua router Huawei LTE yang nyediain API XML klasik — B310, B311, B312, B525, B535, B818, E5573, E5577, dan banyak lagi. Orbit Star 2 (B312-929) sudah teruji dan populer di Indonesia."
       },
       {
-        "q": "Bisakah saya mengunci band 4G/LTE tertentu?",
-        "a": "Ya. Jika firmware modem Anda mendukungnya, aplikasi memungkinkan Anda memilih dan mengunci pita frekuensi tertentu untuk meningkatkan stabilitas sinyal atau kecepatan."
+        "q": "Apakah data aku dikumpulin?",
+        "a": "Nggak. Semuanya jalan lokal, cuma ponsel dan modem. Nggak ada akun dan nggak ada server analitik."
       },
       {
-        "q": "Apakah aplikasi melacak penggunaan data dengan akurat?",
-        "a": "Aplikasi mengambil statistik konsumsi data langsung dari modem. Meskipun sangat akurat, kami menyarankan untuk melakukan pengecekan ulang dengan dashboard resmi provider Anda untuk keperluan tagihan."
+        "q": "Kenapa ada iklan?",
+        "a": "Iklan nutupin biaya server push notification-nya. Fitur inti tetap gratis dan bebas iklan."
       },
       {
-        "q": "Bagaimana cara kerja Signal Finder?",
-        "a": "Signal Finder memberikan pembacaan RSRP, RSRQ, dan SINR secara real-time dengan feedback visual dan suara, memudahkan Anda menemukan posisi fisik optimal untuk modem Anda."
+        "q": "Modem-ku nggak support SMS. Kenapa?",
+        "a": "SMS bergantung pada firmware modem. Fiturnya otomatis disembunyiin kalau API-nya nggak nyediain."
       },
       {
-        "q": "Bisakah saya mengelola SMS melalui aplikasi?",
-        "a": "Ya. Anda dapat membaca, mengirim, dan bahkan menghapus banyak pesan SMS sekaligus langsung dari antarmuka aplikasi jika modem Anda mendukungnya."
-      },
-      {
-        "q": "Apakah password modem saya aman?",
-        "a": "Tentu saja. Kredensial Anda disimpan dengan aman di perangkat Anda dan hanya digunakan secara lokal untuk berkomunikasi dengan modem Anda. Tidak ada data yang dikirim ke server eksternal."
-      },
-      {
-        "q": "Apakah aplikasi ini gratis?",
-        "a": "Ya, aplikasi ini gratis dan open source. Anda dapat mengunduh dan menggunakannya tanpa biaya."
-      },
-      {
-        "q": "Apakah aplikasi ini bisa untuk modem Huawei terbaru?",
-        "a": "Ya, aplikasi ini bisa untuk modem Huawei terbaru. Namun, perlu diingat bahwa tidak semua modem Huawei mendukung semua fitur aplikasi ini. Beberapa fitur mungkin tidak tersedia pada modem tertentu."
-      },
-      {
-        "q": "Apakah saya bisa cek sinyal Orbit Star dengan aplikasi ini?",
-        "a": "Sangat bisa. Aplikasi ini adalah solusi terbaik untuk cek sinyal Orbit Star 2 (B312) dan seri Orbit lainnya berbasis Huawei untuk mendapatkan kualitas jaringan maksimal."
+        "q": "Ada versi iOS nggak?",
+        "a": "Belum. Aplikasi ini baru jalan di Android, dibangun dengan Expo — jadi versi iOS bisa aja menyusul nanti."
       }
     ]
   },
-  "support": {
-    "sectionTitle": "Dukungan & Umpan Balik",
-    "sectionDescription": "Laporkan masalah atau ajukan fitur baru untuk HM Mobile. Kami akan menghubungi Anda kembali melalui kontak yang diberikan.",
-    "bugReport": "Lapor Bug",
-    "featureRequest": "Usul Fitur",
-    "deviceModel": "Nama Perangkat",
-    "devicePlaceholder": "Contoh: Huawei B312 / Orbit Star 2",
-    "contact": "Email / No. HP",
-    "contactPlaceholder": "nama@email.com atau 0812...",
-    "message": "Detail Masalah / Fitur",
-    "messagePlaceholder": "Jelaskan secara detail di sini...",
-    "screenshot": "Upload Screenshot (Opsional)",
-    "screenshotHint": "Klik untuk upload atau drag and drop",
-    "screenshotLimit": "PNG, JPG maksimal 5MB",
-    "submit": "Kirim Laporan",
-    "sending": "Mengirim...",
-    "success": "Laporan berhasil dikirim! Terima kasih atas kontribusi Anda.",
-    "error": "Gagal mengirim laporan. Silakan coba lagi nanti.",
-    "alreadySubmitted": "Anda sudah mengirim laporan hari ini. Silakan coba lagi besok."
+  "feedback": {
+    "label": "Masukan",
+    "title": "Nemu bug? Mau minta fitur?",
+    "sub": "Bantuin kami bikin aplikasinya makin enak. Semua masukan kebaca.",
+    "name": "Nama (opsional)",
+    "email": "Email",
+    "emailPh": "kamu@contoh.com",
+    "type": "Jenis",
+    "typeBug": "Laporan bug",
+    "typeFeature": "Permintaan fitur",
+    "modem": "Model modem",
+    "modemPh": "contoh: B312-929 (Orbit Star 2)",
+    "message": "Pesan",
+    "messagePh": "Jelaskan masalah atau fitur yang kamu mau…",
+    "submit": "Kirim masukan",
+    "sending": "Ngirim…",
+    "success": "Makasih! Masukanmu terkirim.",
+    "error": "Waduh, ada yang salah. Coba lagi atau buka issue di GitHub.",
+    "gh": "Atau buka issue GitHub langsung"
+  },
+  "releases": {
+    "loading": "Ngecek rilis dari GitHub…"
+  },
+  "footer": {
+    "statement": "Kendalikan modem-mu hari ini.",
+    "sub": "Gratis · Open source · Lisensi MIT",
+    "github": "GitHub",
+    "source": "Kode sumber",
+    "sponsor": "Dukung proyek ini",
+    "docs": "GitHub",
+    "license": "Lisensi MIT",
+    "rights": "Tidak berafiliasi dengan Huawei.",
+    "local": "Lokal-first · Privat · Tanpa cloud"
   }
 }

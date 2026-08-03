@@ -1,0 +1,186 @@
+---
+import '@/styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import type { Lang } from '@/i18n';
+import { t, otherLang } from '@/i18n';
+import { github, seoKeywords } from '@/data/site';
+import type { ReleasesCache } from '@/data/types';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  canonical: string;
+  cache: ReleasesCache;
+  jsonLd?: object[];
+}
+
+const { lang, title, description, canonical, cache } = Astro.props;
+const alt = otherLang(lang);
+const altPath = canonical.replace(/^https:\/\/[^/]+\/(en|id)?/i, (m) => {
+  const hasLang = m.endsWith('en') || m.endsWith('id');
+  return hasLang ? m.slice(0, -3) : m + (lang === 'en' ? 'id' : 'en');
+});
+const latest = cache.releases.find((r) => !r.prerelease && r.tag.startsWith('v'));
+const ogImage = new URL('/og-image.png', Astro.site ?? 'https://hm.cakson.my.id').href;
+
+const jsonLd: object[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Huawei Manager Mobile',
+    operatingSystem: 'Android',
+    applicationCategory: 'UtilitiesApplication',
+    applicationSubCategory: 'Network Management',
+    softwareVersion: latest?.tag.replace('v', '') ?? '1.1.70',
+    description: t(lang, 'meta.description'),
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Organization', name: 'Huawei Manager', url: 'https://hm.cakson.my.id' },
+    license: 'https://opensource.org/licenses/MIT',
+    aggregateRating: { '@type': 'AggregateRating', ratingValue: '5', ratingCount: String(cache.stars || 31) },
+    downloadUrl: [
+      `${github.rawReleases}/huawei-manager-arm64-v8a.apk`,
+      `${github.rawReleases}/huawei-manager-armeabi-v7a.apk`,
+      `${github.rawReleases}/huawei-manager-universal.apk`,
+    ],
+    releaseNotes: `${canonical}/releases`,
+  },
+  ...(Astro.props.jsonLd ?? []),
+];
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" viewport-fit="cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={seoKeywords[lang].join(', ')} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={alt === 'en' ? 'en' : 'id'} href={altPath} />
+    <link rel="alternate" hreflang={lang === 'en' ? 'id' : 'en'} href={altPath} />
+    <link rel="alternate" hreflang="x-default" href="https://hm.cakson.my.id/en/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#2563EB" />
+    <script is:inline data-astro-rerun>
+      (() => {
+        const KEY = 'hm-theme';
+        const order = ['light', 'dark', 'auto'];
+        const getPref = () => {
+          try { return localStorage.getItem(KEY) || 'auto'; } catch { return 'auto'; }
+        };
+        const setPref = (value) => {
+          try { localStorage.setItem(KEY, value); } catch {}
+        };
+        const systemDark = () => window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
+        const resolve = (pref) => (pref === 'dark' || pref === 'light' ? pref : (systemDark() ? 'dark' : 'light'));
+        const apply = () => {
+          const pref = getPref();
+          const theme = resolve(pref);
+          const h = document.documentElement;
+          h.dataset.theme = theme;
+          h.dataset.themePref = pref;
+          document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#111827' : '#2563EB');
+          document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
+            button.dataset.mode = pref;
+            button.setAttribute('aria-label', `Theme: ${pref}`);
+            button.setAttribute('title', `Theme: ${pref}`);
+          });
+        };
+        apply();
+        if (!window.__hmThemeInit) {
+          window.__hmThemeInit = true;
+          document.addEventListener('DOMContentLoaded', apply);
+          document.addEventListener('astro:page-load', apply);
+          document.addEventListener('click', (e) => {
+            const button = e.target.closest('[data-theme-toggle]');
+            if (!button) return;
+            const next = order[(order.indexOf(getPref()) + 1) % order.length];
+            setPref(next);
+            apply();
+          });
+          window.matchMedia?.('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (getPref() === 'auto') apply();
+          });
+        }
+      })();
+    </script>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Huawei Manager Mobile" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'id_ID'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <link rel="preconnect" href="https://github.com" />
+    <link rel="preconnect" href="https://api.github.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://user-attachments.githubusercontent.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+    <ClientRouter />
+    <script is:inline>
+      // Preserve scroll only across language switches; other client navs go to top
+      let navigated = false;
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a[data-lang-switch]');
+        if (a) {
+          localStorage.setItem('hm-lang', a.dataset.langSwitch);
+          window.__hmPreserveScroll = window.scrollY;
+        }
+      });
+      document.addEventListener('astro:before-preparation', () => {
+        navigated = true;
+      });
+      document.addEventListener('astro:page-load', () => {
+        const preserved = window.__hmPreserveScroll || 0;
+        window.__hmPreserveScroll = 0;
+        if (preserved > 0) { window.scrollTo({ top: preserved, behavior: 'instant' }); return; }
+        if (!navigated) return; // initial load / reload → browser default
+        navigated = false;
+        if (location.hash) {
+          const el = document.getElementById(location.hash.slice(1));
+          if (el) el.scrollIntoView();
+          return;
+        }
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      });
+    </script>
+    <script is:inline data-astro-rerun>
+      // #support → #feedback redirect
+      if (location.hash === '#support') { history.replaceState(null, '', '#feedback'); }
+
+      // Scroll reveal animation
+      if (!window.__revealInit) {
+        window.__revealInit = true;
+        const initReveal = () => {
+          const els = document.querySelectorAll('[data-reveal]');
+          if (!els.length) return;
+          const obs = new IntersectionObserver((entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) { obs.unobserve(e.target); e.target.classList.add('revealed'); }
+            }
+          }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+          els.forEach((el) => obs.observe(el));
+        };
+        initReveal();
+        document.addEventListener('astro:page-load', initReveal);
+      }
+    </script>
+  </body>
+</html>
