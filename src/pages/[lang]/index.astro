@@ -1,0 +1,55 @@
+---
+import type { Lang } from '@/i18n';
+import { t } from '@/i18n';
+import Base from '@/layouts/Base.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/Hero.astro';
+import Stats from '@/components/Stats.astro';
+import Preview from '@/components/Preview.astro';
+import Features from '@/components/Features.astro';
+import HowItWorks from '@/components/HowItWorks.astro';
+import ModemSupport from '@/components/ModemSupport.astro';
+import Download from '@/components/Download.astro';
+import FAQ from '@/components/FAQ.astro';
+import Feedback from '@/components/Feedback.astro';
+import Footer from '@/components/Footer.astro';
+import type { ReleasesCache } from '@/data/types';
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' }, props: { lang: 'en', path: '/en/' } },
+    { params: { lang: 'id' }, props: { lang: 'id', path: '/id/' } },
+  ];
+}
+
+const cache: ReleasesCache = { fetched: new Date().toISOString(), stars: 0, forks: 0, releases: [] };
+const { lang, path } = Astro.props;
+const canonical = `https://hm.cakson.my.id/${lang}/`;
+const faqItems = (t(lang, 'faq.items') as unknown as { q: string; a: string }[]).map((i) => ({
+  '@type': 'Question',
+  name: i.q,
+  acceptedAnswer: { '@type': 'Answer', text: i.a },
+}));
+const jsonLd = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems }];
+---
+
+<Base lang={lang} title={t(lang, 'meta.title')} description={t(lang, 'meta.description')} canonical={canonical} cache={cache} jsonLd={jsonLd}>
+  <Navbar lang={lang} path={path} />
+  <main>
+    <Hero lang={lang} cache={cache} />
+    <Stats lang={lang} />
+    <Preview lang={lang} />
+    <Features lang={lang} />
+    <HowItWorks lang={lang} />
+    <ModemSupport lang={lang} />
+    <Download lang={lang} path={path} />
+    <FAQ lang={lang} />
+    <Feedback lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Base>

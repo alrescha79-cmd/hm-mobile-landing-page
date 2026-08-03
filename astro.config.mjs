@@ -5,10 +5,20 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://hm.cakson.my.id',
-
-  vite: {
-    plugins: [tailwindcss()],
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'id'],
+    routing: {
+      prefixDefaultLocale: true,
+      redirectToDefaultLocale: false,
+    },
   },
-
-  integrations: [sitemap()],
+  image: {
+    service: { entrypoint: 'astro/assets/services/sharp' },
+  },
+  vite: { plugins: [/** @type {any} */ (tailwindcss())] },
+  integrations: [sitemap({
+    i18n: { defaultLocale: 'en', locales: { en: 'en', id: 'id' } },
+    filter: (page) => !page.includes('/api/'),
+  })],
 });

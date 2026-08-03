@@ -1,499 +1,133 @@
 ---
-import type { Locale } from "../i18n/i18n";
-import { t } from "../i18n/i18n";
+import type { Lang } from '@/i18n';
+import { t } from '@/i18n';
 
 interface Props {
-  locale: Locale;
+  lang: Lang;
+  path: string;
 }
 
-const { locale } = Astro.props;
-const i = t(locale);
-
-const REPO = "alrescha79-cmd/huawei-manager-mobile";
-
-let releaseData: {
-  tag: string;
-  assets: { name: string; url: string; size: number }[];
-} = {
-  tag: "latest",
-  assets: [],
-};
-
-let preReleaseData: {
-  tag: string;
-  assets: { name: string; url: string; size: number }[];
-} = {
-  tag: "",
-  assets: [],
-};
-
-async function fetchRelease(url: string) {
-  const res = await fetch(url);
-  if (!res.ok) return null;
-  const data = await res.json();
-  return {
-    tag: data.tag_name || "",
-    assets: (data.assets || []).map((a: any) => ({
-      name: a.name,
-      url: a.browser_download_url,
-      size: a.size,
-    })),
-  };
-}
-
-try {
-  const [latest, releases] = await Promise.all([
-    fetchRelease(`https://api.github.com/repos/${REPO}/releases/latest`),
-    fetch(`https://api.github.com/repos/${REPO}/releases`).then((r) =>
-      r.ok ? r.json() : []
-    ),
-  ]);
-
-  if (latest) {
-    releaseData = latest;
-  }
-
-  // Find first pre-release from releases list
-  if (Array.isArray(releases)) {
-    const pre = releases.find((r: any) => r.prerelease);
-    if (pre) {
-      preReleaseData = {
-        tag: pre.tag_name || "",
-        assets: (pre.assets || []).map((a: any) => ({
-          name: a.name,
-          url: a.browser_download_url,
-          size: a.size,
-        })),
-      };
-    }
-  }
-} catch {
-  // Fallback to static URLs
-}
-
-function getAssetUrl(pattern: string, assets?: { name: string; url: string; size: number }[]): string {
-  const list = assets || releaseData.assets;
-  const asset = list.find((a) => a.name.includes(pattern));
-  return (
-    asset?.url ||
-    `https://github.com/${REPO}/releases/latest/download/huawei-manager-${pattern}.apk`
-  );
-}
-
-function formatSize(bytes: number): string {
-  if (!bytes) return "";
-  return `${(bytes / (1024 * 1024)).toFixed(0)} MB`;
-}
-
-function getAssetSize(pattern: string, assets?: { name: string; url: string; size: number }[]): string {
-  const list = assets || releaseData.assets;
-  const asset = list.find((a) => a.name.includes(pattern));
-  return asset ? formatSize(asset.size) : "";
-}
-
-const downloads = [
-  {
-    key: "arm64" as const,
-    pattern: "arm64-v8a",
-    icon: "🚀",
-  },
-  {
-    key: "armv7" as const,
-    pattern: "armeabi-v7a",
-    icon: "📦",
-  },
-  {
-    key: "universal" as const,
-    pattern: "universal",
-    icon: "🌐",
-  },
-];
+const { lang } = Astro.props;
 ---
 
-<section id="download" class="py-20 sm:py-32 relative section-glow">
-  <div class="absolute inset-0 -z-10">
-    <div
-      class="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-surface-200 dark:via-surface-800 to-transparent"
-    >
+<section id="download" class="px-5 md:px-6 py-16 md:py-24 scroll-mt-24 bg-[color:var(--color-paper-2)]">
+  <div class="mx-auto max-w-6xl">
+    <div class="mb-10 md:mb-14 flex flex-col gap-4 max-w-2xl" data-reveal>
+      <p class="mono text-[12px] uppercase tracking-[0.14em] text-[color:var(--color-accent-deep)]">{t(lang, 'download.label')}</p>
+      <h2 class="text-display-s">{t(lang, 'download.title')}</h2>
+      <p class="text-[color:var(--color-muted)]">{t(lang, 'download.sub')}</p>
     </div>
-  </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="reveal text-center max-w-3xl mx-auto mb-16">
-      <h2
-        class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight"
-      >
-        {i.download.sectionTitle}
-      </h2>
-      <p class="mt-4 text-lg text-surface-500 dark:text-surface-400">
-        {i.download.sectionDescription}
+    <div id="download-stable" class="mb-12 hidden">
+      <div class="flex items-center gap-2 mb-5">
+        <h3 class="font-display text-lg font-bold tracking-tight">{t(lang, 'download.stable')}</h3>
+        <span class="mono text-[13px] text-[color:var(--color-muted)]" data-download-stable-tag></span>
+        <span class="mono text-[12px] text-[color:var(--color-neutral)]" data-download-stable-date></span>
+      </div>
+      <div id="download-stable-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+    </div>
+
+    <div id="download-pre" class="hidden">
+      <div class="flex items-center gap-2 mb-5">
+        <h3 class="font-display text-lg font-bold tracking-tight">{t(lang, 'download.prerelease')}</h3>
+        <span class="inline-flex items-center gap-1 rounded-full bg-[color:var(--color-warn)]/[0.12] px-2.5 py-0.5 text-[11px] font-semibold text-[color:var(--color-warn)]">{t(lang, 'download.preWarning')}</span>
+      </div>
+      <div id="download-pre-list" class="space-y-3"></div>
+    </div>
+
+    <div id="download-loading" class="text-[14px] text-[color:var(--color-muted)]">{t(lang, 'download.loading')}</div>
+
+    <div class="mt-8 flex flex-wrap items-center justify-between gap-4">
+      <a href={`/${lang}/releases`} class="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[color:var(--color-accent-deep)] no-underline whitespace-nowrap group">
+        {t(lang, 'download.viewAll')}
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-[var(--dur-micro)] group-hover:translate-x-0.5" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+      </a>
+      <p class="flex items-center gap-1.5 text-[12px] text-[color:var(--color-muted)]">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6ZM9 12l2 2 4-4" /></svg>
+        {t(lang, 'download.attestation')}
       </p>
-
-      <!-- Release channel toggle — Apple segmented control -->
-      <div
-        id="release-toggle"
-        class="mt-8 inline-flex p-1 bg-surface-100 dark:bg-surface-800 rounded-full"
-        data-repo={REPO}
-        data-latest-tag={releaseData.tag}
-        data-pre-tag={preReleaseData.tag}
-        data-latest-version={i.download.version}
-        data-pre-version={i.download.preReleaseVersion}
-        data-no-pre={i.download.noPreRelease}
-      >
-        <button
-          type="button"
-          id="channel-latest"
-          class="px-5 py-2 text-sm font-medium rounded-full transition-all duration-300 bg-surface-50 dark:bg-surface-700 shadow-sm text-primary-500 dark:text-accent-500"
-        >
-          {i.download.latest}
-        </button>
-        <button
-          type="button"
-          id="channel-prerelease"
-          class="px-5 py-2 text-sm font-medium rounded-full transition-all duration-300 text-surface-500 hover:text-surface-950 dark:hover:text-surface-50"
-        >
-          {i.download.preRelease}
-        </button>
-      </div>
-
-      <!-- Pre-release warning -->
-      <div
-        id="prerelease-warning"
-        class="mt-4 hidden flex-col items-center gap-2 text-sm text-amber-600 dark:text-amber-400"
-      >
-        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-        </svg>
-        <span>{i.download.preReleaseWarning}</span>
-      </div>
-
-      <div id="release-info" class="mt-2 flex flex-col items-center gap-4" style={releaseData.tag === "latest" ? "display: none;" : ""}>
-        <p class="text-sm text-surface-400 dark:text-surface-500">
-          <span id="version-label">{i.download.version}</span>:{" "}
-          <span id="release-tag" class="font-mono font-semibold text-primary-500 dark:text-accent-500" data-repo={REPO}>
-            {releaseData.tag}
-          </span>
-        </p>
-        <a
-          id="changelog-link"
-          href={`https://github.com/${REPO}/releases/tag/${releaseData.tag}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium text-primary-600 dark:text-accent-500 bg-primary-500/10 dark:bg-accent-500/10 hover:bg-primary-500/20 dark:hover:bg-accent-500/20 transition-all duration-300"
-        >
-          <svg
-            class="w-4 h-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-            />
-          </svg>
-          {i.download.viewChangelog}
-        </a>
-      </div>
-    </div>
-
-    <!-- Download cards -->
-    <div class="reveal-group grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
-      {
-        downloads.map((dl, idx) => {
-          const dlData = i.download[dl.key];
-          const url = getAssetUrl(dl.pattern);
-          const size = getAssetSize(dl.pattern);
-          const preUrl = getAssetUrl(dl.pattern, preReleaseData.assets);
-          const preSize = getAssetSize(dl.pattern, preReleaseData.assets);
-          return (
-            <div
-              class="glass-card p-6 sm:p-8 text-center relative overflow-hidden group"
-            >
-              {idx === 0 && (
-                <div class="absolute top-4 right-4">
-                  <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-green-500/15 text-green-600 dark:text-green-400">
-                    {dlData.badge}
-                  </span>
-                </div>
-              )}
-              {idx > 0 && (
-                <div class="absolute top-4 right-4">
-                  <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-surface-100 dark:bg-surface-800 text-surface-500 dark:text-surface-400">
-                    {dlData.badge}
-                  </span>
-                </div>
-              )}
-
-              <div class="text-4xl mb-4">{dl.icon}</div>
-              <h3 class="text-xl font-semibold text-surface-950 dark:text-surface-50 mb-2">
-                {dlData.title}
-              </h3>
-              <p class="text-sm text-surface-500 dark:text-surface-400 mb-6 leading-relaxed min-h-12">
-                {dlData.description}
-              </p>
-
-              <p
-                class="text-xs text-surface-400 dark:text-surface-500 mb-4 font-mono download-size-el"
-                data-pattern={dl.pattern}
-                style={size ? "" : "display: none;"}
-              >
-                {size}
-              </p>
-
-              <a
-                href={url}
-                data-pattern={dl.pattern}
-                data-latest-url={url}
-                data-pre-url={preUrl}
-                data-latest-size={size}
-                data-pre-size={preSize}
-                class="btn-primary download-link-el inline-flex items-center justify-center gap-2 w-full px-6 py-3 text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 dark:bg-accent-500 dark:hover:bg-accent-600 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/25 dark:hover:shadow-accent-500/25"
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                  />
-                </svg>
-                {i.download.downloadBtn}
-              </a>
-            </div>
-          );
-        })
-      }
-    </div>
-
-    <!-- Install guide -->
-    <div class="mt-16 max-w-2xl mx-auto">
-      <div class="glass-card p-6 sm:p-8">
-        <h3
-          class="text-lg font-semibold text-surface-950 dark:text-surface-50 mb-4 flex items-center gap-2"
-        >
-          <svg
-            class="w-5 h-5 text-primary-500 dark:text-accent-500"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
-          </svg>
-          {i.download.installGuide.title}
-        </h3>
-        <ol class="space-y-3">
-          {
-            i.download.installGuide.steps.map((step: string, idx: number) => (
-              <li class="flex items-start gap-3 text-sm text-surface-500 dark:text-surface-400">
-                <span class="shrink-0 w-6 h-6 rounded-full bg-primary-500/10 dark:bg-accent-500/10 text-primary-600 dark:text-accent-500 text-xs font-semibold flex items-center justify-center mt-0.5">
-                  {idx + 1}
-                </span>
-                <span>{step}</span>
-              </li>
-            ))
-          }
-        </ol>
-      </div>
     </div>
   </div>
 </section>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
-    const releaseTagEl = document.getElementById("release-tag");
-    const toggleEl = document.getElementById("release-toggle") as HTMLElement | null;
-    if (!releaseTagEl || !toggleEl) return;
+  (() => {
+    const lang = document.documentElement.lang || 'en';
+    const fmtNum = (n: number) => new Intl.NumberFormat(lang === 'id' ? 'id-ID' : 'en-US').format(n);
+    const fmtMB = (b: number | string) => (Number(b) / 1048576).toFixed(0);
+    const fmtDate = (iso: string) =>
+      new Date(iso).toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
-    const repo = toggleEl.dataset.repo || "";
-    const noPreMsg = toggleEl.dataset.noPre || "No pre-release available";
-    const versionLabelEl = document.getElementById("version-label");
-    const warningEl = document.getElementById("prerelease-warning");
-    const changelogLinkEl = document.getElementById("changelog-link") as HTMLAnchorElement | null;
-    const releaseInfoEl = document.getElementById("release-info");
-    const linkEls = document.querySelectorAll(".download-link-el") as NodeListOf<HTMLAnchorElement>;
-    const sizeEls = document.querySelectorAll(".download-size-el") as NodeListOf<HTMLParagraphElement>;
+    const site = { raw: 'https://github.com/alrescha79-cmd/huawei-manager-mobile/releases/latest/download' };
+    const suffixes = [
+      { id: 'arm64-v8a', file: 'huawei-manager-arm64-v8a.apk', badge: 'arm64-v8a', note: 'Modern 64-bit phones' },
+      { id: 'armeabi-v7a', file: 'huawei-manager-armeabi-v7a.apk', badge: 'armeabi-v7a', note: 'Older 32-bit phones' },
+      { id: 'universal', file: 'huawei-manager-universal.apk', badge: 'universal', note: 'All devices' },
+    ];
 
-    const CACHE_KEY = "hm_releases_cache";
-    const CACHE_TTL = 3600000;
+    const relPath = (file: string) => `${site.raw}/${file}`;
 
-    let currentChannel: "latest" | "pre" = "latest";
-    let latestData = { tag: "", assets: [] as any[] };
-    let preData = { tag: "", assets: [] as any[] };
+    type ReleaseAsset = { name: string; size: number; downloads: number; url: string };
+    type Release = { tag: string; prerelease: boolean; published: string; assets: ReleaseAsset[] };
+    type ReleasesCache = { releases: Release[] };
 
-    function applyChannel(channel: "latest" | "pre") {
-      currentChannel = channel;
-      const data = channel === "latest" ? latestData : preData;
-      const isPre = channel === "pre";
+    const render = (data: ReleasesCache) => {
+      if (!data?.releases?.length) return;
+      const stable = data.releases.find((r) => !r.prerelease && r.tag.startsWith('v'));
+      const prereleases = data.releases.filter((r) => r.prerelease || !r.tag.startsWith('v')).slice(0, 3);
+      const loading = document.getElementById('download-loading');
+      if (loading) loading.classList.add('hidden');
 
-      // Update tag display
-      if (data.tag) {
-        releaseTagEl!.textContent = data.tag;
-        if (releaseInfoEl) releaseInfoEl.style.display = "flex";
-      } else if (isPre) {
-        releaseTagEl!.textContent = noPreMsg;
+      if (stable) {
+        const wrap = document.getElementById('download-stable');
+        const grid = document.getElementById('download-stable-grid');
+        const tagEl = document.querySelector('[data-download-stable-tag]');
+        const dateEl = document.querySelector('[data-download-stable-date]');
+        if (wrap && grid) {
+          if (tagEl) tagEl.textContent = stable.tag;
+          if (dateEl) dateEl.textContent = '· ' + fmtDate(stable.published);
+          grid.innerHTML = suffixes
+            .map((s, i) => {
+              const asset = stable.assets.find((a) => a.name.includes(s.id));
+              const isRec = i === 0;
+              return `<a href="${asset?.url ?? relPath(s.file)}" download class="group relative flex flex-col justify-between rounded-(--radius-lg) border p-6 no-underline transition-[transform,box-shadow] duration-[var(--dur-short)] ease-[var(--ease-out)] hover:-translate-y-0.5 hover-lift ${isRec ? 'border-[color:var(--color-accent)]/50 bg-[color:var(--color-paper)] shadow-(--shadow-download)' : 'border-[color:var(--color-rule)] bg-[color:var(--color-paper)]'}">
+              ${isRec ? '<span class="absolute -top-2.5 right-4 rounded-full bg-[color:var(--color-accent)] px-2.5 py-0.5 text-[11px] font-semibold text-[color:var(--color-accent-ink)]">Recommended</span>' : ''}
+              <div><div class="flex items-center justify-between mb-3"><span class="mono text-[14px] font-medium text-[color:var(--color-ink)]">${s.badge}</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[color:var(--color-accent-deep)] transition-transform duration-[var(--dur-short)] ease-[var(--ease-out)] group-hover:translate-y-0.5" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" /></svg></div><p class="text-[13px] text-[color:var(--color-muted)]">${s.note}</p></div><div class="mt-5 flex items-center gap-3 text-[12px] text-[color:var(--color-muted)]">${asset ? `<span class="mono">${fmtMB(asset.size)} MB</span><span class="w-px h-3 bg-[color:var(--color-rule)]"></span><span class="mono">${fmtNum(asset.downloads)} downloads</span>` : ''}</div></a>`;
+            })
+            .join('');
+          wrap.classList.remove('hidden');
+        }
       }
 
-      // Update version label
-      if (versionLabelEl) {
-        versionLabelEl.textContent = isPre
-          ? toggleEl!.dataset.preVersion || "Pre-release Version"
-          : toggleEl!.dataset.latestVersion || "Latest Version";
+      if (prereleases.length) {
+        const wrap = document.getElementById('download-pre');
+        const list = document.getElementById('download-pre-list');
+        if (wrap && list) {
+          list.innerHTML = prereleases
+            .map((r) => {
+              const first = r.assets[0];
+              const total = r.assets.reduce((s: number, a: ReleaseAsset) => s + a.downloads, 0);
+              return `<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-(--radius-lg) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] p-5"><div class="flex items-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[color:var(--color-warn)]/[0.1] text-[color:var(--color-warn)]"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9h12M6 15h12M12 3v4m0 10v4" /></svg></span><div><p class="mono text-[14px] font-medium">${r.tag}</p><p class="text-[12px] text-[color:var(--color-muted)]">${fmtDate(r.published)} · ${fmtNum(total)} downloads</p></div></div><div class="flex items-center gap-2"><span class="mono text-[12px] text-[color:var(--color-muted)] hidden sm:inline">${r.assets.map((a) => a.name.replace('huawei-manager-', '').replace('.apk', '')).join(' · ')}</span><a href="${first?.url ?? '#download'}" download class="inline-flex items-center gap-1.5 rounded-(--radius-pill) border border-[color:var(--color-rule)] px-4 py-2 text-[13px] font-semibold no-underline whitespace-nowrap transition-colors duration-[var(--dur-micro)] ease-[var(--ease-out)] hover:border-[color:var(--color-neutral)]">Download</a></div></div>`;
+            })
+            .join('');
+          wrap.classList.remove('hidden');
+        }
       }
-
-      // Update changelog link
-      if (changelogLinkEl && data.tag) {
-        changelogLinkEl.href = `https://github.com/${repo}/releases/tag/${data.tag}`;
-      }
-
-      // Toggle warning
-      if (warningEl) {
-        warningEl.classList.toggle("hidden", !isPre || !preData.tag);
-        warningEl.classList.toggle("flex", isPre && !!preData.tag);
-      }
-
-      // Update download links & sizes
-      linkEls.forEach((el) => {
-        const pattern = el.dataset.pattern;
-        if (!pattern) return;
-        const asset = data.assets.find((a: any) => a.name.includes(pattern));
-        if (asset && asset.url) {
-          el.href = asset.url;
-        } else if (!isPre) {
-          el.href = `https://github.com/${repo}/releases/latest/download/huawei-manager-${pattern}.apk`;
-        }
-      });
-
-      sizeEls.forEach((el) => {
-        const pattern = el.dataset.pattern;
-        if (!pattern) return;
-        const asset = data.assets.find((a: any) => a.name.includes(pattern));
-        if (asset && asset.size) {
-          el.textContent = `${(asset.size / (1024 * 1024)).toFixed(0)} MB`;
-          el.style.display = "block";
-        } else if (isPre && !preData.tag) {
-          el.style.display = "none";
-        }
-      });
-    }
-
-    function updateToggleUI(channel: "latest" | "pre") {
-      const latestBtn = document.getElementById("channel-latest");
-      const preBtn = document.getElementById("channel-prerelease");
-      if (!latestBtn || !preBtn) return;
-
-      const activeClasses = ["bg-surface-50", "dark:bg-surface-700", "shadow-sm", "text-primary-500", "dark:text-accent-500"];
-      const inactiveClasses = ["text-surface-500"];
-
-      if (channel === "latest") {
-        latestBtn.classList.add(...activeClasses);
-        latestBtn.classList.remove(...inactiveClasses);
-        preBtn.classList.remove(...activeClasses);
-        preBtn.classList.add(...inactiveClasses);
-      } else {
-        preBtn.classList.add(...activeClasses);
-        preBtn.classList.remove(...inactiveClasses);
-        latestBtn.classList.remove(...activeClasses);
-        latestBtn.classList.add(...inactiveClasses);
-      }
-    }
-
-    // Toggle handlers
-    document.getElementById("channel-latest")?.addEventListener("click", () => {
-      updateToggleUI("latest");
-      applyChannel("latest");
-    });
-
-    document.getElementById("channel-prerelease")?.addEventListener("click", () => {
-      updateToggleUI("pre");
-      applyChannel("pre");
-    });
-
-    async function fetchReleases() {
-      // Try cache first
-      try {
-        const cached = localStorage.getItem(CACHE_KEY);
-        if (cached) {
-          const { latest, pre, ts } = JSON.parse(cached);
-          if (Date.now() - ts < CACHE_TTL) {
-            if (latest?.tag) latestData = latest;
-            if (pre?.tag) preData = pre;
-            applyChannel(currentChannel);
-            return;
-          }
-        }
-      } catch {}
-
-      try {
-        const [latestRes, allRes] = await Promise.all([
-          fetch(`https://api.github.com/repos/${repo}/releases/latest`, {
-            headers: { Accept: "application/vnd.github.v3+json" },
-          }),
-          fetch(`https://api.github.com/repos/${repo}/releases`, {
-            headers: { Accept: "application/vnd.github.v3+json" },
-          }),
-        ]);
-
-        if (latestRes.ok) {
-          const data = await latestRes.json();
-          latestData = {
-            tag: data.tag_name || "",
-            assets: (data.assets || []).map((a: any) => ({
-              name: a.name,
-              url: a.browser_download_url,
-              size: a.size,
-            })),
-          };
-        }
-
-        if (allRes.ok) {
-          const releases = await allRes.json();
-          const pre = (releases as any[]).find((r) => r.prerelease);
-          if (pre) {
-            preData = {
-              tag: pre.tag_name || "",
-              assets: (pre.assets || []).map((a: any) => ({
-                name: a.name,
-                url: a.browser_download_url,
-                size: a.size,
-              })),
-            };
-          }
-        }
-
-        applyChannel(currentChannel);
-
-        try {
-          localStorage.setItem(
-            CACHE_KEY,
-            JSON.stringify({ latest: latestData, pre: preData, ts: Date.now() })
-          );
-        } catch {}
-      } catch {}
-    }
-
-    // Initialize from SSR data attributes
-    latestData = {
-      tag: toggleEl.dataset.latestTag || "",
-      assets: [],
-    };
-    preData = {
-      tag: toggleEl.dataset.preTag || "",
-      assets: [],
     };
 
-    fetchReleases();
-  });
+    const fetchLive = async () => {
+      try {
+        const res = await fetch('/api/releases');
+        if (!res.ok) throw new Error(String(res.status));
+        const data = await res.json();
+        render(data);
+      } catch {}
+    };
+
+    if (!window.__hmDownloadFetch) {
+      window.__hmDownloadFetch = true;
+      document.addEventListener('astro:page-load', fetchLive);
+      setInterval(fetchLive, 60 * 60 * 1000);
+    }
+  })();
 </script>

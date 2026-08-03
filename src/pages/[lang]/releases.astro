@@ -1,0 +1,213 @@
+---
+import type { Lang } from '@/i18n';
+import { t } from '@/i18n';
+import Base from '@/layouts/Base.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import type { ReleasesCache } from '@/data/types';
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' }, props: { lang: 'en', path: '/en/releases' } },
+    { params: { lang: 'id' }, props: { lang: 'id', path: '/id/releases' } },
+  ];
+}
+
+const cache: ReleasesCache = { fetched: new Date().toISOString(), stars: 0, forks: 0, releases: [] };
+const { lang, path } = Astro.props;
+const canonical = `https://hm.cakson.my.id/${lang}/releases`;
+---
+
+<Base lang={lang} title={`${t(lang, 'nav.releases')} · Huawei Manager`} description={t(lang, 'meta.description')} canonical={canonical} cache={cache}>
+  <Navbar lang={lang} path={path} />
+  <main class="pt-28 md:pt-36 px-5 md:px-6 pb-20">
+    <div class="mx-auto max-w-3xl">
+      <a href={`/${lang}/#download`} class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[color:var(--color-accent-deep)] no-underline whitespace-nowrap mb-8 group">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-[var(--dur-micro)] group-hover:-translate-x-0.5" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" /></svg>
+        {t(lang, 'nav.download')}
+      </a>
+      <h1 class="text-display-s mb-3">{t(lang, 'nav.releases')}</h1>
+      <p class="text-[color:var(--color-muted)] mb-12" data-release-count>
+        <span class="mono">—</span> · <span class="mono">{t(lang, 'download.attestation')}</span>
+      </p>
+      <div id="releases-list" class="space-y-4">
+        <p class="text-[14px] text-[color:var(--color-muted)]">{t(lang, 'releases.loading')}</p>
+      </div>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Base>
+
+<script is:inline data-astro-rerun>
+  window.__releaseBodies = {};
+</script>
+
+<div id="release-modal" class="fixed inset-0 z-(--z-modal) hidden items-center justify-center bg-black/60 p-4 md:p-8" role="dialog" aria-modal="true" aria-labelledby="release-modal-title">
+  <div class="relative flex w-full max-w-3xl max-h-[85vh] max-h-[85dvh] flex-col overflow-hidden rounded-(--radius-lg) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] shadow-(--shadow-float)">
+    <div class="flex shrink-0 items-center justify-between gap-4 border-b border-[color:var(--color-rule)] px-5 py-4">
+      <h2 id="release-modal-title" class="mono text-[16px] font-semibold"></h2>
+      <button type="button" data-release-modal-close class="rounded-(--radius-pill) p-2 text-[color:var(--color-muted)] transition-colors duration-[var(--dur-micro)] hover:text-[color:var(--color-ink)]" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <div id="release-modal-body" class="markdown min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 text-[14px] leading-[1.85] text-[color:var(--color-ink)]"></div>
+  </div>
+</div>
+
+
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    if (location.pathname.endsWith('/releases')) window.scrollTo({ top: 0, behavior: 'instant' });
+  });
+
+  (function () {
+    const lockScroll = (lock: boolean) => {
+      document.documentElement.style.overflow = lock ? 'hidden' : '';
+      document.body.style.overflow = lock ? 'hidden' : '';
+    };
+
+    const sanitize = (v: string) => (v || '').trim();
+
+    const openModal = async (tag: string) => {
+      const modal = document.getElementById('release-modal');
+      const modalTitle = document.getElementById('release-modal-title');
+      const modalBody = document.getElementById('release-modal-body') as HTMLElement | null;
+      if (!modal || !modalTitle || !modalBody) return;
+      const bodies = window.__releaseBodies || {};
+      const raw = bodies[tag] || '';
+      modalTitle.textContent = tag;
+      try {
+        const { marked } = await import('marked');
+        const html = await marked.parse(sanitize(raw) || '_No release notes._');
+        modalBody.innerHTML = typeof html === 'string' ? html : '';
+      } catch {
+        modalBody.textContent = sanitize(raw) || 'No release notes.';
+      }
+      modalBody.scrollTop = 0;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      lockScroll(true);
+    };
+
+    const closeModal = () => {
+      const modal = document.getElementById('release-modal');
+      const modalTitle = document.getElementById('release-modal-title');
+      const modalBody = document.getElementById('release-modal-body') as HTMLElement | null;
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      if (modalTitle) modalTitle.textContent = '';
+      if (modalBody) modalBody.innerHTML = '';
+      lockScroll(false);
+    };
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      const toggle = target.closest('[data-release-toggle]') as HTMLElement | null;
+      if (toggle) {
+        openModal(toggle.getAttribute('data-release-tag') || 'Release');
+        return;
+      }
+      const modal = document.getElementById('release-modal');
+      const closeBtn = target.closest('[data-release-modal-close]');
+      if (closeBtn || target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('release-modal');
+      if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) closeModal();
+    });
+  })();
+</script>
+
+<script>
+  (function () {
+    const lang = document.documentElement.lang || 'en';
+    const fmtNum = (n: number) => new Intl.NumberFormat(lang === 'id' ? 'id-ID' : 'en-US').format(n);
+    const dlLabel = lang === 'id' ? 'unduhan' : 'downloads';
+    const fmtDate = (iso: string) =>
+      new Date(iso).toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    type ReleaseAsset = { name: string; size: number; downloads: number; url: string };
+    type Release = { tag: string; prerelease: boolean; published: string; body: string; assets: ReleaseAsset[] };
+    type ReleasesCache = { releases: Release[] };
+
+    const renderRelease = (r: Release) => {
+      if (window.__releaseBodies) window.__releaseBodies[r.tag] = r.body || '';
+      const art = document.createElement('article');
+      art.id = 'release-' + r.tag.replace(/[^a-z0-9-]+/g, '-');
+      art.className = 'rounded-(--radius-lg) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] p-6 hover-lift';
+
+      var header = '<div class="flex flex-wrap items-center gap-2.5 mb-2">';
+      header += '<h2 class="mono text-[16px] font-semibold">' + r.tag + '</h2>';
+      if (r.prerelease) header += '<span class="rounded-full bg-[color:var(--color-warn)]/[0.12] px-2.5 py-0.5 text-[11px] font-semibold text-[color:var(--color-warn)]">Pre-release</span>';
+      header += '<span class="mono text-[12px] text-[color:var(--color-muted)]">' + fmtDate(r.published) + '</span>';
+      header += '</div>';
+
+      var assetHtml = '';
+      if (r.assets.length) {
+        assetHtml = '<div class="flex flex-wrap gap-2 mb-4">';
+        for (var k = 0; k < r.assets.length; k++) {
+          var a = r.assets[k];
+          assetHtml += '<a href="' + a.url + '" download class="inline-flex items-center gap-1.5 rounded-(--radius-pill) border border-[color:var(--color-rule)] px-3 py-1.5 text-[12px] font-semibold no-underline whitespace-nowrap transition-colors duration-[var(--dur-micro)] hover:border-[color:var(--color-neutral)]">';
+          assetHtml += '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" /></svg>';
+          assetHtml += a.name.replace('huawei-manager-', '').replace('.apk', '');
+          assetHtml += '<span class="text-[color:var(--color-neutral)]">· ' + (a.size / 1048576).toFixed(0) + ' MB · ' + fmtNum(a.downloads) + ' ' + dlLabel + '</span>';
+          assetHtml += '</a>';
+        }
+        assetHtml += '</div>';
+      }
+
+      var btnHtml = '';
+      if (r.body) {
+        btnHtml = '<button type="button" data-release-toggle class="mt-1 text-[13px] font-semibold text-[color:var(--color-accent-deep)] hover:underline" aria-haspopup="dialog" data-release-tag="' + r.tag + '">Release notes</button>';
+      }
+
+      art.innerHTML = header + assetHtml + btnHtml;
+      return art;
+    };
+
+    const apply = (data: ReleasesCache) => {
+      const releasesList = document.getElementById('releases-list');
+      if (!releasesList || !data?.releases) return;
+      const sorted = [...data.releases].sort((a, b) => new Date(b.published).getTime() - new Date(a.published).getTime());
+      const frag = document.createDocumentFragment();
+      for (const r of sorted) frag.appendChild(renderRelease(r));
+      releasesList.replaceChildren(frag);
+      const countEl = document.querySelector('[data-release-count]');
+      if (countEl) {
+        const span = countEl.querySelector('.mono');
+        if (span) span.textContent = fmtNum(data.releases.length);
+      }
+    };
+
+    const fetchLive = async () => {
+      const releasesList = document.getElementById('releases-list');
+      if (!releasesList) return;
+      try {
+        const res = await fetch('/api/releases');
+        if (!res.ok) throw new Error(String(res.status));
+        const data = await res.json();
+        apply(data);
+      } catch (e) {
+        const p = document.createElement('p');
+        p.className = 'text-[13px] text-[color:var(--color-muted)]';
+        p.textContent = 'Failed to load releases. Please try again later.';
+        releasesList.replaceChildren(p);
+      }
+    };
+
+    if (!window.__hmReleasesFetch) {
+      window.__hmReleasesFetch = true;
+      document.addEventListener('astro:page-load', fetchLive);
+      setInterval(fetchLive, 60 * 60 * 1000);
+    }
+  })();
+</script>

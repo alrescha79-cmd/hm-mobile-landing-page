@@ -1,0 +1,137 @@
+---
+import type { Lang } from '@/i18n';
+import { t } from '@/i18n';
+import { github } from '@/data/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const types = [
+  { value: 'bug', label: t(lang, 'feedback.typeBug') },
+  { value: 'feature', label: t(lang, 'feedback.typeFeature') },
+];
+---
+
+<section id="feedback" class="px-5 md:px-6 py-16 md:py-24 scroll-mt-24 bg-[color:var(--color-paper-2)]">
+  <div id="support" class="sr-only" aria-hidden="true"></div>
+  <div class="mx-auto max-w-6xl">
+    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] gap-10 lg:gap-14">
+      <div class="flex flex-col gap-4 max-w-2xl" data-reveal>
+        <p class="mono text-[12px] uppercase tracking-[0.14em] text-[color:var(--color-accent-deep)]">{t(lang, 'feedback.label')}</p>
+        <h2 class="text-display-s">{t(lang, 'feedback.title')}</h2>
+        <p class="text-[color:var(--color-muted)]">{t(lang, 'feedback.sub')}</p>
+        <a href={github.issues} class="mt-2 inline-flex items-center gap-2 text-[14px] font-semibold text-[color:var(--color-accent-deep)] no-underline whitespace-nowrap group w-fit">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
+          {t(lang, 'feedback.gh')}
+        </a>
+      </div>
+
+      <form
+        class="feedback-form grid grid-cols-1 sm:grid-cols-2 gap-4"
+        data-lang={lang}
+        data-submit={t(lang, 'feedback.submit')}
+        data-sending={t(lang, 'feedback.sending')}
+        data-success={t(lang, 'feedback.success')}
+        data-error={t(lang, 'feedback.error')}
+      >
+        <input type="text" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div>
+          <label for="name" class="block text-[13px] font-medium text-[color:var(--color-muted)] mb-1.5">{t(lang, 'feedback.name')}</label>
+          <input id="name" name="name" type="text" class="w-full rounded-(--radius-md) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] px-4 py-3 text-[14px] outline-none transition-[border-color,box-shadow] duration-[var(--dur-micro)] focus:border-[color:var(--color-accent)] focus:shadow-(--shadow-ring)" />
+        </div>
+        <div>
+          <label for="email" class="block text-[13px] font-medium text-[color:var(--color-muted)] mb-1.5">{t(lang, 'feedback.email')}</label>
+          <input id="email" name="email" type="email" required placeholder={t(lang, 'feedback.emailPh')} class="w-full rounded-(--radius-md) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] px-4 py-3 text-[14px] outline-none transition-[border-color,box-shadow] duration-[var(--dur-micro)] focus:border-[color:var(--color-accent)] focus:shadow-(--shadow-ring)" />
+        </div>
+        <div>
+          <label for="type" class="block text-[13px] font-medium text-[color:var(--color-muted)] mb-1.5">{t(lang, 'feedback.type')}</label>
+          <div class="flex gap-2" role="radiogroup" aria-label={t(lang, 'feedback.type')}>
+            {types.map((tp) => (
+              <label class="flex-1 cursor-pointer">
+                <input type="radio" name="type" value={tp.value} class="peer sr-only" checked={tp.value === 'bug'} />
+                <span class="flex items-center justify-center rounded-(--radius-md) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] px-3 py-2.5 text-[13px] font-medium text-[color:var(--color-muted)] transition-colors duration-[var(--dur-micro)] peer-checked:border-[color:var(--color-accent)] peer-checked:bg-[color:var(--color-accent)]/[0.06] peer-checked:text-[color:var(--color-accent-deep)] peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 whitespace-nowrap">{tp.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+        <div>
+          <label for="modem" class="block text-[13px] font-medium text-[color:var(--color-muted)] mb-1.5">{t(lang, 'feedback.modem')}</label>
+          <input id="modem" name="modem" type="text" placeholder={t(lang, 'feedback.modemPh')} class="w-full rounded-(--radius-md) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] px-4 py-3 text-[14px] outline-none transition-[border-color,box-shadow] duration-[var(--dur-micro)] focus:border-[color:var(--color-accent)] focus:shadow-(--shadow-ring)" />
+        </div>
+        <div class="sm:col-span-2">
+          <label for="message" class="block text-[13px] font-medium text-[color:var(--color-muted)] mb-1.5">{t(lang, 'feedback.message')}</label>
+          <textarea id="message" name="message" required rows="4" placeholder={t(lang, 'feedback.messagePh')} class="w-full rounded-(--radius-md) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] px-4 py-3 text-[14px] outline-none transition-[border-color,box-shadow] duration-[var(--dur-micro)] focus:border-[color:var(--color-accent)] focus:shadow-(--shadow-ring) resize-y"></textarea>
+        </div>
+        <div class="sm:col-span-2 flex flex-wrap items-center gap-4">
+          <button type="submit" class="inline-flex items-center gap-2 rounded-(--radius-pill) bg-[color:var(--color-ink)] px-6 py-3 text-[14px] font-semibold text-[color:var(--color-paper)] whitespace-nowrap transition-[transform,background-color] duration-[var(--dur-micro)] ease-[var(--ease-out)] hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-55">
+            <span class="btn-label">{t(lang, 'feedback.submit')}</span>
+          </button>
+          <p class="feedback-status text-[13px] text-[color:var(--color-muted)] min-h-[1.25em]" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .feedback-form button[disabled] { cursor: not-allowed; opacity: 0.55; }
+</style>
+
+<script>
+  const init = () => {
+    const form = document.querySelector('.feedback-form') as HTMLFormElement | null;
+    if (!form) return;
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    if (!btn) return;
+    const label = btn.querySelector('.btn-label') as HTMLElement | null;
+    const status = form.querySelector('.feedback-status') as HTMLElement | null;
+    const submitLabel = form.dataset.submit || 'Send feedback';
+    const sendingLabel = form.dataset.sending || 'Sending…';
+    const successMsg = form.dataset.success || 'Thank you! Your feedback was sent.';
+    const errorMsg = form.dataset.error || 'Something went wrong. Please try again.';
+    const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || '';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const honey = form.querySelector('input[name="botcheck"]') as HTMLInputElement | null;
+      if (honey && honey.value) return;
+      const data = new FormData(form);
+      const payload = Object.fromEntries(data.entries()) as Record<string, string>;
+      (payload as Record<string, string>).access_key = accessKey;
+      (payload as Record<string, string>).subject = `HM Landing — ${payload.type === 'feature' ? 'Feature request' : 'Bug report'}${payload.modem ? ` (${payload.modem})` : ''}`;
+      btn.disabled = true;
+      if (label) label.textContent = sendingLabel;
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const out = await res.json();
+        if (res.ok && out.success) {
+          if (status) {
+            status.textContent = successMsg;
+            status.style.color = 'var(--color-success)';
+          }
+          form.reset();
+        } else {
+          if (status) {
+            status.textContent = errorMsg;
+            status.style.color = 'var(--color-warn)';
+          }
+        }
+      } catch {
+        if (status) {
+          status.textContent = errorMsg;
+          status.style.color = 'var(--color-warn)';
+        }
+      }
+      btn.disabled = false;
+      if (label) label.textContent = submitLabel;
+    });
+  };
+
+  document.addEventListener('astro:page-load', init);
+</script>

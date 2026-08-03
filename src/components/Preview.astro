@@ -1,0 +1,57 @@
+---
+import type { Lang } from '@/i18n';
+import { t } from '@/i18n';
+import { Image } from 'astro:assets';
+import homeDark from '@/assets/images/screenshot-home-dark.jpg';
+import homeLight from '@/assets/images/screenshot-home-light.jpg';
+import wifiDark from '@/assets/images/screenshot-wifi-dark.jpg';
+import settingsLight from '@/assets/images/screenshot-settings-light.jpg';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const slides = [
+  { img: homeDark, alt: t(lang, 'preview.dark') + ' — ' + t(lang, 'preview.home'), caption: t(lang, 'preview.home'), dark: true },
+  { img: wifiDark, alt: t(lang, 'preview.dark') + ' — ' + t(lang, 'preview.wifi'), caption: t(lang, 'preview.wifi'), dark: true },
+  { img: settingsLight, alt: t(lang, 'preview.light') + ' — ' + t(lang, 'preview.settings'), caption: t(lang, 'preview.settings'), dark: false },
+  { img: homeLight, alt: t(lang, 'preview.light') + ' — ' + t(lang, 'preview.home'), caption: t(lang, 'preview.home'), dark: false },
+];
+---
+
+<section id="preview" class="px-5 md:px-6 py-16 md:py-24 scroll-mt-24" aria-label="App preview">
+  <div class="mx-auto max-w-6xl">
+    <div class="mb-10 md:mb-14 flex flex-col gap-4" data-reveal>
+      <p class="mono text-[12px] uppercase tracking-[0.14em] text-[color:var(--color-accent-deep)]">{t(lang, 'preview.label')}</p>
+      <h2 class="text-display-s max-w-[22ch]">{t(lang, 'preview.title')}</h2>
+      <p class="text-[color:var(--color-muted)] max-w-[52ch]">{t(lang, 'preview.sub')}</p>
+    </div>
+
+    <!-- Mobile: 2-col grid of framed screenshots -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+      {slides.map((s) => (
+        <figure class="group">
+          <div class="mx-auto w-[min(100%,240px)] rounded-[30px] bg-[color:var(--color-neutral)] p-[7px] shadow-(--shadow-soft)">
+            <div class="relative overflow-hidden rounded-[22px] bg-[color:var(--color-paper)]">
+              <div class="absolute left-1/2 top-1 z-10 h-[12px] w-[12px] -translate-x-1/2 rounded-full bg-black/60" aria-hidden="true"></div>
+              <Image
+                src={s.img}
+                alt={s.alt}
+                width={560}
+                height={1249}
+                widths={[280, 420, 560]}
+                sizes="(max-width: 768px) 45vw, 22vw"
+                format="webp"
+                quality={72}
+                loading="lazy"
+                class="w-full h-auto aspect-[1280/2856] object-cover object-top"
+              />
+            </div>
+          </div>
+          <figcaption class="mt-2.5 text-center text-[13px] font-medium text-[color:var(--color-muted)]">{s.caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

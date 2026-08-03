@@ -1,0 +1,61 @@
+---
+import type { Lang } from '@/i18n';
+import { t } from '@/i18n';
+import { modems } from '@/data/modems';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<section id="modems" class="px-5 md:px-6 py-16 md:py-24 scroll-mt-24 border-t border-[color:var(--color-rule)]">
+  <div class="mx-auto max-w-6xl">
+    <div class="mb-10 md:mb-14 flex flex-col gap-4 max-w-2xl" data-reveal>
+      <p class="mono text-[12px] uppercase tracking-[0.14em] text-[color:var(--color-accent-deep)]">{t(lang, 'modems.label')}</p>
+      <h2 class="text-display-s">{t(lang, 'modems.title')}</h2>
+      <p class="text-[color:var(--color-muted)]">{t(lang, 'modems.sub')}</p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      {modems.map((m, i) => (
+        <div
+          class={`relative rounded-(--radius-lg) border p-5 hover-lift ${m.tested ? 'border-[color:var(--color-accent)]/40 bg-[color:var(--color-accent)]/[0.04]' : 'border-[color:var(--color-rule)] bg-[color:var(--color-paper)]'}`}
+          data-reveal data-reveal-delay={String(Math.min(i % 6 + 1, 6))}
+        >
+          <div class="flex items-start justify-between gap-2">
+            <span class="font-display text-xl font-bold tracking-tight">{m.name}</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class={m.tested ? 'text-[color:var(--color-success)]' : 'text-[color:var(--color-neutral)]'} aria-hidden="true">
+              {m.arch === 'router'
+                ? <path d="M3 7h18M3 12h18M3 17h18M7 3v18M17 3v18" />
+                : <rect x="5" y="2" width="14" height="20" rx="2" />}
+            </svg>
+          </div>
+          <p class="text-[12px] text-[color:var(--color-muted)] mt-1">{m.family}</p>
+          {m.tested && (
+            <div class="mt-3 flex flex-wrap items-center gap-1.5">
+              <span class="inline-flex items-center gap-1 rounded-full bg-[color:var(--color-success)]/[0.12] px-2.5 py-0.5 text-[11px] font-semibold text-[color:var(--color-success)]">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+                {t(lang, 'modems.tested')}
+              </span>
+              {m.popular && (
+                <span class="inline-flex items-center gap-1 rounded-full bg-[color:var(--color-accent)]/[0.1] px-2.5 py-0.5 text-[11px] font-semibold text-[color:var(--color-accent-deep)]">
+                  {t(lang, 'modems.popular')}
+                </span>
+              )}
+            </div>
+          )}
+          {m.note && <p class="mono text-[11px] text-[color:var(--color-muted)] mt-2">{m.note}</p>}
+        </div>
+      ))}
+
+      <div class="rounded-(--radius-lg) border border-dashed border-[color:var(--color-rule)] p-5 flex flex-col items-start justify-center bg-[color:var(--color-paper-2)]">
+        <span class="font-display text-xl font-bold tracking-tight text-[color:var(--color-muted)]">+</span>
+        <p class="text-[13px] text-[color:var(--color-muted)] mt-1 leading-snug">{t(lang, 'modems.generic')}</p>
+      </div>
+    </div>
+
+    <p class="mt-6 text-[13px] text-[color:var(--color-muted)]">{t(lang, 'modems.note')}</p>
+  </div>
+</section>

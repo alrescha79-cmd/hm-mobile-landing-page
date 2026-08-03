@@ -1,0 +1,39 @@
+---
+import type { Lang } from '@/i18n';
+import { t } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const steps = ['step1', 'step2', 'step3'] as const;
+const icons = {
+  step1: 'M5 12.55a11 11 0 0 1 14 0M8.5 16.1a6 6 0 0 1 7 0M12 22a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+  step2: 'M12 2v8M12 2 9 5m3-3 3 3M7 8h10l1 12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1Z',
+  step3: 'M3 17l6-6 4 4 8-8M13 21h8M13 17h5',
+};
+---
+
+<section id="how" class="px-5 md:px-6 py-16 md:py-24 scroll-mt-24 bg-[color:var(--color-paper-2)]">
+  <div class="mx-auto max-w-6xl">
+    <div class="mb-10 md:mb-14 flex flex-col gap-4 max-w-2xl" data-reveal>
+      <p class="mono text-[12px] uppercase tracking-[0.14em] text-[color:var(--color-accent-deep)]">{t(lang, 'how.label')}</p>
+      <h2 class="text-display-s">{t(lang, 'how.title')}</h2>
+      <p class="text-[color:var(--color-muted)]">{t(lang, 'how.sub')}</p>
+    </div>
+
+    <ol class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {steps.map((s, i) => (
+        <li class="relative rounded-(--radius-lg) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] p-6 hover-lift" data-reveal data-reveal-delay={String(i + 1)}>
+          <span class="mono text-[13px] font-medium text-[color:var(--color-accent-deep)]">0{i + 1}</span>
+          <span class="mt-5 mb-4 flex h-11 w-11 items-center justify-center rounded-[12px] bg-[color:var(--color-ink)] text-[color:var(--color-paper)]">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={icons[s]} /></svg>
+          </span>
+          <h3 class="text-[17px] font-bold tracking-tight mb-2">{t(lang, `how.${s}.title`)}</h3>
+          <p class="text-[14px] text-[color:var(--color-muted)] leading-relaxed">{t(lang, `how.${s}.desc`)}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
