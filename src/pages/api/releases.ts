@@ -52,7 +52,7 @@ export const GET: APIRoute = async () => {
     return new Response(JSON.stringify(data), {
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
+        'Cache-Control': 'public, max-age=300, s-maxage=300',
       },
     });
   } catch {
@@ -60,7 +60,7 @@ export const GET: APIRoute = async () => {
     return new Response(JSON.stringify(empty), {
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=60, s-maxage=60, stale-while-revalidate=600',
+        'Cache-Control': 'public, max-age=60, s-maxage=60',
       },
     });
   }

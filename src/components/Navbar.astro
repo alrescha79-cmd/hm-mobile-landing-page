@@ -13,11 +13,13 @@ const isHomePage = path === `/${lang}/`;
 const sectionHref = (id: string) => (isHomePage ? `#${id}` : `/${lang}/#${id}`);
 const links = [
   { id: 'features', href: sectionHref('features'), label: t(lang, 'nav.features') },
-  { id: 'how', href: sectionHref('how'), label: t(lang, 'nav.how') },
   { id: 'modems', href: sectionHref('modems'), label: t(lang, 'nav.modems') },
   { id: 'download', href: sectionHref('download'), label: t(lang, 'nav.download') },
   { id: 'faq', href: sectionHref('faq'), label: t(lang, 'nav.faq') },
+  { id: 'feedback', href: sectionHref('feedback'), label: t(lang, 'nav.feedback') },
+  { id: 'blog', href: `/${lang}/blog`, label: t(lang, 'nav.blog') },
 ];
+const mobileLinks = links.filter((l) => ['features', 'download', 'feedback', 'blog'].includes(l.id));
 const alt = lang === 'en' ? 'id' : 'en';
 const altHref = path.replace(/^\/(en|id)/, '') === '' ? `/${alt}/` : `/${alt}${path.replace(/^\/(en|id)/, '')}`;
 ---
@@ -72,8 +74,8 @@ const altHref = path.replace(/^\/(en|id)/, '') === '' ? `/${alt}/` : `/${alt}${p
 
 <!-- Mobile: macOS-style bottom dock -->
 <div class="md:hidden fixed bottom-0 inset-x-0 z-(--z-dock) px-3 pb-[max(env(safe-area-inset-bottom),12px)]" style="pointer-events: none">
-  <nav class="dock mx-auto flex items-end justify-center gap-1.5 px-3 pt-2 pb-2 rounded-[28px] border border-[color:var(--color-rule)] bg-[color:var(--color-paper)]/85 backdrop-blur-xl shadow-(--shadow-soft)" style="pointer-events: auto" aria-label="Mobile navigation">
-    {links.map((l, i) => (
+  <nav class="dock mx-auto flex w-fit items-end justify-center gap-1.5 px-3 pt-2 pb-2 rounded-[28px] border border-[color:var(--color-rule)] bg-[color:var(--color-paper)]/85 backdrop-blur-xl shadow-(--shadow-soft)" style="pointer-events: auto" aria-label="Mobile navigation">
+    {mobileLinks.map((l, i) => (
       <a
         href={l.href}
         class="dock-item flex flex-col items-center gap-1 px-2 pb-1.5 no-underline"
@@ -83,10 +85,11 @@ const altHref = path.replace(/^\/(en|id)/, '') === '' ? `/${alt}/` : `/${alt}${p
         <span class="dock-tile flex h-10 w-10 items-center justify-center rounded-[12px]">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             {l.id === 'features' && <path d="M4 6h16M4 12h16M4 18h10" />}
-            {l.id === 'how' && <><path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="9" /></>}
             {l.id === 'modems' && <path d="M3 7h18M3 12h18M3 17h18M7 3v18M17 3v18" />}
             {l.id === 'download' && <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" />}
             {l.id === 'faq' && <><path d="M4 6h16M4 12h16M4 18h10" /><circle cx="18" cy="18" r="2.5" /></>}
+            {l.id === 'blog' && <><path d="M4 5h16v14H4z" /><path d="M8 9h8M8 13h8M8 17h5" /></>}
+            {l.id === 'feedback' && <path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z" />}
           </svg>
         </span>
         <span class="dock-label text-[9px] leading-none whitespace-nowrap">{l.label}</span>
@@ -140,7 +143,12 @@ const altHref = path.replace(/^\/(en|id)/, '') === '' ? `/${alt}/` : `/${alt}${p
     const setActive = (href: string) => items.forEach((it) => it.classList.toggle('active', it.getAttribute('href') === href));
     const localLinks = items.map((it) => it.getAttribute('href')).filter((h): h is string => !!h && h.startsWith('#'));
     const sections = localLinks.map((h) => document.querySelector(h)).filter(Boolean) as Element[];
-    if (localLinks.length) setActive(location.hash && localLinks.includes(location.hash) ? location.hash : localLinks[0]);
+    if (location.pathname.includes('/blog')) {
+      const blogHref = items.find((it) => (it.getAttribute('href') || '').includes('/blog'))?.getAttribute('href');
+      if (blogHref) setActive(blogHref);
+    } else if (localLinks.length) {
+      setActive(location.hash && localLinks.includes(location.hash) ? location.hash : localLinks[0]);
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {

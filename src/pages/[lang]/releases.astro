@@ -207,7 +207,7 @@ const canonical = `https://hm.cakson.my.id/${lang}/releases`;
     if (!window.__hmReleasesFetch) {
       window.__hmReleasesFetch = true;
       document.addEventListener('astro:page-load', fetchLive);
-      setInterval(fetchLive, 60 * 60 * 1000);
+      setInterval(fetchLive, 5 * 60 * 1000);
     }
   })();
 </script>

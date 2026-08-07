@@ -12,7 +12,8 @@
     "download": "Download",
     "faq": "FAQ",
     "feedback": "Masukan",
-    "releases": "Semua Rilis"
+    "releases": "Semua Rilis",
+    "blog": "Blog"
   },
   "hero": {
     "badge": "Gratis · Open Source · Android",
@@ -197,7 +198,16 @@
     "gh": "Atau buka issue GitHub langsung"
   },
   "releases": {
-    "loading": "Ngecek rilis dari GitHub…"
+    "loading": "Memuat rilis dari GitHub…"
+  },
+  "blog": {
+    "title": "Blog",
+    "sub": "Panduan dan berita tentang Huawei Manager.",
+    "readMore": "Baca artikel",
+    "back": "Kembali ke blog",
+    "published": "Diterbitkan",
+    "empty": "Belum ada artikel. Kunjungi lagi nanti.",
+    "recommended": "Bacaan rekomendasi"
   },
   "footer": {
     "statement": "Kendalikan modem-mu hari ini.",

@@ -127,7 +127,7 @@ const { lang } = Astro.props;
     if (!window.__hmDownloadFetch) {
       window.__hmDownloadFetch = true;
       document.addEventListener('astro:page-load', fetchLive);
-      setInterval(fetchLive, 60 * 60 * 1000);
+      setInterval(fetchLive, 5 * 60 * 1000);
     }
   })();
 </script>

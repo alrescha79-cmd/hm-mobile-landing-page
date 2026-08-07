@@ -12,7 +12,8 @@
     "download": "Download",
     "faq": "FAQ",
     "feedback": "Feedback",
-    "releases": "All Releases"
+    "releases": "All Releases",
+    "blog": "Blog"
   },
   "hero": {
     "badge": "Free · Open Source · Android",
@@ -198,6 +199,15 @@
   },
   "releases": {
     "loading": "Loading releases from GitHub…"
+  },
+  "blog": {
+    "title": "Blog",
+    "sub": "Guides and news about Huawei Manager.",
+    "readMore": "Read article",
+    "back": "Back to blog",
+    "published": "Published",
+    "empty": "No articles yet. Check back soon.",
+    "recommended": "Recommended reading"
   },
   "footer": {
     "statement": "Take control of your modem today.",
