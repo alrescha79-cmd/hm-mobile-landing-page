@@ -20,8 +20,9 @@ const { lang } = Astro.props;
 
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
       {modems.map((m, i) => (
-        <div
-          class={`relative rounded-(--radius-lg) border p-5 hover-lift ${m.tested ? 'border-[color:var(--color-accent)]/40 bg-[color:var(--color-accent)]/[0.04]' : 'border-[color:var(--color-rule)] bg-[color:var(--color-paper)]'}`}
+        <a
+          href={`/${lang}/modems/${m.name.toLowerCase()}`}
+          class={`relative block rounded-(--radius-lg) border p-5 no-underline hover-lift ${m.tested ? 'border-[color:var(--color-accent)]/40 bg-[color:var(--color-accent)]/[0.04]' : 'border-[color:var(--color-rule)] bg-[color:var(--color-paper)]'}`}
           data-reveal data-reveal-delay={String(Math.min(i % 6 + 1, 6))}
         >
           <div class="flex items-start justify-between gap-2">
@@ -47,7 +48,7 @@ const { lang } = Astro.props;
             </div>
           )}
           {m.note && <p class="mono text-[11px] text-[color:var(--color-muted)] mt-2">{m.note}</p>}
-        </div>
+        </a>
       ))}
 
       <div class="rounded-(--radius-lg) border border-dashed border-[color:var(--color-rule)] p-5 flex flex-col items-start justify-center bg-[color:var(--color-paper-2)]">

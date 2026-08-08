@@ -3,7 +3,7 @@ slug: which-apk-to-download
 lang: en
 title: Which APK Should You Download?
 description: Huawei Manager comes in three APK variants — arm64-v8a, armeabi-v7a, and universal. Here's how to pick the right one for your phone.
-date: 2026-08-07
+date: 2026-07-20
 ---
 
 Three download options, one phone. Here's how to figure out which APK you need.

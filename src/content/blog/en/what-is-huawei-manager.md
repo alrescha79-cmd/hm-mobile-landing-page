@@ -3,7 +3,7 @@ slug: what-is-huawei-manager
 lang: en
 title: What Is Huawei Manager Mobile?
 description: A free, open-source Android app that gives you full control of Huawei LTE modems over WiFi — signal, bands, WiFi, SMS, and more. No root, no cloud, no account.
-date: 2026-08-07
+date: 2026-07-15
 ---
 
 Huawei Manager Mobile is a free Android app that talks directly to your Huawei LTE modem over your local WiFi network. It unlocks settings the stock Web UI keeps hidden, and puts everything on your phone.

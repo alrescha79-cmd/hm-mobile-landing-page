@@ -1,0 +1,186 @@
+---
+import type { Lang } from '@/i18n';
+import { t } from '@/i18n';
+import Base from '@/layouts/Base.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import type { ReleasesCache } from '@/data/types';
+import { modems, type Modem } from '@/data/modems';
+
+interface Props {
+  lang: Lang;
+  path: string;
+  modem: Modem;
+}
+
+export function getStaticPaths() {
+  const slugOf = (name: string) => name.toLowerCase();
+  return modems.flatMap((modem) => [
+    { params: { lang: 'en', slug: slugOf(modem.name) }, props: { lang: 'en' as Lang, path: `/en/modems/${slugOf(modem.name)}`, modem } },
+    { params: { lang: 'id', slug: slugOf(modem.name) }, props: { lang: 'id' as Lang, path: `/id/modems/${slugOf(modem.name)}`, modem } },
+  ]);
+}
+
+const { lang, path, modem } = Astro.props;
+const slugOf = (name: string) => name.toLowerCase();
+const id = lang === 'id';
+const family = id ? (modem.arch === 'router' ? 'Modem LTE Router' : 'WiFi Portabel') : modem.family;
+const canonical = `https://hm.cakson.my.id/${lang}/modems/${slugOf(modem.name)}`;
+const cache: ReleasesCache = { fetched: new Date().toISOString(), stars: 0, forks: 0, releases: [] };
+
+const title = id ? `Huawei Manager untuk ${modem.name} — Kontrol ${family} Anda` : `Huawei Manager for ${modem.name} — Control Your ${family}`;
+const description = id
+  ? `Aplikasi Android gratis untuk memantau sinyal, band lock LTE, kelola perangkat WiFi dan SMS di ${modem.name} ${family}. Tanpa root, tanpa cloud, tanpa akun.`
+  : `Free Android app to monitor signal, lock LTE bands, manage WiFi devices and SMS on your ${modem.name} ${family}. No root, no cloud, no account.`;
+
+const overview = modem.arch === 'router'
+  ? (id
+    ? `${modem.name} adalah ${family} yang dipasang di rumah. Posisi menentukan sinyal: menempelkan ${modem.name} dekat jendela atau di lantai atas sering jauh meningkatkan kualitas. Huawei Manager memberi Anda metrik sinyal realtime untuk menemukan titik terbaik, lalu mengunci band LTE yang paling stabil di lokasi Anda.`
+    : `The ${modem.name} is a fixed ${family} — and position decides signal quality. Placing it near a window or on a higher floor often transforms a weak connection. Huawei Manager gives you live signal metrics to find the best spot, then locks the LTE band that is most stable at your location.`)
+  : (id
+    ? `${modem.name} adalah ${family} yang dibawa ke mana-mana. Di lokasi baru, sinyal bisa berubah drastis. Pakai Signal Finder di Huawei Manager untuk mencari arah dan posisi terbaik saat bepergian, lalu kunci band LTE yang paling kuat di tempat Anda berada.`
+    : `The ${modem.name} is a portable ${family} that moves with you — and signal changes everywhere you go. Use Signal Finder in Huawei Manager to hunt for the strongest direction and position on the move, then lock the LTE band that works best wherever you are.`);
+
+const testedNote = modem.tested
+  ? (id ? `Kombinasi ${modem.name}${modem.note ? ` · ${modem.note}` : ''} sudah diuji oleh tim kami.` : `${modem.name}${modem.note ? ` · ${modem.note}` : ''} is confirmed working by our team.`)
+  : null;
+const popularNote = modem.popular
+  ? (id
+    ? `${modem.name} adalah modem paling populer di Indonesia — lebih dikenal sebagai Orbit Star 2.`
+    : `${modem.name} is the most popular Huawei modem in Indonesia — better known as the Orbit Star 2.`)
+  : null;
+
+const featureKeys = ['dashboard', 'bandLock', 'wifi', 'guest', 'parental', 'sms', 'network', 'widget', 'notify', 'privacy'] as const;
+
+const faq = [
+  {
+    q: id ? `Apakah Huawei Manager mendukung ${modem.name}?` : `Does Huawei Manager work with the ${modem.name}?`,
+    a: id
+      ? `Ya. Selama ${modem.name} mengekspos API XML Huawei klasik di 192.168.8.1 (sama seperti halaman admin bawaan), aplikasi bisa mengontrolnya.`
+      : `Yes. As long as the ${modem.name} exposes the classic Huawei XML API at 192.168.8.1 (the same one its admin page uses), the app can control it.`,
+  },
+  {
+    q: id ? `Bisakah band lock LTE di ${modem.name}?` : `Can I lock LTE bands on the ${modem.name}?`,
+    a: id
+      ? `Bisa, jika firmware ${modem.name} menampilkan daftar band. Pilih band yang paling kuat di lokasi Anda, atau kombinasikan lewat carrier aggregation seperti B3+B1+N40.`
+      : `Yes, if the ${modem.name}'s firmware exposes the band list. Pin the strongest band at your location, or combine bands with carrier aggregation combos like B3+B1+N40.`,
+  },
+  {
+    q: id ? `Apakah SMS berfungsi di ${modem.name}?` : `Does SMS work on the ${modem.name}?`,
+    a: id
+      ? `Tergantung firmware. Jika API ${modem.name} tidak mengekspos fitur SMS, aplikasi otomatis menyembunyikannya.`
+      : `Depends on the firmware. If the ${modem.name}'s API doesn't expose SMS, the app automatically hides the feature.`,
+  },
+];
+const faqLd = { '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    inLanguage: lang === 'en' ? 'en-US' : 'id-ID',
+    mainEntityOfPage: canonical,
+    author: { '@type': 'Organization', name: 'Huawei Manager', url: 'https://hm.cakson.my.id' },
+    publisher: { '@type': 'Organization', name: 'Huawei Manager', url: 'https://hm.cakson.my.id' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t(lang, 'nav.home'), item: `https://hm.cakson.my.id/${lang}/` },
+      { '@type': 'ListItem', position: 2, name: t(lang, 'modems.title'), item: `https://hm.cakson.my.id/${lang}/#modems` },
+      { '@type': 'ListItem', position: 3, name: modem.name, item: canonical },
+    ],
+  },
+  faqLd,
+];
+
+const related = modems.filter((m) => m.name !== modem.name && m.arch === modem.arch).slice(0, 3);
+const blogLinks = [
+  { slug: 'lte-band-lock-guide', label: t(lang, 'blog.bandLock') },
+  { slug: 'which-apk-to-download', label: t(lang, 'blog.whichApk') },
+  { slug: 'getting-started', label: t(lang, 'blog.gettingStarted') },
+];
+---
+
+<Base lang={lang} title={`${title} · Huawei Manager`} description={description} canonical={canonical} cache={cache} jsonLd={jsonLd}>
+  <Navbar lang={lang} path={path} />
+  <main class="pt-28 md:pt-36 px-5 md:px-6 pb-20">
+    <article class="mx-auto max-w-3xl">
+      <a href={`/${lang}/#modems`} class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[color:var(--color-accent-deep)] no-underline whitespace-nowrap mb-8 group">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-[var(--dur-micro)] group-hover:-translate-x-0.5" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" /></svg>
+        {t(lang, 'modems.title')}
+      </a>
+
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <span class="mono text-[12px] uppercase tracking-[0.14em] text-[color:var(--color-accent-deep)]">{t(lang, 'modems.label')}</span>
+        {modem.tested && (
+          <span class="inline-flex items-center gap-1 rounded-full bg-[color:var(--color-success)]/[0.12] px-2.5 py-0.5 text-[11px] font-semibold text-[color:var(--color-success)]">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+            {t(lang, 'modems.tested')}
+          </span>
+        )}
+      </div>
+      <h1 class="text-display-s mb-3">{title}</h1>
+      <p class="text-[color:var(--color-muted)] mb-8">{description}</p>
+
+      {testedNote && <p class="rounded-(--radius-lg) border border-[color:var(--color-accent)]/40 bg-[color:var(--color-accent)]/[0.04] px-5 py-4 text-[14px] mb-8">{testedNote}</p>}
+      {popularNote && <p class="rounded-(--radius-lg) border border-[color:var(--color-accent)]/[0.25] bg-[color:var(--color-accent)]/[0.04] px-5 py-4 text-[14px] mb-8">{popularNote}</p>}
+
+      <div class="markdown text-[15px] leading-[1.85] text-[color:var(--color-ink)]">
+        <h2>{id ? `Tentang ${modem.name}` : `About the ${modem.name}`}</h2>
+        <p>{overview}</p>
+
+        <h2>{id ? `Yang bisa Anda lakukan di ${modem.name}` : `What you can do on the ${modem.name}`}</h2>
+        <ul>
+          {featureKeys.map((k) => (
+            <li><strong>{t(lang, `features.${k}.title`)}</strong> — {t(lang, `features.${k}.desc`)}</li>
+          ))}
+        </ul>
+
+        <h2>{id ? 'Dapatkan sinyal terkuat' : 'Get the strongest signal'}</h2>
+        <p>
+          {modem.arch === 'router'
+            ? (id
+              ? `Modem yang terkunci di band lemah adalah penyebab umum koneksi lambat. Buka LTE Band Lock, pilih band yang paling kuat di lokasi Anda, dan simpan. ${modem.name} akan bertahan di band itu.`
+              : `A modem locked to a weak band is the usual cause of a slow connection. Open LTE Band Lock, pick the strongest band at your location, and save. The ${modem.name} will stay on it.`)
+            : (id
+              ? `Karena ${modem.name} berpindah tempat, sinyal terbaik selalu berubah. Gunakan Signal Finder tiap kali berganti lokasi, lalu kunci band terkuat dengan LTE Band Lock.`
+              : `Because the ${modem.name} moves around, the best signal changes constantly. Run Signal Finder every time you relocate, then pin the strongest band with LTE Band Lock.`)}
+        </p>
+
+        <h2>{id ? 'Pertanyaan umum' : 'Common questions'}</h2>
+        {faq.map((f) => (
+          <div>
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </div>
+        ))}
+
+        <h2>{id ? 'Panduan terkait' : 'Related guides'}</h2>
+        <ul>
+          {blogLinks.map((b) => (
+            <li><a href={`/${lang}/blog/${b.slug}`}>{b.label}</a></li>
+          ))}
+        </ul>
+
+        <h2>{id ? `Modem serupa` : `Similar modems`}</h2>
+        <ul>
+          {related.map((m) => (
+            <li><a href={`/${lang}/modems/${m.name.toLowerCase()}`}>{m.name} {m.family}</a></li>
+          ))}
+        </ul>
+      </div>
+    </article>
+
+    <div class="mx-auto max-w-3xl mt-14 rounded-(--radius-lg) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] p-7 text-center">
+      <h2 class="text-xl font-semibold">{id ? `Download Huawei Manager untuk ${modem.name}` : `Download Huawei Manager for the ${modem.name}`}</h2>
+      <p class="mt-2 text-[14px] text-[color:var(--color-muted)]">{id ? 'Gratis, open source, tanpa iklan di fitur inti.' : 'Free, open source, no ads in core features.'}</p>
+      <a href={`/${lang}/#download`} class="mt-5 inline-flex items-center gap-1.5 rounded-(--radius-pill) bg-[color:var(--color-ink)] px-6 py-3.5 text-[14px] font-semibold text-[color:var(--color-paper)] no-underline whitespace-nowrap transition-[transform,background-color] duration-[var(--dur-micro)] ease-[var(--ease-out)] hover:-translate-y-0.5 active:translate-y-0">
+        {t(lang, 'hero.ctaPrimary')}
+      </a>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Base>

@@ -207,7 +207,10 @@
     "back": "Back to blog",
     "published": "Published",
     "empty": "No articles yet. Check back soon.",
-    "recommended": "Recommended reading"
+    "recommended": "Recommended reading",
+    "bandLock": "LTE Band Lock — Getting a Steadier Connection",
+    "whichApk": "Which APK Should You Download?",
+    "gettingStarted": "Getting Started with Huawei Manager"
   },
   "footer": {
     "statement": "Take control of your modem today.",

@@ -25,12 +25,30 @@ const posts = (await getCollection('blog'))
 
 const { lang, path } = Astro.props;
 const canonical = `https://hm.cakson.my.id/${lang}/blog`;
+const rss = `https://hm.cakson.my.id/${lang}/blog/rss.xml`;
 const cache: ReleasesCache = { fetched: new Date().toISOString(), stars: 0, forks: 0, releases: [] };
 const fmtDate = (d: Date) =>
   d.toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: t(lang, 'blog.title'),
+    description: t(lang, 'blog.sub'),
+    url: canonical,
+    inLanguage: lang,
+    blogPost: posts.map((p) => ({
+      '@type': 'BlogPosting',
+      headline: p.data.title,
+      description: p.data.description,
+      url: `https://hm.cakson.my.id/${lang}/blog/${p.data.slug}`,
+      datePublished: p.data.date.toISOString(),
+    })),
+  },
+];
 ---
 
-<Base lang={lang} title={`${t(lang, 'nav.blog')} · Huawei Manager`} description={t(lang, 'blog.sub')} canonical={canonical} cache={cache}>
+<Base lang={lang} title={`${t(lang, 'nav.blog')} · Huawei Manager`} description={t(lang, 'blog.sub')} canonical={canonical} cache={cache} rss={rss} jsonLd={jsonLd}>
   <Navbar lang={lang} path={path} />
   <main class="pt-28 md:pt-36 px-5 md:px-6 pb-20">
     <div class="mx-auto max-w-3xl">

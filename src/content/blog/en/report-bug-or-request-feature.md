@@ -3,7 +3,7 @@ slug: report-bug-or-request-feature
 lang: en
 title: How to Report a Bug or Request a Feature
 description: The fastest way to fix a bug is sending a debug log straight from the app. Here's the full guide — plus the feedback form and GitHub as alternatives.
-date: 2026-08-07
+date: 2026-07-17
 ---
 
 The fastest way to get a bug fixed is to show us exactly what the app did — not just what you saw. The app can do that for you with a debug log. Here's the whole flow.

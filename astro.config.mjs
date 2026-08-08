@@ -19,6 +19,6 @@ export default defineConfig({
   vite: { plugins: [/** @type {any} */ (tailwindcss())] },
   integrations: [sitemap({
     i18n: { defaultLocale: 'en', locales: { en: 'en', id: 'id' } },
-    filter: (page) => !page.includes('/api/'),
+    filter: (page) => !page.includes('/api/') && page !== 'https://hm.cakson.my.id/',
   })],
 });

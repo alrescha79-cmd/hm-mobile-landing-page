@@ -38,7 +38,7 @@ const faqItems = (t(lang, 'faq.items') as unknown as { q: string; a: string }[])
 const jsonLd = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems }];
 ---
 
-<Base lang={lang} title={t(lang, 'meta.title')} description={t(lang, 'meta.description')} canonical={canonical} cache={cache} jsonLd={jsonLd}>
+<Base lang={lang} title={t(lang, 'meta.title')} description={t(lang, 'meta.description')} canonical={canonical} cache={cache} appSchema jsonLd={jsonLd}>
   <Navbar lang={lang} path={path} />
   <main>
     <Hero lang={lang} cache={cache} />

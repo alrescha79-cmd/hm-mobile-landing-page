@@ -207,7 +207,10 @@
     "back": "Kembali ke blog",
     "published": "Diterbitkan",
     "empty": "Belum ada artikel. Kunjungi lagi nanti.",
-    "recommended": "Bacaan rekomendasi"
+    "recommended": "Bacaan rekomendasi",
+    "bandLock": "LTE Band Lock — Biar Koneksinya Lebih Stabil",
+    "whichApk": "Pilih APK yang Mana?",
+    "gettingStarted": "Panduan Awal Menggunakan Huawei Manager"
   },
   "footer": {
     "statement": "Kendalikan modem-mu hari ini.",
