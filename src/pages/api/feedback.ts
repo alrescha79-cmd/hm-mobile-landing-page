@@ -7,8 +7,8 @@ const APPS_SCRIPT_URL = import.meta.env.FEEDBACK_APPS_SCRIPT_URL ?? '';
 const APPS_SCRIPT_SECRET = import.meta.env.FEEDBACK_APPS_SCRIPT_SECRET ?? '';
 const FEEDBACK_RECIPIENT = import.meta.env.FEEDBACK_RECIPIENT ?? '';
 const TEST_MODE = import.meta.env.FEEDBACK_TEST_MODE === 'true';
-const KV_URL = import.meta.env.KV_REST_API_URL ?? '';
-const KV_TOKEN = import.meta.env.KV_REST_API_TOKEN ?? '';
+const KV_URL = import.meta.env.UPSTASH_REDIS_REST_URL ?? '';
+const KV_TOKEN = import.meta.env.UPSTASH_REDIS_REST_TOKEN ?? '';
 
 const LIMIT = 3;
 const MAX_AGE_MS = 2 * 60 * 60 * 1000;

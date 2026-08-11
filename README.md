@@ -35,8 +35,8 @@ src/
 | `FEEDBACK_APPS_SCRIPT_SECRET` | Shared HMAC secret (use `openssl rand -hex 32`) |
 | `FEEDBACK_RECIPIENT` | Email recipient (default: `caksonoanggun@gmail.com`) |
 | `FEEDBACK_TEST_MODE` | `true` to skip rate limit in preview |
-| `KV_REST_API_URL` | Vercel KV REST URL for rate limiting |
-| `KV_REST_API_TOKEN` | Vercel KV REST token |
+| `UPSTASH_REDIS_REST_URL` | Upstash Redis REST URL for rate limiting |
+| `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis REST token |
 
 ### Feedback Setup
 
@@ -45,13 +45,13 @@ src/
 3. Set Script Properties: `FEEDBACK_SECRET`, `FEEDBACK_SHEET_ID`, `FEEDBACK_RECIPIENT`, `FEEDBACK_ALLOWED_ORIGIN`.
 4. Deploy as Web app (Execute as: Me, Who has access: Anyone).
 5. Copy `/exec` URL to `FEEDBACK_APPS_SCRIPT_URL` in Vercel.
-6. Create Vercel KV store, connect to project, set `KV_REST_API_URL` and `KV_REST_API_TOKEN`.
+6. Create Upstash Redis via Vercel Marketplace, connect to project, set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`.
 7. Set `FEEDBACK_TEST_MODE=true` in Preview, `false` in Production.
 
 ### Production Rate Limit
 
 - 3 accepted submissions per source IP per UTC day.
-- Rate counter uses Vercel KV with TTL to next UTC midnight.
+- Rate counter uses Upstash Redis with TTL to next UTC midnight.
 - Apps Script also enforces HMAC freshness (5 min) and nonce replay protection (10 min).
 
 ## Verification
