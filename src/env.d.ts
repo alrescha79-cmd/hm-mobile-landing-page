@@ -8,8 +8,8 @@ interface ImportMetaEnv {
   readonly FEEDBACK_APPS_SCRIPT_SECRET: string;
   readonly FEEDBACK_RECIPIENT: string;
   readonly FEEDBACK_TEST_MODE: string;
-  readonly KV_REST_API_URL: string;
-  readonly KV_REST_API_TOKEN: string;
+  readonly UPSTASH_REDIS_REST_URL: string;
+  readonly UPSTASH_REDIS_REST_TOKEN: string;
 }
 
 interface ImportMeta {
