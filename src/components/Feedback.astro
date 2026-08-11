@@ -37,6 +37,7 @@ const types = [
         data-error={t(lang, 'feedback.error')}
       >
         <input type="text" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <input type="hidden" name="startedAt" value="" />
         <div>
           <label for="name" class="block text-[13px] font-medium text-[color:var(--color-muted)] mb-1.5">{t(lang, 'feedback.name')}</label>
           <input id="name" name="name" type="text" class="w-full rounded-(--radius-md) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] px-4 py-3 text-[14px] outline-none transition-[border-color,box-shadow] duration-[var(--dur-micro)] focus:border-[color:var(--color-accent)] focus:shadow-(--shadow-ring)" />
@@ -91,7 +92,8 @@ const types = [
     const sendingLabel = form.dataset.sending || 'Sending…';
     const successMsg = form.dataset.success || 'Thank you! Your feedback was sent.';
     const errorMsg = form.dataset.error || 'Something went wrong. Please try again.';
-    const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || '';
+    const startedAtInput = form.querySelector('input[name="startedAt"]') as HTMLInputElement | null;
+    if (startedAtInput) startedAtInput.value = String(Date.now());
 
     const showStatus = (msg: string, color: string) => {
       if (!status) return;
@@ -101,28 +103,29 @@ const types = [
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const honey = form.querySelector('input[name="botcheck"]') as HTMLInputElement | null;
-      if (honey && honey.value) return;
-      if (!accessKey) {
-        showStatus(errorMsg, 'var(--color-warn)');
-        return;
-      }
       const data = new FormData(form);
-      const payload = Object.fromEntries(data.entries()) as Record<string, string>;
-      payload.access_key = accessKey;
-      payload.subject = `HM Landing — ${payload.type === 'feature' ? 'Feature request' : 'Bug report'}${payload.modem ? ` (${payload.modem})` : ''}`;
+      const payload = {
+        name: String(data.get('name') ?? ''),
+        email: String(data.get('email') ?? ''),
+        type: String(data.get('type') ?? ''),
+        modem: String(data.get('modem') ?? ''),
+        message: String(data.get('message') ?? ''),
+        botcheck: String(data.get('botcheck') ?? ''),
+        startedAt: Number(data.get('startedAt') ?? 0),
+      };
       btn.disabled = true;
       if (label) label.textContent = sendingLabel;
       try {
-        const res = await fetch('https://api.web3forms.com/submit', {
+        const res = await fetch('/api/feedback', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify(payload),
         });
         const out = await res.json().catch(() => ({}));
         if (res.ok && out.success) {
           showStatus(successMsg, 'var(--color-success)');
           form.reset();
+          if (startedAtInput) startedAtInput.value = String(Date.now());
         } else {
           showStatus(out.message || errorMsg, 'var(--color-warn)');
         }

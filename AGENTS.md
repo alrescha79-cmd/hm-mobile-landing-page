@@ -35,7 +35,7 @@ All stats, versions, APK URLs, release notes now come live from GitHub via `/api
 
 `src/pages/api/releases.ts` serverless, **not** in SSG `dist/`. Fetches live `https://api.github.com/repos/alrescha79-cmd/huawei-manager-mobile/releases?per_page=30` + repo stars/forks. Uses `GITHUB_TOKEN` if set, else unauthenticated (60 req/hour). Returns full `body` (markdown) — no slice truncation. Headers: `Cache-Control: public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400` (mirrored in `vercel.json`). On error returns empty `releases:[]`.
 
-Env vars (`.env.example`, typed in `src/env.d.ts`): `PUBLIC_SITE_URL`, `PUBLIC_WEB3FORMS_KEY` (client form), `GITHUB_TOKEN`, `PUBLIC_GSC_VERIFICATION`. Real values live in Vercel.
+Env vars (`.env.example`, typed in `src/env.d.ts`): `PUBLIC_SITE_URL`, `GITHUB_TOKEN`, `PUBLIC_GSC_VERIFICATION`. Real values live in Vercel.
 
 ### Client live refresh
 
