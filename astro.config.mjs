@@ -1,9 +1,11 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
+  adapter: vercel(),
   site: 'https://hm.cakson.my.id',
   i18n: {
     defaultLocale: 'en',
