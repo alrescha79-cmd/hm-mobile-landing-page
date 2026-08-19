@@ -171,7 +171,11 @@ jsonLd.push(...(Astro.props.jsonLd ?? []));
         navigated = false;
         if (location.hash) {
           const el = document.getElementById(location.hash.slice(1));
-          if (el) el.scrollIntoView();
+          if (el) {
+            window.__hmHashScroll = true;
+            el.scrollIntoView();
+            setTimeout(() => { window.__hmHashScroll = false; }, 1000);
+          }
           return;
         }
         window.scrollTo({ top: 0, behavior: 'instant' });
