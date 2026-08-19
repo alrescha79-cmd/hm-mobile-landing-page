@@ -158,7 +158,7 @@ const altHref = path.replace(/^\/(en|id)/, '') === '' ? `/${alt}/` : `/${alt}${p
     let hashScrollTimeout: ReturnType<typeof setTimeout> | null = null;
     const observer = new IntersectionObserver(
       (entries) => {
-        if (hashScrollTimeout) return;
+        if (hashScrollTimeout || (window as any).__hmHashScroll) return;
         for (const e of entries) {
           if (e.isIntersecting) setActive(`#${e.target.id}`);
         }
@@ -168,6 +168,7 @@ const altHref = path.replace(/^\/(en|id)/, '') === '' ? `/${alt}/` : `/${alt}${p
     sections.forEach((s) => observer.observe(s));
     
     if (location.hash && localLinks.includes(location.hash)) {
+      setActive(location.hash);
       hashScrollTimeout = setTimeout(() => {
         hashScrollTimeout = null;
       }, 1500);
