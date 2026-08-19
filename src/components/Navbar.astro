@@ -143,15 +143,22 @@ const altHref = path.replace(/^\/(en|id)/, '') === '' ? `/${alt}/` : `/${alt}${p
     const setActive = (href: string) => items.forEach((it) => it.classList.toggle('active', it.getAttribute('href') === href));
     const localLinks = items.map((it) => it.getAttribute('href')).filter((h): h is string => !!h && h.startsWith('#'));
     const sections = localLinks.map((h) => document.querySelector(h)).filter(Boolean) as Element[];
-    if (location.pathname.includes('/blog')) {
-      const blogHref = items.find((it) => (it.getAttribute('href') || '').includes('/blog'))?.getAttribute('href');
-      if (blogHref) setActive(blogHref);
+    
+    if (location.pathname.includes('/blog') || location.pathname.includes('/releases')) {
+      const pageHref = items.find((it) => {
+        const h = it.getAttribute('href') || '';
+        return (location.pathname.includes('/blog') && h.includes('/blog')) || (location.pathname.includes('/releases') && h.includes('/releases'));
+      })?.getAttribute('href');
+      if (pageHref) setActive(pageHref);
+      else if (localLinks.length) setActive(location.hash && localLinks.includes(location.hash) ? location.hash : localLinks[0]);
     } else if (localLinks.length) {
       setActive(location.hash && localLinks.includes(location.hash) ? location.hash : localLinks[0]);
     }
 
+    let hashScrollTimeout: ReturnType<typeof setTimeout> | null = null;
     const observer = new IntersectionObserver(
       (entries) => {
+        if (hashScrollTimeout) return;
         for (const e of entries) {
           if (e.isIntersecting) setActive(`#${e.target.id}`);
         }
@@ -159,6 +166,12 @@ const altHref = path.replace(/^\/(en|id)/, '') === '' ? `/${alt}/` : `/${alt}${p
       { rootMargin: '-45% 0px -45% 0px' }
     );
     sections.forEach((s) => observer.observe(s));
+    
+    if (location.hash && localLinks.includes(location.hash)) {
+      hashScrollTimeout = setTimeout(() => {
+        hashScrollTimeout = null;
+      }, 1500);
+    }
 
     if (window.matchMedia('(pointer: fine)').matches) {
       nav.addEventListener('pointermove', (ev: PointerEvent) => {

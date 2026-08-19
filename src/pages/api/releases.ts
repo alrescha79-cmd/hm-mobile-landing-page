@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import type { ReleasesCache } from '@/data/types';
 
+export const prerender = false;
+
 export const GET: APIRoute = async () => {
   const token = import.meta.env.GITHUB_TOKEN ?? '';
   const headers: Record<string, string> = { 'User-Agent': 'hm-landing' };

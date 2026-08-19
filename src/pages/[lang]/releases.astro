@@ -156,10 +156,10 @@ const canonical = `https://hm.cakson.my.id/${lang}/releases`;
         assetHtml = '<div class="flex flex-wrap gap-2 mb-4">';
         for (var k = 0; k < r.assets.length; k++) {
           var a = r.assets[k];
-          assetHtml += '<a href="' + a.url + '" download class="inline-flex items-center gap-1.5 rounded-(--radius-pill) border border-[color:var(--color-rule)] px-3 py-1.5 text-[12px] font-semibold no-underline whitespace-nowrap transition-colors duration-[var(--dur-micro)] hover:border-[color:var(--color-neutral)]">';
-          assetHtml += '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" /></svg>';
-          assetHtml += a.name.replace('huawei-manager-', '').replace('.apk', '');
-          assetHtml += '<span class="text-[color:var(--color-neutral)]">· ' + (a.size / 1048576).toFixed(0) + ' MB · ' + fmtNum(a.downloads) + ' ' + dlLabel + '</span>';
+          assetHtml += '<a href="' + a.url + '" download class="inline-flex items-center gap-1.5 rounded-(--radius-pill) border border-[color:var(--color-rule)] px-3 py-1.5 text-[12px] font-semibold no-underline transition-colors duration-[var(--dur-micro)] hover:border-[color:var(--color-neutral)] max-w-full min-w-0">';
+          assetHtml += '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" /></svg>';
+          assetHtml += '<span class="truncate">' + a.name.replace('huawei-manager-', '').replace('.apk', '') + '</span>';
+          assetHtml += '<span class="text-[color:var(--color-neutral)] shrink-0">· ' + (a.size / 1048576).toFixed(0) + ' MB · ' + fmtNum(a.downloads) + ' ' + dlLabel + '</span>';
           assetHtml += '</a>';
         }
         assetHtml += '</div>';
