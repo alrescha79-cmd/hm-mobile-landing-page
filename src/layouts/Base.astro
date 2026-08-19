@@ -142,6 +142,10 @@ jsonLd.push(...(Astro.props.jsonLd ?? []));
     <slot />
     <ClientRouter />
     <script is:inline>
+      // Prevent browser native scroll on hash - we handle it ourselves
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      if (location.hash) document.documentElement.style.scrollBehavior = 'auto';
+      
       // Preserve scroll only across language switches; other client navs go to top
       let navigated = false;
       document.addEventListener('click', (e) => {
@@ -173,7 +177,7 @@ jsonLd.push(...(Astro.props.jsonLd ?? []));
           const el = document.getElementById(location.hash.slice(1));
           if (el) {
             window.__hmHashScroll = true;
-            el.scrollIntoView();
+            el.scrollIntoView({ behavior: 'instant', block: 'start' });
             setTimeout(() => { window.__hmHashScroll = false; }, 1000);
           }
           return;
