@@ -137,6 +137,10 @@
     "recommended": "Recommended",
     "small": "Smaller size",
     "universal": "All devices",
+    "noteArm": "Modern 64-bit phones",
+    "noteArmv7": "Older 32-bit phones",
+    "noteUniversal": "All devices",
+    "action": "Download",
     "size": "size",
     "downloads": "downloads",
     "date": "released",
@@ -198,7 +202,11 @@
     "gh": "Or open a GitHub issue directly"
   },
   "releases": {
-    "loading": "Loading releases from GitHub…"
+    "loading": "Loading releases from GitHub…",
+    "pre": "Pre-release",
+    "noNotes": "_No release notes._",
+    "failed": "Failed to load releases. Please try again later.",
+    "close": "Close"
   },
   "blog": {
     "title": "Blog",

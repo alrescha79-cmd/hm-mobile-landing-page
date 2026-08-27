@@ -70,7 +70,7 @@ const { lang } = Astro.props;
       <div class="hidden lg:flex justify-center">
           <div class="relative w-[300px]" style="animation: float 4s ease-in-out infinite">
           <div class="rounded-[24px] border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] p-8 text-center shadow-(--shadow-hero)">
-            <div class="mx-auto mb-5 w-[160px] h-[160px] rounded-[20px] bg-[color:var(  )] overflow-hidden">
+            <div class="mx-auto mb-5 w-[160px] h-[160px] rounded-[20px] bg-[color:var(--color-paper-2)] overflow-hidden">
               <Image src={logo} alt="Huawei Manager Mobile logo" width={160} height={160} format="webp" quality={80} class="w-full h-full object-cover" />
             </div>
             <p class="font-display text-lg font-bold tracking-tight">Huawei Manager</p>
@@ -94,31 +94,25 @@ const { lang } = Astro.props;
 </header>
 
 <script>
+  import { initReleases, onReleases } from '@/lib/live-releases';
+  import type { ReleasesCache } from '@/data/types';
+
   (() => {
-    type ReleaseAsset = { name: string; url: string; downloads?: number; size?: number };
-    type Release = { tag: string; prerelease: boolean; assets: ReleaseAsset[] };
-    type ReleasesCache = { releases: Release[]; stars: number };
-    const fetchLive = async () => {
-      try {
-        const res = await fetch('/api/releases');
-        if (!res.ok) throw new Error(String(res.status));
-        const data = (await res.json()) as ReleasesCache & { releases: (Release & { assets: ReleaseAsset[] })[] };
-        const totalDownloads = data.releases.reduce((sum: number, r: Release) => sum + r.assets.reduce((s: number, a: ReleaseAsset) => s + (a.downloads ?? 0), 0), 0);
-        const latest = data.releases.find((r: Release) => !r.prerelease && r.tag.startsWith('v'));
-        const lang = document.documentElement.lang || 'en';
-        const fmt = (n: number) => new Intl.NumberFormat(lang === 'id' ? 'id-ID' : 'en-US').format(n);
-        document.querySelectorAll('[data-hero-stat="stars"]').forEach((el) => { el.textContent = fmt(data.stars ?? 0); });
-        document.querySelectorAll('[data-hero-stat="downloads"]').forEach((el) => { el.textContent = fmt(totalDownloads); });
-        document.querySelectorAll('[data-hero-stat="latest"]').forEach((el) => { el.textContent = latest?.tag ?? '—'; });
-        const arm64 = latest?.assets.find((a: ReleaseAsset) => a.name.includes('arm64-v8a'));
-        const anchor = document.getElementById('hero-download-arm64') as HTMLAnchorElement | null;
-        if (anchor && arm64?.url) anchor.setAttribute('href', arm64.url);
-      } catch {}
+    if (window.__hmHeroFetch) return;
+    window.__hmHeroFetch = true;
+    const lang = document.documentElement.lang || 'en';
+    const fmt = (n: number) => new Intl.NumberFormat(lang === 'id' ? 'id-ID' : 'en-US').format(n);
+    const update = (data: ReleasesCache) => {
+      const totalDownloads = data.releases.reduce((sum, r) => sum + r.assets.reduce((s, a) => s + a.downloads, 0), 0);
+      const latest = data.releases.find((r) => !r.prerelease && r.tag.startsWith('v'));
+      document.querySelectorAll('[data-hero-stat="stars"]').forEach((el) => { el.textContent = fmt(data.stars ?? 0); });
+      document.querySelectorAll('[data-hero-stat="downloads"]').forEach((el) => { el.textContent = fmt(totalDownloads); });
+      document.querySelectorAll('[data-hero-stat="latest"]').forEach((el) => { el.textContent = latest?.tag ?? '—'; });
+      const arm64 = latest?.assets.find((a) => a.name.includes('arm64-v8a'));
+      const anchor = document.getElementById('hero-download-arm64') as HTMLAnchorElement | null;
+      if (anchor && arm64?.url) anchor.setAttribute('href', arm64.url);
     };
-    if (!window.__hmHeroFetch) {
-      window.__hmHeroFetch = true;
-      document.addEventListener('astro:page-load', fetchLive);
-      setInterval(fetchLive, 5 * 60 * 1000);
-    }
+    onReleases(update);
+    initReleases();
   })();
 </script>

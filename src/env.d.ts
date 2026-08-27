@@ -3,10 +3,8 @@
 interface ImportMetaEnv {
   readonly PUBLIC_SITE_URL: string;
   readonly GITHUB_TOKEN: string;
-  readonly PUBLIC_GSC_VERIFICATION: string;
   readonly FEEDBACK_APPS_SCRIPT_URL: string;
   readonly FEEDBACK_APPS_SCRIPT_SECRET: string;
-  readonly FEEDBACK_RECIPIENT: string;
   readonly FEEDBACK_TEST_MODE: string;
   readonly UPSTASH_REDIS_REST_URL: string;
   readonly UPSTASH_REDIS_REST_TOKEN: string;
@@ -25,6 +23,7 @@ declare global {
     __hmStatsFetch?: boolean;
     __hmDownloadFetch?: boolean;
     __hmReleasesFetch?: boolean;
+    __hmReleasesInit?: boolean;
     __releaseBodies?: Record<string, string>;
   }
 }

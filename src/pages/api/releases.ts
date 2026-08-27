@@ -5,15 +5,21 @@ export const prerender = false;
 
 export const GET: APIRoute = async () => {
   const token = import.meta.env.GITHUB_TOKEN ?? '';
-  const headers: Record<string, string> = { 'User-Agent': 'hm-landing' };
+  const headers: Record<string, string> = {
+    'User-Agent': 'hm-landing',
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+  };
   if (token) headers['Authorization'] = `Bearer ${token}`;
 
   try {
+    const signal = AbortSignal.timeout(15_000);
     const [relRes, repoRes] = await Promise.all([
       fetch('https://api.github.com/repos/alrescha79-cmd/huawei-manager-mobile/releases?per_page=30', {
         headers,
+        signal,
       }),
-      fetch('https://api.github.com/repos/alrescha79-cmd/huawei-manager-mobile', { headers }),
+      fetch('https://api.github.com/repos/alrescha79-cmd/huawei-manager-mobile', { headers, signal }),
     ]);
 
     if (!relRes.ok) throw new Error(`releases ${relRes.status}`);

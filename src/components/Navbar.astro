@@ -85,9 +85,7 @@ const altHref = path.replace(/^\/(en|id)/, '') === '' ? `/${alt}/` : `/${alt}${p
         <span class="dock-tile flex h-10 w-10 items-center justify-center rounded-[12px]">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             {l.id === 'features' && <path d="M4 6h16M4 12h16M4 18h10" />}
-            {l.id === 'modems' && <path d="M3 7h18M3 12h18M3 17h18M7 3v18M17 3v18" />}
             {l.id === 'download' && <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" />}
-            {l.id === 'faq' && <><path d="M4 6h16M4 12h16M4 18h10" /><circle cx="18" cy="18" r="2.5" /></>}
             {l.id === 'blog' && <><path d="M4 5h16v14H4z" /><path d="M8 9h8M8 13h8M8 17h5" /></>}
             {l.id === 'feedback' && <path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z" />}
           </svg>

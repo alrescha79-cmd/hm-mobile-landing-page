@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Astro 5 + Tailwind 4 SSG. Landing for Huawei Manager Mobile. EN/ID, mobile-first, deployed to Vercel (`https://hm.cakson.my.id`). Not a git repo locally.
+Astro 5 + Tailwind 4 SSG. Landing for Huawei Manager Mobile. EN/ID, mobile-first, deployed to Vercel (`https://hm.cakson.my.id`). Local git repo.
 
 ## Commands
 
@@ -33,16 +33,16 @@ All stats, versions, APK URLs, release notes now come live from GitHub via `/api
 
 ### Runtime API (Vercel)
 
-`src/pages/api/releases.ts` serverless, **not** in SSG `dist/`. Fetches live `https://api.github.com/repos/alrescha79-cmd/huawei-manager-mobile/releases?per_page=30` + repo stars/forks. Uses `GITHUB_TOKEN` if set, else unauthenticated (60 req/hour). Returns full `body` (markdown) — no slice truncation. Headers: `Cache-Control: public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400` (mirrored in `vercel.json`). On error returns empty `releases:[]`.
+`src/pages/api/releases.ts` serverless, **not** in SSG `dist/`. Fetches live `https://api.github.com/repos/alrescha79-cmd/huawei-manager-mobile/releases?per_page=30` + repo stars/forks. Uses `GITHUB_TOKEN` if set, else unauthenticated (60 req/hour). Returns full `body` (markdown) — no slice truncation. 15s fetch timeout + `X-GitHub-Api-Version`. Headers: `Cache-Control: public, max-age=300, s-maxage=300` (mirrored in `vercel.json`). On error returns empty `releases:[]`.
 
-Env vars (`.env.example`, typed in `src/env.d.ts`): `PUBLIC_SITE_URL`, `GITHUB_TOKEN`, `PUBLIC_GSC_VERIFICATION`. Real values live in Vercel.
+Env vars (`.env.example`, typed in `src/env.d.ts`): `PUBLIC_SITE_URL`, `GITHUB_TOKEN`, `FEEDBACK_APPS_SCRIPT_URL`, `FEEDBACK_APPS_SCRIPT_SECRET`, `FEEDBACK_TEST_MODE`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`. Real values live in Vercel.
 
 ### Client live refresh
 
-- `Hero.astro`, `Stats.astro`, `Download.astro`, `[lang]/releases.astro` all `fetch('/api/releases')` client-side on load + `setInterval 1h`.
+- Single shared fetcher `src/lib/live-releases.ts`: one `fetch('/api/releases')` per page + `setInterval 5min`, broadcasts to subscribers via `onReleases(cb)`. `Hero.astro`, `Stats.astro`, `Download.astro`, `[lang]/releases.astro` subscribe — never fetch directly.
 - Stats: total downloads = `sum(asset.download_count)`, latest = first stable `v*`, stars = live.
 - Download: stable latest 3-arch cards + pre-releases live.
-- Releases page: `#releases-list` rendered live, sorted `published desc` (not stable-first), count live, modal `window.__releaseBodies[tag]=full body` map avoids `data-attribute` truncation, markdown via `marked` dynamic import.
+- Releases page: `#releases-list` rendered live, sorted `published desc` (not stable-first), count live, modal `window.__releaseBodies[tag]=full body` map avoids `data-attribute` truncation, markdown via `marked` dynamic import. All interpolated GitHub data escaped; modal HTML sanitized.
 - Modal: `fixed inset-0 flex items-center justify-center`, inner `max-h-[85vh] max-h-[85dvh] flex-col overflow-hidden`, body `min-h-0 flex-1 overflow-y-auto overscroll-contain`, lock html/body scroll.
 
 ## Design system (locked)
