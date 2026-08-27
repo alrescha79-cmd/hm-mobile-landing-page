@@ -37,16 +37,18 @@ const stats = [
   </div>
 
 <script>
+  import { initReleases, onReleases } from '@/lib/live-releases';
+  import type { ReleasesCache } from '@/data/types';
+
   (() => {
+    if (window.__hmStatsFetch) return;
+    window.__hmStatsFetch = true;
     const lang = document.documentElement.lang || 'en';
     const fmt = (n: number) => new Intl.NumberFormat(lang === 'id' ? 'id-ID' : 'en-US').format(n);
-    type ReleaseAsset = { downloads: number };
-    type Release = { tag: string; prerelease: boolean; assets: ReleaseAsset[] };
-    type ReleasesCache = { releases: Release[]; stars: number };
-    const updateStats = (data: ReleasesCache) => {
+    const update = (data: ReleasesCache) => {
       if (!data?.releases) return;
-      const totalDownloads = data.releases.reduce((sum: number, r: Release) => sum + r.assets.reduce((s: number, a: ReleaseAsset) => s + a.downloads, 0), 0);
-      const latest = data.releases.find((r: Release) => !r.prerelease && r.tag.startsWith('v'));
+      const totalDownloads = data.releases.reduce((sum, r) => sum + r.assets.reduce((s, a) => s + a.downloads, 0), 0);
+      const latest = data.releases.find((r) => !r.prerelease && r.tag.startsWith('v'));
       const map: Record<string, string> = {
         'total-downloads': fmt(totalDownloads),
         'latest-version': latest?.tag ?? '—',
@@ -59,19 +61,8 @@ const stats = [
         if (v) el.textContent = v;
       });
     };
-    const fetchLive = async () => {
-      try {
-        const res = await fetch('/api/releases');
-        if (!res.ok) throw new Error(String(res.status));
-        const data = await res.json();
-        updateStats(data);
-      } catch {}
-    };
-    if (!window.__hmStatsFetch) {
-      window.__hmStatsFetch = true;
-      document.addEventListener('astro:page-load', fetchLive);
-      setInterval(fetchLive, 5 * 60 * 1000);
-    }
+    onReleases(update);
+    initReleases();
   })();
 </script>
 </section>

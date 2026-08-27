@@ -35,7 +35,7 @@ const canonical = `https://hm.cakson.my.id/${lang}/releases`;
       <p class="text-[color:var(--color-muted)] mb-12" data-release-count>
         <span class="mono">—</span> · <span class="mono">{t(lang, 'download.attestation')}</span>
       </p>
-      <div id="releases-list" class="space-y-4">
+      <div id="releases-list" class="space-y-4" data-pre={t(lang, 'releases.pre')} data-notes={t(lang, 'download.viewDetail')} data-failed={t(lang, 'releases.failed')} data-downloads={t(lang, 'download.downloads')}>
         <p class="text-[14px] text-[color:var(--color-muted)]">{t(lang, 'releases.loading')}</p>
       </div>
     </div>
@@ -47,11 +47,11 @@ const canonical = `https://hm.cakson.my.id/${lang}/releases`;
   window.__releaseBodies = {};
 </script>
 
-<div id="release-modal" class="fixed inset-0 z-(--z-modal) hidden items-center justify-center bg-black/60 p-4 md:p-8" role="dialog" aria-modal="true" aria-labelledby="release-modal-title">
+<div id="release-modal" class="fixed inset-0 z-(--z-modal) hidden items-center justify-center bg-black/60 p-4 md:p-8" role="dialog" aria-modal="true" aria-labelledby="release-modal-title" data-no-notes={t(lang, 'releases.noNotes')}>
   <div class="relative flex w-full max-w-3xl max-h-[85vh] max-h-[85dvh] flex-col overflow-hidden rounded-(--radius-lg) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] shadow-(--shadow-float)">
     <div class="flex shrink-0 items-center justify-between gap-4 border-b border-[color:var(--color-rule)] px-5 py-4">
       <h2 id="release-modal-title" class="mono text-[16px] font-semibold"></h2>
-      <button type="button" data-release-modal-close class="rounded-(--radius-pill) p-2 text-[color:var(--color-muted)] transition-colors duration-[var(--dur-micro)] hover:text-[color:var(--color-ink)]" aria-label="Close">
+      <button type="button" data-release-modal-close class="rounded-(--radius-pill) p-2 text-[color:var(--color-muted)] transition-colors duration-[var(--dur-micro)] hover:text-[color:var(--color-ink)]" aria-label={t(lang, 'releases.close')}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
       </button>
     </div>
@@ -73,21 +73,30 @@ const canonical = `https://hm.cakson.my.id/${lang}/releases`;
     };
 
     const sanitize = (v: string) => (v || '').trim();
+    const sanitizeHtml = (html: string) =>
+      html
+        .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
+        .replace(/<iframe\b[^>]*>[\s\S]*?<\/iframe>/gi, '')
+        .replace(/\s+on\w+="[^"]*"/gi, '')
+        .replace(/\s+on\w+='[^']*'/gi, '')
+        .replace(/\s+on\w+=[^\s>]+/gi, '')
+        .replace(/href=["']?javascript:[^"'\s>]*/gi, 'href="#"');
 
     const openModal = async (tag: string) => {
       const modal = document.getElementById('release-modal');
       const modalTitle = document.getElementById('release-modal-title');
       const modalBody = document.getElementById('release-modal-body') as HTMLElement | null;
       if (!modal || !modalTitle || !modalBody) return;
+      const noNotes = modal.getAttribute('data-no-notes') || '_No release notes._';
       const bodies = window.__releaseBodies || {};
       const raw = bodies[tag] || '';
       modalTitle.textContent = tag;
       try {
         const { marked } = await import('marked');
-        const html = await marked.parse(sanitize(raw) || '_No release notes._');
-        modalBody.innerHTML = typeof html === 'string' ? html : '';
+        const html = await marked.parse(sanitize(raw) || noNotes);
+        modalBody.innerHTML = sanitizeHtml(typeof html === 'string' ? html : '');
       } catch {
-        modalBody.textContent = sanitize(raw) || 'No release notes.';
+        modalBody.textContent = sanitize(raw) || noNotes;
       }
       modalBody.scrollTop = 0;
       modal.classList.remove('hidden');
@@ -128,16 +137,26 @@ const canonical = `https://hm.cakson.my.id/${lang}/releases`;
 </script>
 
 <script>
+  import { initReleases, onReleases } from '@/lib/live-releases';
+  import type { ReleasesCache } from '@/data/types';
+
   (function () {
+    if (window.__hmReleasesFetch) return;
+    window.__hmReleasesFetch = true;
     const lang = document.documentElement.lang || 'en';
     const fmtNum = (n: number) => new Intl.NumberFormat(lang === 'id' ? 'id-ID' : 'en-US').format(n);
-    const dlLabel = lang === 'id' ? 'unduhan' : 'downloads';
     const fmtDate = (iso: string) =>
       new Date(iso).toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+    const listEl = document.getElementById('releases-list');
+    const dlLabel = listEl?.getAttribute('data-downloads') || 'downloads';
+    const preLabel = listEl?.getAttribute('data-pre') || 'Pre-release';
+    const notesLabel = listEl?.getAttribute('data-notes') || 'Release notes';
+    const failedMsg = listEl?.getAttribute('data-failed') || 'Failed to load releases. Please try again later.';
 
     type ReleaseAsset = { name: string; size: number; downloads: number; url: string };
     type Release = { tag: string; prerelease: boolean; published: string; body: string; assets: ReleaseAsset[] };
-    type ReleasesCache = { releases: Release[] };
 
     const renderRelease = (r: Release) => {
       if (window.__releaseBodies) window.__releaseBodies[r.tag] = r.body || '';
@@ -146,8 +165,8 @@ const canonical = `https://hm.cakson.my.id/${lang}/releases`;
       art.className = 'rounded-(--radius-lg) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] p-6 hover-lift';
 
       var header = '<div class="flex flex-wrap items-center gap-2.5 mb-2">';
-      header += '<h2 class="mono text-[16px] font-semibold">' + r.tag + '</h2>';
-      if (r.prerelease) header += '<span class="rounded-full bg-[color:var(--color-warn)]/[0.12] px-2.5 py-0.5 text-[11px] font-semibold text-[color:var(--color-warn)]">Pre-release</span>';
+      header += '<h2 class="mono text-[16px] font-semibold">' + esc(r.tag) + '</h2>';
+      if (r.prerelease) header += '<span class="rounded-full bg-[color:var(--color-warn)]/[0.12] px-2.5 py-0.5 text-[11px] font-semibold text-[color:var(--color-warn)]">' + esc(preLabel) + '</span>';
       header += '<span class="mono text-[12px] text-[color:var(--color-muted)]">' + fmtDate(r.published) + '</span>';
       header += '</div>';
 
@@ -156,10 +175,10 @@ const canonical = `https://hm.cakson.my.id/${lang}/releases`;
         assetHtml = '<div class="flex flex-wrap gap-2 mb-4">';
         for (var k = 0; k < r.assets.length; k++) {
           var a = r.assets[k];
-          assetHtml += '<a href="' + a.url + '" download class="inline-flex items-center gap-1.5 rounded-(--radius-pill) border border-[color:var(--color-rule)] px-3 py-1.5 text-[12px] font-semibold no-underline transition-colors duration-[var(--dur-micro)] hover:border-[color:var(--color-neutral)] max-w-full min-w-0">';
+          assetHtml += '<a href="' + esc(a.url) + '" download class="inline-flex items-center gap-1.5 rounded-(--radius-pill) border border-[color:var(--color-rule)] px-3 py-1.5 text-[12px] font-semibold no-underline transition-colors duration-[var(--dur-micro)] hover:border-[color:var(--color-neutral)] max-w-full min-w-0">';
           assetHtml += '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" /></svg>';
-          assetHtml += '<span class="truncate">' + a.name.replace('huawei-manager-', '').replace('.apk', '') + '</span>';
-          assetHtml += '<span class="text-[color:var(--color-neutral)] shrink-0">· ' + (a.size / 1048576).toFixed(0) + ' MB · ' + fmtNum(a.downloads) + ' ' + dlLabel + '</span>';
+          assetHtml += '<span class="truncate">' + esc(a.name.replace('huawei-manager-', '').replace('.apk', '')) + '</span>';
+          assetHtml += '<span class="text-[color:var(--color-neutral)] shrink-0">· ' + (a.size / 1048576).toFixed(0) + ' MB · ' + fmtNum(a.downloads) + ' ' + esc(dlLabel) + '</span>';
           assetHtml += '</a>';
         }
         assetHtml += '</div>';
@@ -167,7 +186,7 @@ const canonical = `https://hm.cakson.my.id/${lang}/releases`;
 
       var btnHtml = '';
       if (r.body) {
-        btnHtml = '<button type="button" data-release-toggle class="mt-1 text-[13px] font-semibold text-[color:var(--color-accent-deep)] hover:underline" aria-haspopup="dialog" data-release-tag="' + r.tag + '">Release notes</button>';
+        btnHtml = '<button type="button" data-release-toggle class="mt-1 text-[13px] font-semibold text-[color:var(--color-accent-deep)] hover:underline" aria-haspopup="dialog" data-release-tag="' + esc(r.tag) + '">' + esc(notesLabel) + '</button>';
       }
 
       art.innerHTML = header + assetHtml + btnHtml;
@@ -188,26 +207,24 @@ const canonical = `https://hm.cakson.my.id/${lang}/releases`;
       }
     };
 
-    const fetchLive = async () => {
+    const applyError = () => {
       const releasesList = document.getElementById('releases-list');
       if (!releasesList) return;
-      try {
-        const res = await fetch('/api/releases');
-        if (!res.ok) throw new Error(String(res.status));
-        const data = await res.json();
-        apply(data);
-      } catch (e) {
-        const p = document.createElement('p');
-        p.className = 'text-[13px] text-[color:var(--color-muted)]';
-        p.textContent = 'Failed to load releases. Please try again later.';
-        releasesList.replaceChildren(p);
-      }
+      const p = document.createElement('p');
+      p.className = 'text-[13px] text-[color:var(--color-muted)]';
+      p.textContent = failedMsg;
+      releasesList.replaceChildren(p);
     };
 
-    if (!window.__hmReleasesFetch) {
-      window.__hmReleasesFetch = true;
-      document.addEventListener('astro:page-load', fetchLive);
-      setInterval(fetchLive, 5 * 60 * 1000);
-    }
+    let hasData = false;
+    onReleases((data) => {
+      if (data?.releases?.length) {
+        hasData = true;
+        apply(data);
+      } else if (!hasData) {
+        applyError();
+      }
+    });
+    initReleases();
   })();
 </script>

@@ -13,7 +13,7 @@ export const github = {
 };
 
 export const downloadSuffixes = [
-  { id: 'arm64-v8a', file: 'huawei-manager-arm64-v8a.apk', badge: 'arm64-v8a', tag: 'recommended', note: 'Modern 64-bit phones' },
-  { id: 'armeabi-v7a', file: 'huawei-manager-armeabi-v7a.apk', badge: 'armeabi-v7a', tag: 'small', note: 'Older 32-bit phones' },
-  { id: 'universal', file: 'huawei-manager-universal.apk', badge: 'universal', tag: 'universal', note: 'All devices' },
+  { id: 'arm64-v8a', file: 'huawei-manager-arm64-v8a.apk', badge: 'arm64-v8a' },
+  { id: 'armeabi-v7a', file: 'huawei-manager-armeabi-v7a.apk', badge: 'armeabi-v7a' },
+  { id: 'universal', file: 'huawei-manager-universal.apk', badge: 'universal' },
 ];

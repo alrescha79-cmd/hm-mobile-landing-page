@@ -42,13 +42,12 @@ if (appSchema) {
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     author: { '@type': 'Organization', name: 'Huawei Manager', url: 'https://hm.cakson.my.id' },
     license: 'https://opensource.org/licenses/MIT',
-    aggregateRating: { '@type': 'AggregateRating', ratingValue: '5', ratingCount: String(cache.stars || 31) },
     downloadUrl: [
       `${github.rawReleases}/huawei-manager-arm64-v8a.apk`,
       `${github.rawReleases}/huawei-manager-armeabi-v7a.apk`,
       `${github.rawReleases}/huawei-manager-universal.apk`,
     ],
-    releaseNotes: `${canonical}/releases`,
+    releaseNotes: `https://hm.cakson.my.id/${lang}/releases`,
   });
 }
 jsonLd.push(...(Astro.props.jsonLd ?? []));
@@ -63,8 +62,8 @@ jsonLd.push(...(Astro.props.jsonLd ?? []));
     <meta name="description" content={description} />
     <meta name="keywords" content={seoKeywords[lang].join(', ')} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang={alt === 'en' ? 'en' : 'id'} href={altPath} />
-    <link rel="alternate" hreflang={lang === 'en' ? 'id' : 'en'} href={altPath} />
+    <link rel="alternate" hreflang={lang} href={canonical} />
+    <link rel="alternate" hreflang={alt} href={altPath} />
     <link rel="alternate" hreflang="x-default" href="https://hm.cakson.my.id/en/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#2563EB" />

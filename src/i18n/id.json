@@ -137,6 +137,10 @@
     "recommended": "Disarankan",
     "small": "Ukuran lebih kecil",
     "universal": "Semua perangkat",
+    "noteArm": "Ponsel 64-bit modern",
+    "noteArmv7": "Ponsel 32-bit lama",
+    "noteUniversal": "Semua perangkat",
+    "action": "Unduh",
     "size": "ukuran",
     "downloads": "unduhan",
     "date": "rilis",
@@ -198,7 +202,11 @@
     "gh": "Atau buka issue GitHub langsung"
   },
   "releases": {
-    "loading": "Memuat rilis dari GitHub…"
+    "loading": "Memuat rilis dari GitHub…",
+    "pre": "Pre-release",
+    "noNotes": "_Tidak ada catatan rilis._",
+    "failed": "Gagal memuat rilis. Coba lagi nanti.",
+    "close": "Tutup"
   },
   "blog": {
     "title": "Blog",

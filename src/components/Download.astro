@@ -10,7 +10,14 @@ interface Props {
 const { lang } = Astro.props;
 ---
 
-<section id="download" class="px-5 md:px-6 py-16 md:py-24 scroll-mt-24 bg-[color:var(--color-paper-2)]">
+<section id="download" class="px-5 md:px-6 py-16 md:py-24 scroll-mt-24 bg-[color:var(--color-paper-2)]"
+  data-action={t(lang, 'download.action')}
+  data-downloads={t(lang, 'download.downloads')}
+  data-rec={t(lang, 'download.recommended')}
+  data-note-arm64={t(lang, 'download.noteArm')}
+  data-note-armv7={t(lang, 'download.noteArmv7')}
+  data-note-universal={t(lang, 'download.noteUniversal')}
+>
   <div class="mx-auto max-w-6xl">
     <div class="mb-10 md:mb-14 flex flex-col gap-4 max-w-2xl" data-reveal>
       <p class="mono text-[12px] uppercase tracking-[0.14em] text-[color:var(--color-accent-deep)]">{t(lang, 'download.label')}</p>
@@ -51,25 +58,31 @@ const { lang } = Astro.props;
 </section>
 
 <script>
+  import { downloadSuffixes, github } from '@/data/site';
+  import { initReleases, onReleases } from '@/lib/live-releases';
+  import type { ReleasesCache } from '@/data/types';
+
   (() => {
+    if (window.__hmDownloadFetch) return;
+    window.__hmDownloadFetch = true;
     const lang = document.documentElement.lang || 'en';
     const fmtNum = (n: number) => new Intl.NumberFormat(lang === 'id' ? 'id-ID' : 'en-US').format(n);
     const fmtMB = (b: number | string) => (Number(b) / 1048576).toFixed(0);
     const fmtDate = (iso: string) =>
       new Date(iso).toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-    const site = { raw: 'https://github.com/alrescha79-cmd/huawei-manager-mobile/releases/latest/download' };
-    const suffixes = [
-      { id: 'arm64-v8a', file: 'huawei-manager-arm64-v8a.apk', badge: 'arm64-v8a', note: 'Modern 64-bit phones' },
-      { id: 'armeabi-v7a', file: 'huawei-manager-armeabi-v7a.apk', badge: 'armeabi-v7a', note: 'Older 32-bit phones' },
-      { id: 'universal', file: 'huawei-manager-universal.apk', badge: 'universal', note: 'All devices' },
-    ];
-
-    const relPath = (file: string) => `${site.raw}/${file}`;
-
-    type ReleaseAsset = { name: string; size: number; downloads: number; url: string };
-    type Release = { tag: string; prerelease: boolean; published: string; assets: ReleaseAsset[] };
-    type ReleasesCache = { releases: Release[] };
+    const sec = document.getElementById('download');
+    const action = sec?.getAttribute('data-action') || 'Download';
+    const dlLabel = sec?.getAttribute('data-downloads') || 'downloads';
+    const rec = sec?.getAttribute('data-rec') || 'Recommended';
+    const notes: Record<string, string> = {
+      'arm64-v8a': sec?.getAttribute('data-note-arm64') || 'Modern 64-bit phones',
+      'armeabi-v7a': sec?.getAttribute('data-note-armv7') || 'Older 32-bit phones',
+      'universal': sec?.getAttribute('data-note-universal') || 'All devices',
+    };
+    const suffixes = downloadSuffixes.map((s) => ({ ...s, note: notes[s.id] || '' }));
+    const relPath = (file: string) => `${github.rawReleases}/${file}`;
 
     const render = (data: ReleasesCache) => {
       if (!data?.releases?.length) return;
@@ -90,9 +103,10 @@ const { lang } = Astro.props;
             .map((s, i) => {
               const asset = stable.assets.find((a) => a.name.includes(s.id));
               const isRec = i === 0;
-              return `<a href="${asset?.url ?? relPath(s.file)}" download class="group relative flex flex-col justify-between rounded-(--radius-lg) border p-6 no-underline transition-[transform,box-shadow] duration-[var(--dur-short)] ease-[var(--ease-out)] hover:-translate-y-0.5 hover-lift ${isRec ? 'border-[color:var(--color-accent)]/50 bg-[color:var(--color-paper)] shadow-(--shadow-download)' : 'border-[color:var(--color-rule)] bg-[color:var(--color-paper)]'}">
-              ${isRec ? '<span class="absolute -top-2.5 right-4 rounded-full bg-[color:var(--color-accent)] px-2.5 py-0.5 text-[11px] font-semibold text-[color:var(--color-accent-ink)]">Recommended</span>' : ''}
-              <div><div class="flex items-center justify-between mb-3"><span class="mono text-[14px] font-medium text-[color:var(--color-ink)]">${s.badge}</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[color:var(--color-accent-deep)] transition-transform duration-[var(--dur-short)] ease-[var(--ease-out)] group-hover:translate-y-0.5" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" /></svg></div><p class="text-[13px] text-[color:var(--color-muted)]">${s.note}</p></div><div class="mt-5 flex items-center gap-3 text-[12px] text-[color:var(--color-muted)]">${asset ? `<span class="mono">${fmtMB(asset.size)} MB</span><span class="w-px h-3 bg-[color:var(--color-rule)]"></span><span class="mono">${fmtNum(asset.downloads)} downloads</span>` : ''}</div></a>`;
+              const href = esc(asset?.url ?? relPath(s.file));
+              return `<a href="${href}" download class="group relative flex flex-col justify-between rounded-(--radius-lg) border p-6 no-underline transition-[transform,box-shadow] duration-[var(--dur-short)] ease-[var(--ease-out)] hover:-translate-y-0.5 hover-lift ${isRec ? 'border-[color:var(--color-accent)]/50 bg-[color:var(--color-paper)] shadow-(--shadow-download)' : 'border-[color:var(--color-rule)] bg-[color:var(--color-paper)]'}">
+              ${isRec ? `<span class="absolute -top-2.5 right-4 rounded-full bg-[color:var(--color-accent)] px-2.5 py-0.5 text-[11px] font-semibold text-[color:var(--color-accent-ink)]">${esc(rec)}</span>` : ''}
+              <div><div class="flex items-center justify-between mb-3"><span class="mono text-[14px] font-medium text-[color:var(--color-ink)]">${esc(s.badge)}</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[color:var(--color-accent-deep)] transition-transform duration-[var(--dur-short)] ease-[var(--ease-out)] group-hover:translate-y-0.5" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" /></svg></div><p class="text-[13px] text-[color:var(--color-muted)]">${esc(s.note)}</p></div><div class="mt-5 flex items-center gap-3 text-[12px] text-[color:var(--color-muted)]">${asset ? `<span class="mono">${fmtMB(asset.size)} MB</span><span class="w-px h-3 bg-[color:var(--color-rule)]"></span><span class="mono">${fmtNum(asset.downloads)} ${esc(dlLabel)}</span>` : ''}</div></a>`;
             })
             .join('');
           wrap.classList.remove('hidden');
@@ -106,8 +120,9 @@ const { lang } = Astro.props;
           list.innerHTML = prereleases
             .map((r) => {
               const first = r.assets[0];
-              const total = r.assets.reduce((s: number, a: ReleaseAsset) => s + a.downloads, 0);
-              return `<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-(--radius-lg) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] p-5"><div class="flex items-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[color:var(--color-warn)]/[0.1] text-[color:var(--color-warn)]"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9h12M6 15h12M12 3v4m0 10v4" /></svg></span><div><p class="mono text-[14px] font-medium">${r.tag}</p><p class="text-[12px] text-[color:var(--color-muted)]">${fmtDate(r.published)} · ${fmtNum(total)} downloads</p></div></div><div class="flex items-center gap-2"><span class="mono text-[12px] text-[color:var(--color-muted)] hidden sm:inline">${r.assets.map((a) => a.name.replace('huawei-manager-', '').replace('.apk', '')).join(' · ')}</span><a href="${first?.url ?? '#download'}" download class="inline-flex items-center gap-1.5 rounded-(--radius-pill) border border-[color:var(--color-rule)] px-4 py-2 text-[13px] font-semibold no-underline whitespace-nowrap transition-colors duration-[var(--dur-micro)] ease-[var(--ease-out)] hover:border-[color:var(--color-neutral)]">Download</a></div></div>`;
+              const total = r.assets.reduce((s: number, a) => s + a.downloads, 0);
+              const href = esc(first?.url ?? '#download');
+              return `<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-(--radius-lg) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] p-5"><div class="flex items-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[color:var(--color-warn)]/[0.1] text-[color:var(--color-warn)]"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9h12M6 15h12M12 3v4m0 10v4" /></svg></span><div><p class="mono text-[14px] font-medium">${esc(r.tag)}</p><p class="text-[12px] text-[color:var(--color-muted)]">${fmtDate(r.published)} · ${fmtNum(total)} ${esc(dlLabel)}</p></div></div><div class="flex items-center gap-2"><span class="mono text-[12px] text-[color:var(--color-muted)] hidden sm:inline">${r.assets.map((a) => esc(a.name.replace('huawei-manager-', '').replace('.apk', ''))).join(' · ')}</span><a href="${href}" download class="inline-flex items-center gap-1.5 rounded-(--radius-pill) border border-[color:var(--color-rule)] px-4 py-2 text-[13px] font-semibold no-underline whitespace-nowrap transition-colors duration-[var(--dur-micro)] ease-[var(--ease-out)] hover:border-[color:var(--color-neutral)]">${esc(action)}</a></div></div>`;
             })
             .join('');
           wrap.classList.remove('hidden');
@@ -115,19 +130,7 @@ const { lang } = Astro.props;
       }
     };
 
-    const fetchLive = async () => {
-      try {
-        const res = await fetch('/api/releases');
-        if (!res.ok) throw new Error(String(res.status));
-        const data = await res.json();
-        render(data);
-      } catch {}
-    };
-
-    if (!window.__hmDownloadFetch) {
-      window.__hmDownloadFetch = true;
-      document.addEventListener('astro:page-load', fetchLive);
-      setInterval(fetchLive, 5 * 60 * 1000);
-    }
+    onReleases(render);
+    initReleases();
   })();
 </script>
