@@ -1,54 +1,57 @@
 ---
 slug: which-apk-to-download
 lang: id
-title: Pilih APK yang Mana?
-description: Huawei Manager tersedia dalam tiga varian APK — arm64-v8a, armeabi-v7a, dan universal. Ini cara milih yang pas buat HP-mu.
+title: Varian APK Mana yang Harus Diunduh?
+description: "Huawei Manager tersedia dalam tiga varian APK: arm64-v8a, armeabi-v7a, dan universal. Berikut cara memilih varian yang tepat untuk perangkat Anda."
 date: 2026-06-30
 ---
 
-Tiga pilihan unduh, satu HP. Ini cara paling gampang buat tau APK mana yang kamu butuhkan.
+Tiga varian paket instalasi tersedia untuk satu perangkat. Berikut panduan untuk menentukan APK yang sesuai dengan arsitektur prosesor ponsel Anda.
 
-## Tiga varian
+## Ketiga Varian
 
-| Varian | Arsitektur | Untuk siapa |
+| Varian | Arsitektur | Perangkat yang Cocok |
 |---|---|---|
-| **arm64-v8a** | ARM 64-bit | Kebanyakan HP keluaran 2017 ke atas. Paling disarankan. |
-| **armeabi-v7a** | ARM 32-bit | HP jadul, perangkat budget. |
-| **universal** | Keduanya | Jalan di semua perangkat, ukuran file lebih gede. |
+| **arm64-v8a** | ARM 64-bit | Mayoritas ponsel yang dirilis sejak 2017. Varian yang direkomendasikan. |
+| **armeabi-v7a** | ARM 32-bit | Ponsel lama dan perangkat dengan spesifikasi rendah. |
+| **universal** | Keduanya | Berjalan di semua perangkat dengan ukuran berkas lebih besar. |
 
-## Cara cek HP-mu
+## Cara Mengetahui Arsitektur Ponsel
 
-### Android 12 ke atas
-Buka **Settings > About Phone > Technical Support** (atau About Phone > All Specs). Cari **Supported ABIs** atau **Processor architecture**. Kalau cuma ada `arm64-v8a`, unduh yang **arm64-v8a**. Kalau cuma `armeabi-v7a`, unduh **armeabi-v7a**. Kalau dua-duanya ada, pilih **arm64-v8a**.
+### Android 12 ke Atas
 
-### Android 11 ke bawah
-Buka **Settings > About Phone > Processor** (atau yang mirip). Kalau nggak ketemu, coba **Settings > Developer Options > Select Runtime** — kalau muncul `lib64` atau 64-bit, pilih **arm64-v8a**.
+Buka **Settings > About Phone > Technical Support** (atau About Phone > All Specs). Periksa bagian **Supported ABIs** atau **Processor architecture**. Jika hanya tertera `arm64-v8a`, unduh varian **arm64-v8a**. Jika hanya `armeabi-v7a`, unduh **armeabi-v7a**. Apabila keduanya tertera, pilih **arm64-v8a**.
 
-### Cek cepat pakai aplikasi
-Install **CPU-Z** (gratis di Google Play). Buka, masuk ke tab **SOC**, lihat kolom **Architecture**. `arm64-v8a` artinya 64-bit; `armeabi-v7a` artinya 32-bit.
+### Android 11 ke Bawah
 
-## Kebanyakan orang pilih arm64-v8a
+Buka **Settings > About Phone > Processor** (atau menu serupa). Jika tidak ditemukan, periksa **Settings > Developer Options > Select Runtime**. Jika muncul keterangan `lib64` atau 64-bit, pilih **arm64-v8a**.
 
-Kalau HP-mu keluaran 2018 atau lebih baru, hampir pasti perangkat ARM 64-bit. APK **arm64-v8a** lebih kecil, lebih cepat keinstall, dan dioptimasi buat hardware-mu.
+### Memeriksa dengan Aplikasi Pihak Ketiga
 
-## Kapan pakai universal
+Instal **CPU-Z** (gratis di Google Play), lalu buka tab **SOC** dan periksa kolom **Architecture**. Nilai `arm64-v8a` menandakan prosesor 64-bit, sedangkan `armeabi-v7a` menandakan prosesor 32-bit.
 
-Unduh **universal** cuma kalau:
+## Varian yang Umumnya Direkomendasikan
 
-- Nggak nemu-nemu arsitektur HP-mu
-- Nggak mau ribet mikirin beda APK
-- HP-mu jadul banget (sebelum 2015) dan curiga cuma 32-bit
+Jika ponsel Anda dirilis pada 2018 atau setelahnya, hampir dapat dipastikan perangkat tersebut menggunakan prosesor ARM 64-bit. Varian **arm64-v8a** berukuran lebih kecil, lebih cepat dipasang, dan dioptimalkan untuk arsitektur perangkat.
 
-Universal jalan di semua perangkat, tapi ukurannya sekitar 2x lipat dari APK khusus arsitektur.
+## Kapan Menggunakan Varian Universal
 
-## Model umum — referensi cepat
+Unduh varian **universal** hanya jika:
 
-| HP | Arsitektur |
+- Arsitektur prosesor tidak dapat dipastikan.
+- Anda ingin menghindari kebingungan pemilihan varian APK.
+- Ponsel sudah sangat lama (sebelum 2015) dan diduga hanya mendukung arsitektur 32-bit.
+
+Varian universal berjalan pada semua perangkat, namun ukuran berkasnya kira-kira dua kali lipat dibandingkan varian spesifik arsitektur.
+
+## Referensi Cepat Model Umum
+
+| Ponsel | Arsitektur |
 |---|---|
 | Samsung Galaxy S10 / S20 / S21 / S22 / S23 / S24 | arm64-v8a |
-| Xiaomi / Redmi / POCO (kebanyakan model) | arm64-v8a |
-| OPPO / vivo / Realme / OnePlus (kebanyakan model) | arm64-v8a |
-| Samsung Galaxy J series (yang lama) | armeabi-v7a |
-| Redmi 4A / 5A lama / HP budget awal | armeabi-v7a |
+| Xiaomi / Redmi / POCO (mayoritas model) | arm64-v8a |
+| OPPO / vivo / Realme / OnePlus (mayoritas model) | arm64-v8a |
+| Samsung Galaxy seri J (generasi lama) | armeabi-v7a |
+| Redmi 4A / 5A lama / ponsel budget awal | armeabi-v7a |
 
-Kalau ragu, APK universal selalu jalan.
+Jika ragu, varian universal selalu dapat digunakan.

@@ -1,31 +1,31 @@
 ---
 slug: change-wifi-password
 lang: id
-title: Cara Ganti Password WiFi Modem Huawei (B310, B312, Orbit Star 2)
-description: Langkah-langkah ganti nama dan password WiFi modem Huawei lewat 192.168.8.1 — berlaku untuk B310, B312, Orbit Star 2, dan lainnya.
+title: Cara Mengganti Kata Sandi WiFi Modem Huawei (B310, B312, Orbit Star 2)
+description: Langkah-langkah mengganti nama jaringan dan kata sandi WiFi modem Huawei melalui halaman 192.168.8.1. Berlaku untuk B310, B312, Orbit Star 2, dan lainnya.
 date: 2026-08-07
 ---
 
-Ganti password WiFi modem Huawei itu mudah — cukup login ke halaman admin `192.168.8.1`. Berikut langkah lengkapnya, berlaku untuk B310, B312, Orbit Star 2 (B312-929), B525, dan modem Huawei lain.
+Mengganti kata sandi WiFi pada modem Huawei cukup mudah. Cukup masuk ke halaman admin di `192.168.8.1`. Panduan ini berlaku untuk modem B310, B312, Orbit Star 2 (B312-929), B525, dan model Huawei lainnya.
 
 ## Langkah-langkah
 
-1. Sambungkan HP ke WiFi modem, lalu buka `192.168.8.1` di browser.
-2. Login. Kalau belum pernah diganti, pakai kredensial default `admin` / `admin` — lihat [daftar password default](https://hm.cakson.my.id/id/blog/login-192-168-8-1).
-3. Buka menu **WLAN** atau **WiFi** → **WiFi Basic Settings**.
-4. Di bagian **SSID**, ubah nama WiFi jika mau.
-5. Di bagian **WPA PreSharedKey**, ketik password baru — minimal 8 karakter.
+1. Hubungkan ponsel ke jaringan WiFi modem, lalu buka `192.168.8.1` di peramban.
+2. Masuk dengan kredensial admin. Jika belum pernah diubah, gunakan kredensial default `admin` / `admin` (lihat [daftar kredensial default](https://hm.cakson.my.id/id/blog/login-192-168-8-1)).
+3. Buka menu **WLAN** atau **WiFi** kemudian pilih **WiFi Basic Settings**.
+4. Pada bagian **SSID**, ubah nama jaringan WiFi jika diinginkan.
+5. Pada bagian **WPA PreSharedKey**, masukkan kata sandi baru dengan panjang minimal 8 karakter.
 6. Klik **Save** atau **Apply**.
 
-Setelah disimpan, semua perangkat yang sudah terhubung akan terputus. Sambungkan kembali dengan password baru.
+Setelah perubahan disimpan, seluruh perangkat yang terhubung akan terputus. Hubungkan kembali perangkat menggunakan kata sandi yang baru.
 
-## Tips
+## Tips Keamanan
 
-- **Pakai password kuat** — kombinasi huruf, angka, dan simbol. Hindari tanggal lahir atau nomor rumah.
-- **Jangan gunakan WEP** — enkripsi ini sudah usang dan gampang ditembus. Pilih WPA2/WPA3.
-- **Sembunyikan SSID?** Tidak disarankan. Sinyal WiFi tetap terdeteksi, dan kamu malah kesulitan saat menyambungkan perangkat baru.
-- **Punya tamu sering?** Aktifkan **Guest WiFi** di Huawei Manager — SSID kedua dengan batas waktu yang bisa diatur.
+- **Gunakan kata sandi yang kuat**: kombinasi huruf besar, huruf kecil, angka, dan simbol. Hindari penggunaan tanggal lahir atau nomor rumah.
+- **Jangan gunakan WEP**: enkripsi ini sudah usang dan rentan terhadap serangan. Pilih WPA2 atau WPA3.
+- **Sembunyikan SSID?** Tidak disarankan. Sinyal WiFi tetap dapat dideteksi, namun Anda akan kesulitan saat menghubungkan perangkat baru.
+- **Sering menerima tamu?** Aktifkan **Guest WiFi** di Huawei Manager. Fitur ini menyediakan SSID kedua dengan batas waktu akses yang dapat dikonfigurasi.
 
-## Ganti password tanpa buka browser?
+## Alternatif: Mengganti Kata Sandi Tanpa Peramban
 
-Huawei Manager juga menyediakan akses cepat ke pengaturan WiFi modem. Login sekali, lalu kamu bisa mengelola jaringan — plus [cek kuota](https://hm.cakson.my.id/id/blog/cek-kuota-orbit-star-2) dan [band LTE](https://hm.cakson.my.id/id/blog/lte-band-lock-guide) dari satu aplikasi. [Unduh gratis](https://hm.cakson.my.id/id/).
+Huawei Manager menyediakan akses cepat ke pengaturan WiFi modem. Cukup masuk satu kali, lalu Anda dapat mengelola jaringan WiFi, [memeriksa kuota](https://hm.cakson.my.id/id/blog/cek-kuota-orbit-star-2), dan [mengunci band LTE](https://hm.cakson.my.id/id/blog/lte-band-lock-guide) dari satu aplikasi. [Unduh gratis](https://hm.cakson.my.id/id/).

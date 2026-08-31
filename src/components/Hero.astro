@@ -79,11 +79,11 @@ const { lang } = Astro.props;
             <div class="mt-5 flex items-center justify-center gap-2">
               <span class="inline-flex items-center gap-1 text-[13px] font-semibold text-[color:var(--color-accent-deep)]">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" /><path d="M6 9a9 9 0 0 1 9 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
-                Signal finder
+                {t(lang, 'hero.chipSignal')}
               </span>
               <span class="inline-flex items-center gap-1 text-[13px] font-semibold text-[color:var(--color-accent-deep)]">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 15.09 8.26 22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01Z" /></svg>
-                Band lock
+                {t(lang, 'hero.chipBand')}
               </span>
             </div>
           </div>

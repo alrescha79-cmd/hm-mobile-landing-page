@@ -1,65 +1,65 @@
 ---
 slug: report-bug-or-request-feature
 lang: id
-title: Cara Lapor Bug atau Minta Fitur Baru
-description: Cara paling cepat benerin bug adalah kirim log debug langsung dari aplikasi. Ini panduan lengkapnya — plus form feedback dan GitHub sebagai alternatif.
+title: Cara Melaporkan Bug atau Mengajukan Permintaan Fitur
+description: Cara tercepat untuk memperbaiki bug adalah mengirim log debug langsung dari aplikasi. Berikut panduan lengkapnya, termasuk form masukan dan GitHub sebagai alternatif.
 date: 2026-07-21
 ---
 
-Cara paling cepat benerin bug adalah nunjukin apa yang beneran dilakukan aplikasi — bukan cuma apa yang kamu lihat. Aplikasinya bisa ngerjain itu buat kamu lewat log debug. Ini alurnya.
+Cara tercepat untuk memperbaiki bug adalah menunjukkan apa yang sebenarnya dilakukan aplikasi, bukan sekadar gejala yang Anda amati. Aplikasi dapat melakukan hal tersebut untuk Anda melalui log debug. Berikut alurnya.
 
-## Paling disarankan: kirim log debug dari aplikasi
+## Metode yang Direkomendasikan: Kirim Log Debug dari Aplikasi
 
-Log debug nyatet setiap panggilan API dan setiap respons pas kamu niru masalahnya. Daripada ngejelasin gejalanya, kamu kasih buktinya langsung.
+Log debug mencatat setiap panggilan API beserta responsnya saat Anda mereproduksi masalah. Daripada menjelaskan gejala, Anda memberikan bukti langsung.
 
-1. Buka aplikasi, masuk ke **Settings**.
-2. Gulir ke bawah, aktifin **Debug Mode**.
-3. Buka halaman yang bermasalah, ulangi interaksi yang bikin error-nya muncul.
-4. Balik ke Settings, pilih **Send debug log**. Log-nya otomatis dikemas dan aplikasi email kamu kebuka dengan semuanya udah siap kirim.
-5. Kirim ke alamat yang ditampilin, terus matiin lagi **Debug Mode**.
+1. Buka aplikasi dan masuk ke **Settings**.
+2. Gulir ke bawah dan aktifkan **Debug Mode**.
+3. Buka halaman yang bermasalah dan ulangi interaksi yang memicu kesalahan.
+4. Kembali ke Settings, pilih **Send debug log**. Aplikasi akan mengemas log dan membuka aplikasi email dengan semua informasi siap dikirim.
+5. Kirim ke alamat yang ditampilkan, kemudian nonaktifkan kembali **Debug Mode**.
 
-Langkah terakhir itu penting — debug mode itu buat diagnosis, bukan buat dipakai sehari-hari. Kalau dibiarin nyala, bebannya nambah dan log-nya numpuk terus di HP kamu.
+Langkah terakhir penting: mode debug ditujukan untuk diagnosis, bukan untuk penggunaan sehari-hari. Membiarkannya aktif akan menambah beban proses dan menumpuk log pada perangkat.
 
-Satu langkah ini ngubah laporan yang bikin bingung kayak "koneksinya aneh" jadi laporan yang bisa langsung dibenerin. Akar masalahnya biasanya langsung keliatan pas kami baca log-nya.
+Langkah ini mengubah laporan yang ambigu seperti "koneksi terasa aneh" menjadi laporan yang dapat langsung ditindaklanjuti. Akar masalah biasanya langsung terlihat ketika log diperiksa.
 
-## Cara lain hubungi kami
+## Metode Alternatif
 
-Nggak mau buka-buka settings? Dua cara ini juga jalan:
+Tidak ingin membuka pengaturan? Dua metode berikut juga berfungsi:
 
-**Form feedback** — kunjungi [hm.cakson.my.id/#support](/id/#support), isi formnya, kirim. Nggak perlu akun.
+**Form masukan**: kunjungi [hm.cakson.my.id/#support](/id/#support), isi formulir, dan kirim. Tidak diperlukan akun.
 
-**GitHub Issues** — buka langsung di [github.com/alrescha79-cmd/huawei-manager-mobile/issues](https://github.com/alrescha79-cmd/huawei-manager-mobile/issues). Perlu akun GitHub gratis, tapi kamu dapet notifikasi pas ada balasan dan bisa ngikutin progres perbaikannya.
+**GitHub Issues**: buka langsung di [github.com/alrescha79-cmd/huawei-manager-mobile/issues](https://github.com/alrescha79-cmd/huawei-manager-mobile/issues). Metode ini memerlukan akun GitHub gratis, namun Anda akan menerima notifikasi saat ada balasan dan dapat memantau progres perbaikan.
 
-## Laporan bug yang bagus isinya
+## Isi Laporan Bug yang Baik
 
-Jalur apa pun yang kamu pilih, lengkapin lima hal ini:
+Metode apa pun yang Anda pilih, sertakan lima hal berikut:
 
-**1. Model modem dan versi firmware** — modem Huawei apa, dan firmware yang tampil di halaman admin (biasanya System > Device Information).
+**1. Model modem dan versi firmware**: sebutkan model modem Huawei dan versi firmware yang ditampilkan pada halaman admin (biasanya System > Device Information).
 
-**2. Versi aplikasi** — Settings > About. Bentuknya kayak `v1.1.70`.
+**2. Versi aplikasi**: dapat dilihat pada Settings > About, dengan format seperti `v1.1.70`.
 
-**3. Langkah reproduksi** — ngapain aja, step by step?
+**3. Langkah reproduksi**: jelaskan langkah-langkah yang dilakukan secara berurutan.
 
-**4. Yang diharapin vs yang kejadian** — harusnya jadi apa, ternyata jadi apa?
+**4. Hasil yang diharapkan vs kenyataan**: apa yang seharusnya terjadi dibandingkan dengan apa yang sebenarnya terjadi.
 
-**5. Bukti** — log debug (paling ideal), ekspor HAR, atau screenshot. Kalau bisa rekam videonya, lebih oke lagi.
+**5. Bukti pendukung**: log debug (paling ideal), ekspor berkas HAR, atau tangkapan layar. Jika memungkinkan, rekam video untuk memperjelas masalah.
 
-## Minta fitur
+## Permintaan Fitur
 
-Sebelum buka permintaan fitur:
+Sebelum mengajukan permintaan fitur, perhatikan hal berikut:
 
-- **Cari dulu issue yang udah ada.** Mungkin orang lain udah minta hal yang sama. Cukup kasih reaction atau komentar, jangan bikin duplikat.
-- **Jelasin masalahnya, bukan cuma solusinya.** "Saya pengen lihat pemakaian data harian sekilas" lebih berguna daripada "tambah widget grafik" — masalahnya ngejelasin kebutuhan, solusi cuma salah satu caranya.
+- **Cari issue yang sudah ada terlebih dahulu.** Mungkin orang lain telah mengajukan hal serupa. Berikan reaksi atau komentar sebagai ganti membuat duplikat.
+- **Jelaskan masalah, bukan hanya solusi.** Pernyataan "Saya perlu melihat pemakaian data harian secara sekilas" lebih bermanfaat daripada "tambahkan widget grafik". Masalah menjelaskan kebutuhan, sedangkan solusi hanyalah salah satu cara pemenuhannya.
 
-Baik: "Koneksi saya putus tiap beberapa jam dan saya nggak tau modem ada di band mana."
-Kurang berguna: "Tambah indikator band."
+Baik: "Koneksi saya terputus setiap beberapa jam dan saya tidak mengetahui band yang sedang digunakan."
+Kurang bermanfaat: "Tambahkan indikator band."
 
-## Satu issue per topik
+## Satu Issue untuk Satu Topik
 
-Bikin tiap laporan fokus. Satu issue = satu bug atau satu permintaan fitur. Laporan campuran "nih tiga hal yang salah" gampang berantakan dan gampang ketuker.
+Buat setiap laporan tetap fokus. Satu issue berarti satu bug atau satu permintaan fitur. Laporan campuran seperti "berikut tiga hal yang bermasalah" mudah menjadi berantakan dan sulit ditindaklanjuti.
 
-## Setelah kamu kirim
+## Setelah Laporan Dikirim
 
-Semua laporan kami baca. Bug report dikasih label dan ditriage. Permintaan fitur dibahas terbuka — komentar dan pendekatan alternatif disambut. Issue yang ditutup artinya udah dibenerin (dengan catatan rilisnya) atau ditolak dengan alasan.
+Seluruh laporan akan dibaca. Laporan bug akan diberi label dan ditindaklanjuti. Permintaan fitur dibahas secara terbuka, dan komentar serta pendekatan alternatif disambut. Issue yang ditutup menandakan masalah telah diperbaiki (dengan catatan rilis) atau ditolak dengan alasan yang jelas.
 
-Makasih udah bantu bikin Huawei Manager makin bagus.
+Terima kasih telah membantu menjadikan Huawei Manager lebih baik.

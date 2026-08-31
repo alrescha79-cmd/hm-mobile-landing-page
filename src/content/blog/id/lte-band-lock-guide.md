@@ -1,43 +1,43 @@
 ---
 slug: lte-band-lock-guide
 lang: id
-title: LTE Band Lock — Biar Koneksinya Lebih Stabil
-description: Cara baca metrik sinyal di Huawei Manager, pilih band LTE yang pas buat lokasimu, dan kunci dengan Band Lock.
+title: "LTE Band Lock: Menstabilkan Koneksi dengan Mengunci Band Frekuensi"
+description: Cara membaca metrik sinyal LTE di Huawei Manager, memilih band terbaik sesuai lokasi, dan menguncinya dengan fitur Band Lock.
 date: 2026-06-09
 ---
 
-Modem yang nyangkut di band lemah biasanya biang keladi koneksi lambat dan putus-putus. Band Lock bikin kamu bisa mengunci band yang beneran jalan di lokasimu. Ini cara pakainya.
+Modem yang terhubung ke band LTE dengan kualitas sinyal buruk merupakan penyebab utama koneksi lambat dan tidak stabil. Fitur LTE Band Lock memungkinkan Anda mengunci modem ke pita frekuensi tertentu yang memiliki performa terbaik di lokasi Anda.
 
-## Baca sinyal dulu
+## Membaca Metrik Sinyal
 
-Buka dashboard dan perhatikan metriknya sambil modemnya diam:
+Buka dashboard dan amati metrik sinyal berikut saat modem dalam posisi diam:
 
-| Metrik | Artinya |
+| Metrik | Makna |
 | --- | --- |
-| **RSRP** | Kekuatan sinyal. Makin kecil (makin negatif), makin lemah. |
-| **RSRQ / SINR** | Kualitas sinyal dan derau. Makin tinggi makin bagus. |
-| **Band** | Band LTE yang lagi dipakai modem. |
+| **RSRP** | Kekuatan daya sinyal yang diterima. Semakin kecil nilai negatifnya, semakin kuat sinyal. |
+| **RSRQ / SINR** | Kualitas sinyal dan rasio derau. Semakin tinggi nilainya, semakin bersih koneksi. |
+| **Band** | Nomor band LTE yang sedang digunakan modem. |
 
-Belum usah ubah apa-apa — pelajari dulu kayak apa kondisi "normal"-mu.
+Jangan mengubah apa pun pada tahap ini. Pelajari terlebih dahulu karakteristik sinyal normal di lokasi Anda.
 
-## Cari band terkuat
+## Menentukan Band Terkuat
 
-Pakai **Signal Finder**: geser atau ubah posisi modem sambil lihat metrik realtime. Begitu RSRP membaik dan SINR tetap tinggi, catat band yang kepakai.
+Gunakan fitur **Signal Finder**: geser atau ubah posisi modem sambil memantau metrik secara langsung. Ketika RSRP membaik dan SINR tetap tinggi, catat nomor band yang digunakan modem pada saat tersebut.
 
-Operator biasanya menyiarkan di beberapa band. Band yang pertama kepilih modem belum tentu yang paling bagus di posisimu.
+Operator seluler umumnya menyiarkan sinyal pada beberapa band secara bersamaan. Band yang pertama kali dipilih modem secara otomatis belum tentu merupakan band dengan performa terbaik di posisi Anda.
 
-## Kunci band
+## Mengunci Band
 
-1. Buka **LTE Band Lock** dari dashboard.
-2. Pilih band yang tadi paling kuat.
-3. Simpan. Modem bakal tetap di band itu.
+1. Buka menu **LTE Band Lock** dari dashboard.
+2. Pilih satu atau lebih band yang terukur memiliki kekuatan sinyal terbaik.
+3. Simpan konfigurasi. Modem akan tetap berada pada band yang ditentukan.
 
-Kamu juga bisa menggabungkan beberapa band — misalnya kombinasi **carrier aggregation** kayak `B3+B1+N40` — kalau modem dan operatormu mendukungnya. Di modem Huawei, kombinasinya muncul sebagai entri bernomor di daftar band.
+Anda juga dapat menggabungkan beberapa band melalui mekanisme *carrier aggregation*, contohnya `B3+B1+N40`, selama modem dan operator Anda mendukungnya. Pada modem Huawei, kombinasi ini muncul sebagai entri bernomor dalam daftar band.
 
-## Kapan perlu dicek ulang
+## Kapan Perlu Meninjau Ulang Konfigurasi Band
 
-- **Pindah lokasi** — band terkuat bisa berubah. Jalankan lagi Signal Finder.
-- **Kecepatan drop** — bandingkan sama pengaturan otomatis sebelumnya.
-- **Band yang nggak kepakai** — matikan biar modem nggak pindah-pindah.
+- **Setelah berpindah lokasi**: band terkuat dapat berubah. Jalankan Signal Finder kembali untuk mengukur ulang.
+- **Setelah terjadi penurunan kecepatan**: bandingkan hasil pengukuran dengan pengaturan mode otomatis sebelumnya.
+- **Band yang tidak lagi digunakan**: nonaktifkan band tersebut agar modem tidak berpindah-pindah secara sia-sia.
 
-Band Lock adalah pengaturan paling ampuh buat mengubah koneksi lemah jadi stabil.
+LTE Band Lock adalah salah satu pengaturan paling efektif untuk mengubah koneksi yang lemah menjadi stabil dan andal.
