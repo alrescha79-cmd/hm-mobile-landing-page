@@ -1,14 +1,14 @@
 ---
 slug: install-vpn-server
 lang: en
-title: Complete Guide to Setting Up a Free VPN Server (VLESS, VMess, Trojan, SSH, SlowDNS)
-description: How to easily install a multi-protocol VPN server (VLESS, VMess, Trojan, Shadowsocks, SSH, SlowDNS) on your own VPS using a free auto-installer script.
+title: "Complete Guide to Setting Up a Free VPN Server (VLESS, VMess, Trojan, SSH, SlowDNS)"
+description: How to install a multi-protocol VPN server (VLESS, VMess, Trojan, Shadowsocks, SSH, SlowDNS) on your own VPS using a free auto-installer script.
 date: 2026-08-27
 ---
 
 Setting up a private VPN server is now much easier thanks to a multi-protocol auto-installer script. You can enable several modern protocols at once, including **Xray (VLESS, VMess, Trojan)**, **Shadowsocks**, **OpenVPN**, **SSH**, and **SlowDNS**, complete with a terminal-based account management menu.
 
-The script is **free and open source** with no IP licensing restrictions, so it can be used on any VPS.
+The script is **free and open source**, with no IP licensing restrictions, so it can be used on any VPS.
 
 ---
 
@@ -22,25 +22,25 @@ Before you begin, make sure you have the following:
    - Ubuntu 20.04, 22.04, 24.04
    - Debian 10, 11, 12
 3. **A domain or subdomain**  
-   A domain/subdomain pointed at your VPS IP (an `A` record). For example: `vpn.yourdomain.com`.
+   A domain or subdomain pointed at your VPS IP via an `A` record. For example: `vpn.yourdomain.com`.
 4. **Cloudflare (optional)**  
-   If you use Cloudflare to manage DNS, make sure the proxy status is disabled (**DNS Only** / grey cloud icon).
+   If you use Cloudflare for DNS management, make sure the proxy status is disabled (**DNS Only** or the grey cloud icon).
 
 ---
 
 ## Installation Steps
 
-### 1. Switch to the root user
+### 1. Switch to the Root User
 
-Log in to your VPS via terminal/SSH, then switch to root:
+Log in to your VPS via terminal or SSH, then switch to root:
 
 ```bash
 sudo -i
 ```
 
-### 2. Run the auto-installer script
+### 2. Run the Auto-Installer Script
 
-Copy and run this single command in your VPS terminal:
+Copy and run this command in your VPS terminal:
 
 ```bash
 apt-get update && \
@@ -50,19 +50,19 @@ chmod +x setup.sh && \
 screen -S setup ./setup.sh
 ```
 
-The installation runs automatically. When prompted for a domain, type the domain/subdomain you already pointed at your VPS IP.
+The installation runs automatically. When prompted for a domain, type the domain or subdomain you pointed at your VPS IP.
 
 ---
 
-## Important Notes & Troubleshooting
+## Important Notes and Troubleshooting
 
 - **If the terminal connection drops during installation:**  
-  Do not re-run the full command from the start. Just log back in to the VPS and run:
+  Do not re-run the whole command from the start. Just log back in to the VPS and run:
   ```bash
   ./setup.sh
   ```
 - **Opening the control menu:**  
-  After installation and an automatic reboot, the main menu appears on its own. If it does not, run:
+  After installation and the automatic reboot, the main menu appears on its own. If it does not, run:
   ```bash
   menu
   ```
@@ -97,20 +97,20 @@ The server comes with a Telegram bot integration to monitor status and account c
 Besides the `menu` command, you can create, delete, check, and renew accounts directly from the CLI:
 
 ### Creating Accounts
-- `add-vless` — Create a VLESS account
-- `add-vmess` — Create a VMess account
-- `add-trojan` — Create a Trojan account
-- `add-shadowsocks` — Create a Shadowsocks account
-- `add-ssh` — Create an SSH account
+- `add-vless`: create a VLESS account
+- `add-vmess`: create a VMess account
+- `add-trojan`: create a Trojan account
+- `add-shadowsocks`: create a Shadowsocks account
+- `add-ssh`: create an SSH account
 
 ### Checking Accounts
-- `check-vless` — List VLESS accounts & online users
-- `check-vmess` — List VMess accounts & online users
-- `check-trojan` — List Trojan accounts & online users
-- `check-shadowsocks` — List Shadowsocks accounts & online users
-- `check-ssh` — List online SSH users
+- `check-vless`: list VLESS accounts and online users
+- `check-vmess`: list VMess accounts and online users
+- `check-trojan`: list Trojan accounts and online users
+- `check-shadowsocks`: list Shadowsocks accounts and online users
+- `check-ssh`: list online SSH users
 
-### Renewing & Deleting
+### Renewing and Deleting
 - Renew: `renew-vless`, `renew-vmess`, `renew-trojan`, `renew-shadowsocks`, `renew-ssh`
 - Delete: `del-vless`, `del-vmess`, `del-trojan`, `del-shadowsocks`, `del-ssh`
 
@@ -118,7 +118,7 @@ Besides the `menu` command, you can create, delete, check, and renew accounts di
 
 ## Auto Reboot Schedule
 
-By default, the server is set to automatically reboot every day at 05:00 to keep memory stable.
+By default, the server is set to reboot automatically every day at 05:00 to keep memory stable.
 
 ### Changing the Schedule via the Menu
 
@@ -133,7 +133,7 @@ By default, the server is set to automatically reboot every day at 05:00 to keep
 3. Select **1** to change the reboot time. Enter the time in 24-hour format (for example, `04:00`).
 4. Type `y` to save.
 
-### Setting / Cancelling via Crontab Directly
+### Setting or Cancelling via Crontab Directly
 
 To set the schedule from the command line:
 
@@ -162,7 +162,7 @@ rm -rf /tmp/cron.txt
 To support random subdomains or CDN/SNI configurations for specific protocols:
 
 1. Go to the Cloudflare dashboard and select your domain.
-2. Open the **DNS** > **Records** tab.
+2. Open the **DNS** then **Records** tab.
 3. Add a new A record:
    - **Type:** `A`
    - **Name:** `@` (or `*` for a wildcard)
@@ -174,7 +174,7 @@ To support random subdomains or CDN/SNI configurations for specific protocols:
 
 ---
 
-## Support & Community
+## Support and Community
 
 This script is developed as open source by [@Alrescha79](https://github.com/alrescha79-cmd). If you run into issues or want to discuss modem and VPN network configuration:
 

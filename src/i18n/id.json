@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "Huawei Manager — Aplikasi Kontrol Modem B310 B312 Orbit Star 2 Terbaik",
-    "titleId": "Huawei Manager — Aplikasi Kontrol Modem B310 B312 Orbit Star 2 Terbaik",
-    "description": "Aplikasi Android gratis untuk mengontrol modem Huawei — pantau sinyal, kunci band LTE, kelola WiFi dan SMS. Lokal, privat, tanpa cloud. Teruji untuk Orbit Star 2 B312-929."
+    "title": "Huawei Manager: Aplikasi Kontrol Modem Huawei B310 B312 Orbit Star 2",
+    "titleId": "Huawei Manager: Aplikasi Kontrol Modem Huawei B310 B312 Orbit Star 2",
+    "description": "Aplikasi Android gratis untuk memantau sinyal, mengunci band LTE, serta mengelola perangkat WiFi dan SMS. Berjalan lokal dan privat, tanpa cloud. Teruji untuk Orbit Star 2 B312-929."
   },
   "nav": {
     "home": "Beranda",
@@ -17,17 +17,19 @@
   },
   "hero": {
     "badge": "Gratis · Open Source · Android",
-    "title": "Kendalikan modem Huawei-mu sepenuhnya",
+    "title": "Kendalikan modem Huawei Anda sepenuhnya",
     "titleHighlight": "sepenuhnya",
-    "sub": "Pantau sinyal, kunci band LTE, kelola perangkat WiFi dan SMS — semua jalan lokal, privat, tanpa cloud. Sudah teruji di Orbit Star 2 B312-929.",
+    "sub": "Pantau kekuatan sinyal, kunci band LTE, kelola perangkat WiFi dan SMS. Semuanya berjalan lokal dan privat, tanpa cloud dan tanpa akun. Sudah teruji di Orbit Star 2 B312-929.",
     "ctaPrimary": "Download Gratis",
     "ctaSecondary": "Lihat pre-release",
     "trust": "Android · Tanpa root",
-    "version": "v1.1.70"
+    "version": "v1.1.70",
+    "chipSignal": "Pencari sinyal",
+    "chipBand": "Kunci band"
   },
   "stats": {
-    "label": "Dipercaya banyak orang",
-    "downloads": "Total Download",
+    "label": "Statistik proyek",
+    "downloads": "Total unduhan",
     "latest": "Versi terbaru",
     "stars": "Star di GitHub",
     "modems": "Modem didukung",
@@ -35,93 +37,93 @@
     "chartNote": "Jumlah unduhan mingguan dari GitHub Releases"
   },
   "preview": {
-    "label": "Garis besar tampilannya",
+    "label": "Dibuat untuk modem Huawei LTE",
     "title": "Lihat langsung dari aplikasinya",
-    "sub": "Screenshot asli dari dalam aplikasi. Ada tema gelap & terang, plus bahasa Inggris dan Indonesia.",
+    "sub": "Screenshot asli dari dalam aplikasi, tersedia tema gelap dan terang, serta bahasa Inggris dan Indonesia.",
     "dark": "Tema gelap",
     "light": "Tema terang",
     "home": "Dashboard realtime",
     "wifi": "Kelola perangkat WiFi",
-    "settings": "Pengaturan aplikasi & modem"
+    "settings": "Pengaturan aplikasi dan modem"
   },
   "features": {
-    "label": "Apa saja yang bisa dilakukan",
-    "title": "Semua yang nggak bisa dilakukan Web UI bawaan",
-    "sub": "Antarmuka bawaan modem nyembunyiin sebagian besar kemampuan perangkatnya. Di sini, Huawei Manager buka semuanya.",
+    "label": "Fitur utama",
+    "title": "Semua yang disembunyikan Web UI bawaan",
+    "sub": "Antarmuka bawaan modem menyembunyikan sebagian besar kemampuan perangkatnya. Huawei Manager menampilkan semuanya.",
     "dashboard": {
       "title": "Dashboard realtime",
-      "desc": "Sinyal (RSSI, RSRP, RSRQ, SINR, band), speedometer traffic, status koneksi dan sumber daya — semua sekilas."
+      "desc": "Sinyal (RSSI, RSRP, RSRQ, SINR, band), speedometer traffic, status koneksi dan sumber daya, semua dalam satu tampilan."
     },
     "signalFinder": {
       "title": "Pencari Sinyal",
-      "desc": "Putar atau pindahin modem sambil lihat metrik langsung, buat nemu spot yang sinyalnya paling kuat."
+      "desc": "Putar atau pindahkan modem sambil mengamati metrik secara langsung untuk menemukan posisi dengan sinyal terkuat."
     },
     "bandLock": {
       "title": "Kunci Band LTE",
-      "desc": "Pilih band LTE tertentu, termasuk 5G NR dan kombinasi carrier aggregation kayak B3+B1+N40."
+      "desc": "Pilih band LTE tertentu, termasuk 5G NR dan kombinasi carrier aggregation seperti B3+B1+N40."
     },
     "wifi": {
       "title": "Kontrol perangkat WiFi",
-      "desc": "Daftar perangkat yang terhubung lengkap dengan ikon vendor, bisa kick atau blokir, rename, lihat 2.4/5 GHz dan durasi."
+      "desc": "Daftar perangkat yang terhubung lengkap dengan ikon vendor, opsi kick atau blokir, penggantian nama, serta informasi pita 2.4/5 GHz dan durasi sewa."
     },
     "guest": {
       "title": "WiFi Tamu",
-      "desc": "SSID kedua dengan batas waktu. Perpanjang per 30 menit langsung dari aplikasi."
+      "desc": "SSID kedua dengan batas waktu. Perpanjang dalam kelipatan 30 menit langsung dari aplikasi."
     },
     "parental": {
       "title": "Kontrol orang tua",
-      "desc": "Jadwal per perangkat berdasarkan hari dan jam tertentu. Internet otomatis mati pas jam tidur."
+      "desc": "Jadwal per perangkat berdasarkan hari dan jam tertentu. Internet otomatis terputus saat jam tidur."
     },
     "sms": {
       "title": "Manajemen SMS",
-      "desc": "Baca, tulis, kirim dan hapus SMS, lengkap dengan jumlah belum dibaca dan pencarian. Kalau modem-nya nyediaain."
+      "desc": "Baca, tulis, kirim, dan hapus SMS, lengkap dengan jumlah belum dibaca dan fitur pencarian, selama modem mendukungnya."
     },
     "network": {
-      "title": "Jaringan & APN",
-      "desc": "Profil APN, atur data seluler, konfigurasi Ethernet, DHCP dan PPPoE."
+      "title": "Jaringan dan APN",
+      "desc": "Profil APN, sakelar data seluler, konfigurasi Ethernet, DHCP, dan PPPoE."
     },
     "widget": {
-      "title": "Widget di layar utama",
-      "desc": "Status sinyal dan traffic langsung tampil di layar utama, diperbarui tiap jam."
+      "title": "Widget layar utama",
+      "desc": "Status sinyal dan traffic langsung di layar utama, diperbarui setiap jam."
     },
     "notify": {
       "title": "Peringatan pemakaian",
-      "desc": "Notifikasi pas data harian/bulanan lewat batas, pas IP berubah, atau pas ada versi baru rilis."
+      "desc": "Notifikasi saat data harian atau bulanan melampaui batas, saat IP berubah, atau saat versi baru dirilis."
     },
     "speedtest": {
       "title": "Tes Kecepatan",
-      "desc": "Tes kecepatan internet langsung di aplikasi, plus shortcut ke pengaturan yang paling sering diganti."
+      "desc": "Tes kecepatan internet langsung di aplikasi, plus pintasan menuju pengaturan yang paling sering diubah."
     },
     "debug": {
       "title": "Mode debug",
-      "desc": "Catat setiap panggilan API dan export file HAR biar laporan masalah lebih presisi."
+      "desc": "Catat setiap panggilan API dan ekspor file HAR agar laporan masalah lebih presisi."
     },
     "privacy": {
-      "title": "Privat sejak dasar",
-      "desc": "Aplikasi ngobrol langsung ke modem lewat WiFi. Tanpa akun, tanpa ambil data, tanpa cloud."
+      "title": "Privat sejak awal",
+      "desc": "Aplikasi berkomunikasi langsung dengan modem melalui WiFi. Tanpa akun, tanpa pengumpulan data, tanpa cloud."
     }
   },
   "how": {
     "label": "Cara kerja",
     "title": "Tiga langkah, tanpa root",
-    "sub": "Kalau kamu bisa buka halaman admin modem di browser, berarti aplikasi ini bisa ngendaliinnya.",
+    "sub": "Jika Anda bisa membuka halaman admin modem di peramban, aplikasi ini dapat mengendalikannya.",
     "step1": {
-      "title": "Nyambung ke modem",
-      "desc": "Gabung ke WiFi modemnya, persis kayak mau buka halaman admin."
+      "title": "Hubungkan ke modem",
+      "desc": "Gabung ke jaringan WiFi modem, sama seperti saat membuka halaman admin."
     },
     "step2": {
       "title": "Login",
-      "desc": "Pakai username dan password yang sama kayak Web UI. IP modem (192.168.8.1) dideteksi otomatis."
+      "desc": "Gunakan nama pengguna dan kata sandi yang sama dengan Web UI. IP modem (192.168.8.1) terdeteksi otomatis."
     },
     "step3": {
-      "title": "Pantau & kendalikan",
-      "desc": "Sinyal, band, perangkat, SMS, kuota — semua cukup dari satu tempat."
+      "title": "Pantau dan kendalikan",
+      "desc": "Sinyal, band, perangkat, SMS, dan kuota, semua cukup dari satu tempat."
     }
   },
   "modems": {
     "label": "Kompatibilitas",
     "title": "Mendukung semua router Huawei LTE",
-    "sub": "Semua perangkat yang menyediakan API XML klasik Huawei di 192.168.8.1 — sudah teruji dengan Orbit Star 2.",
+    "sub": "Semua perangkat yang menyediakan API XML klasik Huawei di 192.168.8.1. Sudah teruji dengan Orbit Star 2.",
     "tested": "Teruji",
     "popular": "Terpopuler di Indonesia",
     "generic": "Semua modem Huawei LTE dengan API XML",
@@ -133,7 +135,7 @@
     "sub": "Tiga arsitektur, semuanya gratis. Tanpa iklan di fitur inti.",
     "stable": "Versi stabil terbaru",
     "prerelease": "Pre-release",
-    "preWarning": "Akses awal — mungkin masih ada bug",
+    "preWarning": "Akses awal: mungkin masih ada bug",
     "recommended": "Disarankan",
     "small": "Ukuran lebih kecil",
     "universal": "Semua perangkat",
@@ -147,8 +149,8 @@
     "released": "Dirilis",
     "viewAll": "Lihat semua rilis",
     "viewDetail": "Catatan rilis",
-    "loading": "Ngecek rilis dari GitHub…",
-    "attestation": "Ditandatangani & diverifikasi lewat GitHub Actions",
+    "loading": "Memuat rilis dari GitHub…",
+    "attestation": "Ditandatangani dan diverifikasi melalui GitHub Actions",
     "qr": "Pindai untuk download"
   },
   "faq": {
@@ -156,56 +158,56 @@
     "title": "Pertanyaan umum",
     "items": [
       {
-        "q": "Perlu root nggak?",
-        "a": "Nggak. Aplikasi ngobrol langsung sama API lokal modem lewat WiFi kamu — tanpa root, tanpa akun cloud."
+        "q": "Apakah perlu akses root?",
+        "a": "Tidak. Aplikasi berkomunikasi langsung dengan API lokal modem melalui WiFi. Tanpa root, tanpa akun cloud."
       },
       {
         "q": "Modem apa saja yang didukung?",
-        "a": "Semua router Huawei LTE yang nyediain API XML klasik — B310, B311, B312, B525, B535, B818, E5573, E5577, dan banyak lagi. Orbit Star 2 (B312-929) sudah teruji dan populer di Indonesia."
+        "a": "Semua router Huawei LTE yang menyediakan API XML klasik: B310, B311, B312, B525, B535, B818, E5573, E5577, dan lainnya. Orbit Star 2 (B312-929) sudah teruji dan populer di Indonesia."
       },
       {
-        "q": "Apakah data aku dikumpulin?",
-        "a": "Nggak. Semuanya jalan lokal, cuma ponsel dan modem. Nggak ada akun dan nggak ada server analitik."
+        "q": "Apakah data saya dikumpulkan?",
+        "a": "Tidak. Semuanya berjalan lokal antara ponsel dan modem. Tidak ada akun dan tidak ada server analitik."
       },
       {
-        "q": "Kenapa ada iklan?",
-        "a": "Iklan nutupin biaya server push notification-nya. Fitur inti tetap gratis dan bebas iklan."
+        "q": "Mengapa ada iklan?",
+        "a": "Iklan menutupi biaya server notifikasi push. Fitur inti tetap gratis dan bebas iklan."
       },
       {
-        "q": "Modem-ku nggak support SMS. Kenapa?",
-        "a": "SMS bergantung pada firmware modem. Fiturnya otomatis disembunyiin kalau API-nya nggak nyediain."
+        "q": "Modem saya tidak mendukung SMS. Mengapa?",
+        "a": "Dukungan SMS bergantung pada firmware modem. Aplikasi otomatis menyembunyikan fitur tersebut saat API tidak menyediakannya."
       },
       {
-        "q": "Ada versi iOS nggak?",
-        "a": "Belum. Aplikasi ini baru jalan di Android, dibangun dengan Expo — jadi versi iOS bisa aja menyusul nanti."
+        "q": "Apakah ada versi iOS?",
+        "a": "Belum. Saat ini aplikasi hanya tersedia untuk Android, dibangun dengan Expo, sehingga versi iOS dapat menyusul di masa mendatang."
       }
     ]
   },
   "feedback": {
     "label": "Masukan",
-    "title": "Nemu bug? Mau minta fitur?",
-    "sub": "Bantuin kami bikin aplikasinya makin enak. Semua masukan kebaca.",
+    "title": "Menemukan bug? Ingin mengajukan fitur?",
+    "sub": "Bantu kami membuat aplikasi semakin baik. Semua masukan kami baca.",
     "name": "Nama (opsional)",
     "email": "Email",
-    "emailPh": "kamu@contoh.com",
+    "emailPh": "anda@contoh.com",
     "type": "Jenis",
     "typeBug": "Laporan bug",
     "typeFeature": "Permintaan fitur",
     "modem": "Model modem",
     "modemPh": "contoh: B312-929 (Orbit Star 2)",
     "message": "Pesan",
-    "messagePh": "Jelaskan masalah atau fitur yang kamu mau…",
+    "messagePh": "Jelaskan masalah atau fitur yang Anda inginkan…",
     "submit": "Kirim masukan",
-    "sending": "Ngirim…",
-    "success": "Makasih! Masukanmu terkirim.",
-    "error": "Waduh, ada yang salah. Coba lagi atau buka issue di GitHub.",
+    "sending": "Mengirim…",
+    "success": "Terima kasih! Masukan Anda terkirim.",
+    "error": "Terjadi kesalahan. Silakan coba lagi atau buka issue di GitHub.",
     "gh": "Atau buka issue GitHub langsung"
   },
   "releases": {
     "loading": "Memuat rilis dari GitHub…",
     "pre": "Pre-release",
     "noNotes": "_Tidak ada catatan rilis._",
-    "failed": "Gagal memuat rilis. Coba lagi nanti.",
+    "failed": "Gagal memuat rilis. Silakan coba lagi nanti.",
     "close": "Tutup"
   },
   "blog": {
@@ -216,12 +218,17 @@
     "published": "Diterbitkan",
     "empty": "Belum ada artikel. Kunjungi lagi nanti.",
     "recommended": "Bacaan rekomendasi",
-    "bandLock": "LTE Band Lock — Biar Koneksinya Lebih Stabil",
-    "whichApk": "Pilih APK yang Mana?",
+    "bandLock": "LTE Band Lock: Menstabilkan Koneksi dengan Mengunci Band Frekuensi",
+    "whichApk": "Varian APK Mana yang Harus Diunduh?",
     "gettingStarted": "Panduan Awal Menggunakan Huawei Manager"
   },
+  "theme": {
+    "light": "Terang",
+    "dark": "Gelap",
+    "auto": "Otomatis"
+  },
   "footer": {
-    "statement": "Kendalikan modem-mu hari ini.",
+    "statement": "Kendalikan modem Anda hari ini.",
     "sub": "Gratis · Open source · Lisensi MIT",
     "github": "GitHub",
     "source": "Kode sumber",

@@ -1,43 +1,43 @@
 ---
 slug: lte-band-lock-guide
 lang: en
-title: LTE Band Lock — Getting a Steadier Connection
-description: How to read the band metrics in Huawei Manager, pick the right LTE bands for your location, and pin them with Band Lock.
+title: "LTE Band Lock: Getting a Steadier Connection"
+description: How to read the LTE signal metrics in Huawei Manager, pick the bands that perform best at your location, and pin them with Band Lock.
 date: 2026-07-28
 ---
 
-A modem locked to a weak band is the usual reason for a slow, flaky connection. Band Lock lets you pin the bands that actually work at your location. Here's how to use it well.
+A modem locked onto a weak LTE band is the usual cause of a slow, unstable connection. Band Lock lets you pin the modem to the frequencies that actually work at your location. Here is how to use it well.
 
-## Read the signal first
+## Read the Signal First
 
 Open the dashboard and watch the metrics while the modem sits still:
 
 | Metric | What it tells you |
 | --- | --- |
-| **RSRP** | Signal strength. Lower (more negative) is weaker. |
-| **RSRQ / SINR** | Signal quality and noise. Higher is better. |
-| **Band** | Which LTE band the modem currently uses. |
+| **RSRP** | Received signal power. A smaller negative value means a stronger signal. |
+| **RSRQ / SINR** | Signal quality and noise ratio. Higher is better. |
+| **Band** | The LTE band the modem is currently using. |
 
-Don't change anything yet — just learn what "your normal" looks like.
+Do not change anything yet. Learn what your normal signal looks like first.
 
-## Find your strong band
+## Find Your Strongest Band
 
-Use **Signal Finder**: walk around or reposition the modem while watching the live metrics. When RSRP improves and SINR stays high, note the band it landed on.
+Use **Signal Finder**: move around or reposition the modem while watching the live metrics. When RSRP improves and SINR stays high, note the band the modem landed on.
 
-Some operators broadcast on several bands. The one your modem picks first isn't always the best one at your spot.
+Operators usually broadcast on several bands. The one the modem picks first is not always the best at your location.
 
-## Lock the band
+## Lock the Band
 
 1. Open **LTE Band Lock** from the dashboard.
-2. Pick the band you measured as strongest.
-3. Save. The modem stays on that band.
+2. Select the band that measured strongest.
+3. Save. The modem will stay on that band.
 
-You can also combine bands — for example a **carrier aggregation** combo like `B3+B1+N40` — when your modem and operator support it. On a Huawei modem these are exposed as a numbered entry in the band list.
+You can also combine bands through carrier aggregation, for example `B3+B1+N40`, when your modem and operator support it. On Huawei modems, these combinations appear as numbered entries in the band list.
 
-## When to reconsider
+## When to Reconsider
 
-- **After changing location** — your strong band may change. Re-run Signal Finder.
-- **After a speed drop** — test the previous automatic setting side by side.
-- **On other bands you never use** — disable them so the modem doesn't jump.
+- **After changing location**: your strongest band may change. Re-run Signal Finder.
+- **After a speed drop**: compare the result with the previous automatic setting.
+- **On bands you never use**: disable them so the modem does not switch pointlessly.
 
 Band Lock is the single most effective setting for turning a weak connection into a steady one.

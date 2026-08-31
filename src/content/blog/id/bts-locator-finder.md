@@ -1,50 +1,50 @@
 ---
 slug: bts-locator-finder
 lang: id
-title: BTS Locator — Lihat Menara BTS yang Terhubung ke Modemmu
-description: Fitur baru yang sedang dikembangkan — tahu modemmu nyambung ke BTS mana, lihat BTS di sekitar, dan pakai peta buat cari titik sinyal terkuat.
+title: "BTS Locator: Menampilkan Menara BTS yang Terhubung ke Modem"
+description: Fitur yang sedang dikembangkan untuk menampilkan menara BTS tujuan koneksi modem, lokasi menara di sekitar, dan peta untuk menemukan titik sinyal terkuat.
 date: 2026-08-08
 ---
 
 ![Preview BTS Locator](/bts-locator.jpg)
 
-Pernah lihat sinyal lemah terus mikir: *modemku sebenarnya ngobrol sama menara yang mana — dan kok jauh banget?* Sebentar lagi kamu bisa jawab pertanyaan itu langsung dari aplikasi.
+Koneksi sinyal yang lemah sering kali sulit dijelaskan tanpa mengetahui menara pemancar (BTS) mana yang melayani koneksi modem Anda dan seberapa jauh jaraknya. Fitur **BTS Locator** yang sedang dikembangkan dirancang untuk menjawab pertanyaan ini langsung dari aplikasi.
 
-## Fiturnya ngapain
+## Fungsi Fitur
 
-**BTS Locator** nampilin menara BTS yang lagi nyambung ke modem kamu, plus menara di sekitarnya, dalam bentuk peta beneran. Nggak perlu nebak-nebak lagi dari arah mana sinyalmu lemah — kamu bakal lihat persis sinyalnya datang dari mana.
+BTS Locator menampilkan menara pemancar yang sedang melayani koneksi modem Anda beserta menara lain yang berada dalam jangkauan, disajikan pada peta geografis. Anda tidak perlu lagi memperkirakan arah sumber sinyal secara manual.
 
-- **BTS aktif** — menara yang lagi dipakai modemmu sekarang.
-- **BTS sekitar** — sel lain yang masih dalam jangkauan, biar keliatan apa aja yang ada di sekitar.
-- **Konteks sinyal** — metrik sinyal yang sama (RSRP, RSRQ, SINR, band) ditaruh di peta.
+- **Menara aktif**: BTS yang sedang digunakan modem untuk koneksi saat ini.
+- **Menara di sekitar**: sel-sel lain yang masih dalam jangkauan agar kondisi jaringan di sekitar lebih terlihat.
+- **Konteks sinyal**: metrik sinyal (RSRP, RSRQ, SINR, dan band) ditampilkan langsung pada peta.
 
-## Cara kerjanya
+## Cara Kerja
 
-Aplikasi gabungin dua sumber data:
+Fitur ini menggabungkan dua sumber data:
 
-1. **Dari modem** — modem ngasih tau sel yang lagi dipakainya, termasuk band, kekuatan sinyal, dan identitas selnya.
-2. **Dari GPS HP** — posisimu dipake buat naruh sel-sel itu di peta.
+1. **Data dari modem**: modem melaporkan sel yang sedang digunakan, termasuk band, kekuatan sinyal, dan identitas sel.
+2. **Data GPS ponsel**: posisi perangkat digunakan untuk menempatkan koordinat sel pada peta.
 
-Gabungin dua-duanya, kamu dapet gambaran langsung kondisi radio di sekitarmu.
+Penggabungan kedua sumber data ini memberikan gambaran langsung kondisi lingkungan radio di sekitar lokasi Anda.
 
-## Kenapa penting
+## Manfaat
 
-Ngerti *menara mana* yang kamu tumpangin ngejelasin banyak hal:
+Mengetahui menara mana yang melayani koneksi membantu memahami berbagai kondisi jaringan:
 
-- Menara yang jauh biasanya artinya koneksi lemah dan nggak stabil — dan seringnya ada menara lebih deket yang lebih bagus.
-- Pas kamu muter-muter nyari spot sinyal, petanya nunjukin kamu lagi ngedeketin atau ngejauhin menaranya.
-- Digabung sama Band Lock, kamu bisa nemu band terkuat *dan* posisi paling mantap sekaligus.
+- Menara yang jauh umumnya berkorelasi dengan koneksi yang lemah dan tidak stabil. Sering kali tersedia menara lain yang lebih dekat dengan kualitas lebih baik.
+- Saat berpindah mencari posisi terbaik, peta menunjukkan apakah Anda mendekati atau menjauhi menara.
+- Dikombinasikan dengan Band Lock, Anda dapat menentukan band terkuat dan posisi optimal secara bersamaan.
 
-## Status: masih dikembangkan
+## Status Pengembangan
 
-Fitur ini nyata, tapi belum siap. Masih tahap pengembangan aktif dan ujicoba internal — kami testing di modem beneran dan jaringan beneran sebelum dirilis.
+Fitur ini masih dalam tahap pengembangan aktif dan pengujian internal. Pengujian dilakukan pada modem asli dan jaringan seluler sungguhan sebelum dirilis ke publik.
 
-Satu kendala yang jujur kami sampaikan: **data lokasi BTS itu terbatas.** Koordinat menara BTS nggak dipublish sama kebanyakan operator, dan database publik isinya nggak lengkap plus sering usang. Artinya cakupannya bakal bertambah seiring waktu, dan akurasinya beda-beda tiap daerah — ada wilayah yang BTS-nya kelihatan presisi, ada yang masih jarang.
+Perlu kami sampaikan satu keterbatasan: **data koordinat BTS sangat terbatas**. Sebagian besar operator tidak memublikasikan koordinat menara, sementara database publik yang tersedia cenderung tidak lengkap dan sering kedaluwarsa. Oleh karena itu, cakupan data akan terus bertambah seiring waktu dan akurasi dapat berbeda antar wilayah. Sebagian daerah menampilkan posisi menara secara presisi, sementara daerah lain masih jarang datanya.
 
-Justru karena itu fitur ini butuh testing dunia nyata — dan nanti, bantuan dari pengguna kayak kamu.
+Alasan inilah yang mendasari pentingnya pengujian pada lingkungan nyata, serta masukan dari pengguna seperti Anda pada tahap selanjutnya.
 
-## Selanjutnya apa
+## Rencana Rilis
 
-Nggak ada janji tanggal rilis. Pertama selesaiin ujicoba internal, baru rilis di update berikutnya. Pantau terus [halaman rilis](/id/releases) — pas BTS Locator keluar, bakal ada di situ.
+Belum ada tanggal rilis yang dijanjikan. Setelah pengujian internal selesai, fitur akan dirilis pada pembaruan aplikasi berikutnya. Pantau [halaman rilis](/id/releases) untuk informasi rilis terbaru.
 
-Sampai saat itu, metrik sinyal dan Band Lock udah bisa dipake hari ini.
+Sementara menunggu, fitur pemantauan metrik sinyal dan Band Lock sudah dapat digunakan hari ini.

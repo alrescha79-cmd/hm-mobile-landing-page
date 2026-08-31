@@ -2,34 +2,34 @@
 slug: getting-started
 lang: id
 title: Panduan Awal Menggunakan Huawei Manager
-description: Hubungkan HP ke modem, login, dan kendalikan sinyal, band, WiFi, serta SMS dalam waktu kurang dari lima menit.
+description: Hubungkan ponsel ke modem, masuk dengan kredensial admin, dan kendalikan sinyal, band LTE, WiFi, serta SMS dalam waktu kurang dari lima menit.
 date: 2026-05-18
 ---
 
-Huawei Manager ngobrol langsung sama modem lewat WiFi — nggak perlu root, nggak perlu akun cloud. Kalau kamu bisa buka halaman admin modem di browser, aplikasi ini bisa ngatur semuanya. Ini langkah-langkahnya.
+Huawei Manager Mobile berkomunikasi langsung dengan modem Anda melalui jaringan WiFi lokal. Tanpa akses root, tanpa akun cloud. Selama Anda dapat membuka halaman admin modem di peramban, aplikasi ini dapat mengontrol seluruh parameter yang sama dari satu antarmuka. Berikut langkah-langkahnya.
 
-## 1. Hubungkan HP ke WiFi modem
+## 1. Hubungkan Ponsel ke Jaringan WiFi Modem
 
-Masuk ke WiFi modem, sama kayak waktu buka halaman admin. IP modem (`192.168.8.1`) dideteksi otomatis, jadi nggak perlu ngatur apa-apa.
+Gabung ke jaringan WiFi yang dipancarkan modem, sama seperti saat Anda membuka halaman admin. Aplikasi akan mendeteksi alamat IP modem (`192.168.8.1`) secara otomatis, sehingga tidak diperlukan konfigurasi tambahan.
 
-## 2. Login
+## 2. Masuk dengan Kredensial Admin
 
-Pakai username dan password yang sama dengan di halaman admin. Aplikasi ini memakai API XML klasik Huawei, yang tersedia di semua modem yang kompatibel.
+Gunakan nama pengguna dan kata sandi yang sama dengan kredensial pada halaman admin modem. Aplikasi memanfaatkan API XML standar Huawei yang tersedia pada semua modem yang kompatibel.
 
-## 3. Pantau dan kendalikan
+## 3. Pantau dan Kendalikan
 
-Begitu masuk, semuanya ada di dashboard:
+Setelah berhasil masuk, seluruh informasi modem tersedia pada dashboard:
 
-- **Sinyal** — RSSI, RSRP, RSRQ, SINR, plus band yang lagi aktif, langsung update.
-- **Traffic** — speedometer realtime dan pemakaian harian serta bulanan.
-- **Perangkat WiFi** — daftar perangkat, ganti nama, kick, atau blokir.
-- **SMS** — baca, tulis, kirim, dan cari pesan, selama modemnya mendukung SMS.
-- **LTE Band Lock** — kunci band tertentu atau kombinasi carrier aggregation biar koneksi lebih mantap.
+- **Sinyal**: RSSI, RSRP, RSRQ, SINR, serta band LTE yang aktif, ditampilkan secara *real-time*.
+- **Traffic**: speedometer kecepatan transmisi data beserta akumulasi penggunaan harian dan bulanan.
+- **Perangkat WiFi**: daftar klien yang terhubung, penggantian nama, pemutusan koneksi, dan pemblokiran.
+- **SMS**: baca, tulis, kirim, dan cari pesan selama modem mendukung fitur SMS.
+- **Kunci Band LTE**: pilih band frekuensi tertentu atau kombinasi *carrier aggregation* untuk koneksi yang lebih stabil.
 
-## Tips biar koneksinya stabil
+## Tips untuk Koneksi yang Stabil
 
-- Pastikan HP dan modem ada di WiFi yang sama.
-- Kalau login gagal, cek lagi password-nya — harus sama persis dengan halaman admin.
-- Koneksi disimpan otomatis, jadi cukup login sekali.
+- Pastikan ponsel dan modem berada pada jaringan WiFi yang sama.
+- Jika proses masuk gagal, verifikasi kembali kata sandi agar sesuai persis dengan kredensial halaman admin.
+- Sesuai kredensial disimpan otomatis, sehingga Anda cukup masuk sekali untuk sesi berikutnya.
 
-Itu aja. Download APK, masuk WiFi, login, dan selesai.
+Itulah seluruh prosesnya. Unduh APK, hubungkan ke WiFi modem, masuk, dan kendalikan jaringan Anda.

@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "Huawei Manager Mobile — Control B310 B312 E5577 LTE Modem Easily",
-    "titleId": "Huawei Manager — Aplikasi Kontrol Modem B310 B312 Orbit Star 2 Terbaik",
-    "description": "Free Android app to monitor signal, lock LTE bands, manage WiFi devices and SMS. Local, private, no cloud. Tested on Orbit Star 2 B312-929."
+    "title": "Huawei Manager Mobile: Control B310 B312 E5577 LTE Modems",
+    "titleId": "Huawei Manager: Aplikasi Kontrol Modem Huawei B310 B312 Orbit Star 2",
+    "description": "Free Android app to monitor signal, lock LTE bands, and manage WiFi devices and SMS. Runs locally and privately, no cloud. Tested on Orbit Star 2 B312-929."
   },
   "nav": {
     "home": "Home",
@@ -19,14 +19,16 @@
     "badge": "Free · Open Source · Android",
     "title": "Your Huawei modem, finally under control",
     "titleHighlight": "under control",
-    "sub": "Monitor signal strength, lock LTE bands, manage WiFi devices and SMS — all local, all private, no cloud. Tested on the Orbit Star 2 B312-929.",
+    "sub": "Monitor signal strength, lock LTE bands, and manage WiFi devices and SMS. Everything runs locally and privately, with no cloud and no account. Tested on the Orbit Star 2 B312-929.",
     "ctaPrimary": "Download Free",
     "ctaSecondary": "View pre-releases",
     "trust": "Android · No root needed",
-    "version": "v1.1.70"
+    "version": "v1.1.70",
+    "chipSignal": "Signal finder",
+    "chipBand": "Band lock"
   },
   "stats": {
-    "label": "Trusted numbers",
+    "label": "Project stats",
     "downloads": "Total downloads",
     "latest": "Latest version",
     "stars": "GitHub stars",
@@ -37,20 +39,20 @@
   "preview": {
     "label": "Built for Huawei LTE modems",
     "title": "See the app in action",
-    "sub": "Real screenshots from the app. Dark and light themes, English and Indonesian.",
+    "sub": "Real screenshots from the app, in light and dark themes, and in English and Indonesian.",
     "dark": "Dark theme",
     "light": "Light theme",
     "home": "Realtime dashboard",
     "wifi": "WiFi device management",
-    "settings": "Apps & Modem settings"
+    "settings": "Apps and Modem settings"
   },
   "features": {
     "label": "What it does",
-    "title": "Everything the stock Web UI can't",
-    "sub": "The modem's built-in interface hides most of what the device can do. Huawei Manager opens it up.",
+    "title": "Everything the stock Web UI keeps hidden",
+    "sub": "The modem's built-in interface hides most of the device's capability. Huawei Manager exposes it all.",
     "dashboard": {
       "title": "Realtime dashboard",
-      "desc": "Signal (RSSI, RSRP, RSRQ, SINR, band), traffic speedometer, connection status and power source at a glance."
+      "desc": "Signal (RSSI, RSRP, RSRQ, SINR, band), traffic speedometer, connection status, and power source at a glance."
     },
     "signalFinder": {
       "title": "Signal Finder",
@@ -62,11 +64,11 @@
     },
     "wifi": {
       "title": "WiFi device control",
-      "desc": "List connected devices with vendor icons, kick or block devices, rename them, see 2.4/5 GHz and lease time."
+      "desc": "List connected devices with vendor icons, kick or block devices, rename them, and see 2.4/5 GHz and lease time."
     },
     "guest": {
       "title": "Guest WiFi",
-      "desc": "Second SSID with a time limit. Extend in 30-minute steps from the app."
+      "desc": "A second SSID with a time limit. Extend in 30-minute steps from the app."
     },
     "parental": {
       "title": "Parental controls",
@@ -74,11 +76,11 @@
     },
     "sms": {
       "title": "SMS management",
-      "desc": "Read, compose, send and delete SMS, with unread count and search. When the modem supports it."
+      "desc": "Read, compose, send, and delete SMS, with unread count and search. When the modem supports it."
     },
     "network": {
       "title": "Network & APN",
-      "desc": "APN profiles, mobile data toggle, Ethernet, DHCP and PPPoE configuration."
+      "desc": "APN profiles, mobile data toggle, Ethernet, DHCP, and PPPoE configuration."
     },
     "widget": {
       "title": "Home screen widget",
@@ -86,11 +88,11 @@
     },
     "notify": {
       "title": "Usage alerts",
-      "desc": "Push notifications when daily or monthly data hits your threshold, when the IP changes, or a new version lands."
+      "desc": "Push notifications when daily or monthly data crosses your threshold, when the IP changes, or when a new version lands."
     },
     "speedtest": {
       "title": "Speed test",
-      "desc": "In-app internet speed test plus quick actions for the things you toggle most."
+      "desc": "An in-app internet speed test, plus quick actions for the settings you change most."
     },
     "debug": {
       "title": "Debug mode",
@@ -114,14 +116,14 @@
       "desc": "Use the same username and password as the Web UI. The app auto-detects the modem IP (192.168.8.1)."
     },
     "step3": {
-      "title": "Monitor & control",
-      "desc": "Signal, bands, devices, SMS, quota — everything in one place."
+      "title": "Monitor and control",
+      "desc": "Signal, bands, devices, SMS, and quota, all from one place."
     }
   },
   "modems": {
     "label": "Compatibility",
     "title": "Works with any Huawei LTE router",
-    "sub": "Any device exposing the classic Huawei XML API on 192.168.8.1 — tested on the Orbit Star 2.",
+    "sub": "Any device exposing the classic Huawei XML API on 192.168.8.1. Tested on the Orbit Star 2.",
     "tested": "Tested",
     "popular": "Most popular in Indonesia",
     "generic": "Any Huawei LTE modem with the XML API",
@@ -133,7 +135,7 @@
     "sub": "Three architectures, all free. No ads in core features.",
     "stable": "Latest stable",
     "prerelease": "Pre-releases",
-    "preWarning": "Early access — may contain bugs",
+    "preWarning": "Early access: may contain bugs",
     "recommended": "Recommended",
     "small": "Smaller size",
     "universal": "All devices",
@@ -148,7 +150,7 @@
     "viewAll": "View all releases",
     "viewDetail": "Release notes",
     "loading": "Loading releases from GitHub…",
-    "attestation": "Signed & attested via GitHub Actions",
+    "attestation": "Signed and verified via GitHub Actions",
     "qr": "Scan to download"
   },
   "faq": {
@@ -157,11 +159,11 @@
     "items": [
       {
         "q": "Do I need root?",
-        "a": "No. The app talks to the modem's local API over your WiFi — no root, no cloud account."
+        "a": "No. The app talks to the modem's local API over your WiFi. No root, no cloud account."
       },
       {
         "q": "Which modems are supported?",
-        "a": "Any Huawei LTE router that exposes the classic XML API — B310, B311, B312, B525, B535, B818, E5573, E5577 and more. The Orbit Star 2 (B312-929) is tested and popular in Indonesia."
+        "a": "Any Huawei LTE router that exposes the classic XML API: B310, B311, B312, B525, B535, B818, E5573, E5577 and more. The Orbit Star 2 (B312-929) is tested and popular in Indonesia."
       },
       {
         "q": "Does it collect my data?",
@@ -173,11 +175,11 @@
       },
       {
         "q": "My modem doesn't support SMS. Why?",
-        "a": "SMS depends on the modem's firmware. The app hides the feature when the API doesn't expose it."
+        "a": "SMS support depends on the modem's firmware. The app hides the feature when the API does not expose it."
       },
       {
         "q": "Is there an iOS version?",
-        "a": "Not yet. The app is Android-only today, built with Expo so iOS is possible in the future."
+        "a": "Not yet. The app is Android-only today, built with Expo, so iOS is possible in the future."
       }
     ]
   },
@@ -216,9 +218,14 @@
     "published": "Published",
     "empty": "No articles yet. Check back soon.",
     "recommended": "Recommended reading",
-    "bandLock": "LTE Band Lock — Getting a Steadier Connection",
+    "bandLock": "LTE Band Lock: Getting a Steadier Connection",
     "whichApk": "Which APK Should You Download?",
     "gettingStarted": "Getting Started with Huawei Manager"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "auto": "Auto"
   },
   "footer": {
     "statement": "Take control of your modem today.",

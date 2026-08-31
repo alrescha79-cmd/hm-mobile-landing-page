@@ -41,7 +41,7 @@ const altHref = path.replace(/^\/(en|id)/, '') === '' ? `/${alt}/` : `/${alt}${p
         ))}
       </div>
       <div class="flex items-center gap-2">
-        <ThemeToggle />
+        <ThemeToggle lang={lang} />
         <a href={altHref} data-lang-switch={alt} class="px-3 py-2 text-[13px] font-semibold no-underline whitespace-nowrap" aria-label="Switch language">
           {alt === 'en' ? 'EN' : 'ID'}
         </a>
@@ -67,7 +67,7 @@ const altHref = path.replace(/^\/(en|id)/, '') === '' ? `/${alt}/` : `/${alt}${p
       <a href={altHref} data-lang-switch={alt} class="inline-flex items-center rounded-(--radius-pill) border border-[color:var(--color-rule)] bg-[color:var(--color-paper)]/80 px-2.5 py-1.5 text-[12px] font-semibold no-underline whitespace-nowrap" aria-label="Switch language">
         {alt === 'en' ? 'EN' : 'ID'}
       </a>
-      <ThemeToggle />
+      <ThemeToggle lang={lang} />
     </div>
   </div>
 </div>

@@ -2,68 +2,68 @@
 slug: what-is-huawei-manager
 lang: id
 title: Apa Itu Huawei Manager Mobile?
-description: Aplikasi Android gratis dan open-source buat ngatur modem Huawei LTE lewat WiFi — sinyal, band, WiFi, SMS, dan lainnya. Tanpa root, tanpa cloud, tanpa akun.
-date: 2026-7-15
+description: "Aplikasi Android gratis dan sumber terbuka untuk mengelola modem Huawei LTE via WiFi: sinyal, band, WiFi, SMS, dan parameter lainnya. Tanpa root, tanpa cloud, dan tanpa akun."
+date: 2026-07-15
 ---
 
-Huawei Manager Mobile itu aplikasi Android gratis yang ngobrol langsung sama modem Huawei LTE kamu lewat WiFi. Aplikasi ini ngebuka fitur-fitur yang disembunyiin antarmuka web bawaan modem dan nampilinnya di HP kamu.
+Huawei Manager Mobile adalah aplikasi Android gratis dan sumber terbuka yang berkomunikasi langsung dengan modem Huawei LTE melalui jaringan WiFi lokal. Aplikasi ini membuka berbagai fitur dan parameter teknis yang disembunyikan oleh antarmuka web bawaan modem, lalu menyajikannya secara praktis di perangkat Android Anda.
 
-## Bisa ngapain aja
+## Fitur Utama
 
-Aplikasi ini pakai API XML klasik Huawei yang ada di semua modem kompatibel, di alamat `192.168.8.1`. Kalau kamu pernah buka halaman admin modem di browser, aplikasi ini bisa ngatur semuanya — tanpa root, tanpa akun cloud, tanpa daftar apa pun.
+Aplikasi ini memanfaatkan API XML standar Huawei yang tersedia pada alamat gateway lokal `192.168.8.1`. Jika Anda dapat mengakses halaman admin modem melalui peramban, aplikasi ini dapat mengontrol modem tersebut secara penuh tanpa memerlukan akses root, registrasi akun, maupun koneksi server cloud pihak ketiga.
 
-### Dashboard sinyal
+### Dashboard Telemetri Sinyal
 
-Semua metrik keliatan sekilas: RSSI, RSRP, RSRQ, SINR, dan band LTE yang lagi aktif. Ada juga speedometer traffic realtime plus penghitung pemakaian harian dan bulanan.
+Pantau seluruh metrik sinyal radio secara sekilas: RSSI, RSRP, RSRQ, SINR, dan band LTE yang sedang aktif. Panel traffic menyediakan speedometer kecepatan transmisi data secara *real-time* beserta penghitung akumulasi kuota harian dan bulanan.
 
-### Pencari Sinyal
+### Pencari Arah Sinyal (Signal Finder)
 
-Putar atau geser posisi modem sambil lihat metriknya langsung. Pas RSRP turun (artinya sinyal makin kuat) dan SINR tetap tinggi, berarti kamu nemu posisi paling mantap.
+Ubah orientasi atau posisi modem sambil mengamati perubahan metrik secara langsung. Ketika nilai RSRP membaik (angka negatif semakin kecil) dan SINR tetap tinggi, modem berada pada posisi penerimaan sinyal yang optimal.
 
-### Kunci Band LTE
+### Kunci Band LTE (Band Locking)
 
-Kunci band tertentu atau kombinasi carrier aggregation — contohnya `B3+B1+N40` — biar modem tetap di band yang beneran jalan di lokasimu. Ini solusi paling efektif buat koneksi yang lemah atau nggak stabil.
+Kunci modem ke frekuensi LTE tertentu atau kombinasi *carrier aggregation*, seperti `B3+B1+N40`. Fitur ini memastikan modem tetap terhubung ke pita frekuensi dengan performa terbaik di lokasi Anda, mencegah penurunan kecepatan akibat perpindahan band otomatis yang tidak diinginkan.
 
-### Kelola perangkat WiFi
+### Manajemen Klien WiFi
 
-Lihat semua perangkat yang nyambung lengkap sama ikon vendor, band yang dipakai (2,4 atau 5 GHz), dan waktu sewa DHCP. Kick atau blokir perangkat, ganti namanya. Siapin WiFi Tamu dengan batas waktu (bisa diperpanjang per 30 menit). Kontrol orang tua bisa motong internet per perangkat dan jadwal tertentu.
+Lihat seluruh perangkat yang terhubung beserta identifikasi vendor, pita frekuensi (2.4 GHz atau 5 GHz), dan durasi sewa DHCP. Anda dapat mengganti nama perangkat, memutuskan koneksi (*kick*), atau memblokir perangkat yang tidak dikenal. Sediakan WiFi Tamu (*Guest WiFi*) dengan durasi akses sementara, serta atur kontrol orang tua untuk membatasi jadwal akses internet perangkat tertentu.
 
-### SMS
+### Pengelolaan SMS
 
-Baca, tulis, kirim, dan cari SMS — selama modemnya mendukung. Jumlah SMS yang belum dibaca muncul di dashboard.
+Baca, tulis, kirim, dan cari pesan SMS langsung dari ponsel selama modem mendukung fungsi tersebut. Jumlah pesan yang belum dibaca akan ditampilkan pada dashboard utama.
 
-### Pengaturan jaringan
+### Konfigurasi Jaringan Lanjutan
 
-Profil APN, saklar data seluler, mode port Ethernet, konfigurasi DHCP dan PPPoE — semua yang disembunyiin antarmuka bawaan.
+Atur profil APN, sakelar data seluler, mode port Ethernet, serta konfigurasi server DHCP dan PPPoE yang sering kali disembunyikan oleh firmware bawaan.
 
-### Widget layar utama
+### Widget Layar Utama
 
-Status sinyal dan traffic tampil langsung di layar utama HP, di-update tiap jam.
+Pantau status koneksi, kualitas sinyal, dan penggunaan kuota langsung dari layar utama ponsel Anda dengan pembaruan otomatis berkala.
 
-### Peringatan pemakaian
+### Notifikasi Batas Pemakaian
 
-Notifikasi push pas data harian atau bulanan mentok batas, pas IP publik berubah, atau pas ada versi baru aplikasi.
+Dapatkan notifikasi sistem saat penggunaan kuota harian atau bulanan mencapai ambang batas yang ditentukan, saat alamat IP publik berganti, atau saat versi pembaruan aplikasi tersedia.
 
-### Tes kecepatan
+### Uji Kecepatan Jaringan
 
-Tes kecepatan internet langsung dari aplikasi, plus shortcut buat pengaturan yang paling sering kamu ubah.
+Lakukan uji kecepatan unduh dan unggah langsung di dalam aplikasi, disertai pintasan cepat menuju pengaturan modem yang sering diakses.
 
-### Mode debug
+### Mode Debug
 
-Catat setiap panggilan API dan ekspor file HAR. Bikin laporan bug jadi lebih presisi.
+Rekam seluruh komunikasi panggilan API XML dan ekspor menjadi berkas HAR. Berkas ini mempermudah proses diagnosis saat melaporkan bug atau masalah kompatibilitas modem.
 
-## Privasi
+## Privasi dan Keamanan
 
-Semuanya jalan lokal antara HP dan modem. Nggak ada akun, nggak ada server analitik, nggak ada pengumpulan data. Kode sumbernya berlisensi MIT dan tersedia di GitHub.
+Seluruh pertukaran data berjalan secara lokal antara ponsel dan modem di jaringan WiFi lokal. Tidak ada pelacakan analitik, tidak ada akun pengguna, dan tidak ada data yang dikirim ke server luar. Kode sumber aplikasi berlisensi MIT dan dapat diaudit secara publik di GitHub.
 
-## Modem yang didukung
+## Kompatibilitas Perangkat
 
-Semua router Huawei LTE yang punya API XML klasik di `192.168.8.1`. Sudah teruji di **Orbit Star 2 (B312-929)**. Model lain yang dikonfirmasi jalan: B310, B311, B312, B525, B535, B818, E5573, E5577, dan lainnya.
+Aplikasi mendukung berbagai router dan modem WiFi Huawei LTE yang menyediakan API XML standar di alamat `192.168.8.1`. Model yang telah teruji meliputi **Orbit Star 2 (B312-929)**, B310, B311, B312, B525, B535, B818, E5573, E5577, serta seri router Huawei lainnya.
 
-SMS dan sebagian pengaturan tergantung dari firmware modemnya.
+Ketersediaan fungsi SMS dan beberapa menu jaringan bergantung pada dukungan firmware pada masing-masing unit modem.
 
-## Cara dapat
+## Unduh Aplikasi
 
-Download APK dari [hm.cakson.my.id](/id/) — tiga arsitektur tersedia (arm64-v8a, armeabi-v7a, universal). Ada juga build pre-release kalau mau akses lebih awal.
+Unduh paket instalasi APK resmi melalui [hm.cakson.my.id](/id/). Tersedia tiga varian arsitektur: arm64-v8a, armeabi-v7a, dan universal, serta build pra-rilis bagi Anda yang ingin menguji fitur terbaru lebih awal.
 
-Sambungkan HP ke WiFi modem, login pakai kredensial admin, dan kendalikan.
+Setelah menginstal aplikasi, hubungkan ponsel ke jaringan WiFi modem, masuk menggunakan kredensial admin, dan kendalikan modem Anda secara penuh.
